@@ -7,7 +7,7 @@ public class HrJakobKonflikt
 
 	  boolean lDieWahrheit = false;
 	  while(lDieWahrheit )
-
+	  {
 		 System.out.println(lDieWahrheit);
 
 		 System.out.println("Ohne Text geht es nicht:"+lDieWahrheit);
