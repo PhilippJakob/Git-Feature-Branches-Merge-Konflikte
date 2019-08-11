@@ -13,6 +13,7 @@ public class Main extends Application {
 			BorderPane root = new BorderPane();
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			//
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {
