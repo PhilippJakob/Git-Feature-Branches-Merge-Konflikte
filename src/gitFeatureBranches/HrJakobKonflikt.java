@@ -15,4 +15,10 @@ public class HrJakobKonflikt
 	  };
    }
    
+   // Hinzugefügt durch den anderen
+   public void singen()
+   {
+	  
+   }
+   
 }
