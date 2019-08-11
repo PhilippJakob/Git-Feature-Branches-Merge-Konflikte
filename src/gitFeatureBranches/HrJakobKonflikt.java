@@ -4,10 +4,10 @@ public class HrJakobKonflikt
 {
    public void schwimmen()
    {
-	  boolean lVergleich = true;
-	  while(lVergleich == true)
+	  boolean lDieWahrheit = false;
+	  while(lDieWahrheit == true)
 	  {
-		 System.out.println(lVergleich);
+		 System.out.println(lDieWahrheit);
 	  };
    }
    
