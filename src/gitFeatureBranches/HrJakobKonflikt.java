@@ -15,4 +15,20 @@ public class HrJakobKonflikt
 	  };
    }
    
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   // Hinzugefügt von Hr. Jakob
+   public void baden()
+   {
+	  
+   }
+   
 }
