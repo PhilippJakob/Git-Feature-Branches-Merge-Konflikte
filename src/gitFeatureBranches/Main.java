@@ -11,7 +11,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,700,400);
+			Scene scene = new Scene(root,400,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			//
 			primaryStage.setScene(scene);
@@ -29,4 +29,4 @@ public class Main extends Application {
 		
 	}
 }
-//Rawad is toll!!Agsf
+//Rawad is toll!!!
