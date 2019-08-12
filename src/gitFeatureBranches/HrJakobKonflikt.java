@@ -12,7 +12,7 @@ public class HrJakobKonflikt
 	  {
 		 System.out.println(lDieWahrheit);
 
-		 System.out.println("Ohne Text geht es  :"+lDieWahrheit);
+		 System.out.println("Ohne Text geht es nicht :"+lDieWahrheit);
 		 
 		 System.out.println(lDieWahrheit);
 		 lDieWahrheit = false;
