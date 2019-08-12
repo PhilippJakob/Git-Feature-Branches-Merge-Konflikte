@@ -22,6 +22,10 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+	   HrJakobKonflikt newjacob = new HrJakobKonflikt();
+		newjacob.schwimmen();
 		launch(args);
+		
+		
 	}
 }

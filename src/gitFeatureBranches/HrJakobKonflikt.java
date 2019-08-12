@@ -2,15 +2,20 @@ package gitFeatureBranches;
 
 public class HrJakobKonflikt
 {
+   
+   //edit by KeyCode32
    public void schwimmen()
    {
 
-	  boolean lDieWahrheit = false;
+	  boolean lDieWahrheit = true;
 	  while(lDieWahrheit )
 	  {
 		 System.out.println(lDieWahrheit);
 
 		 System.out.println("Ohne Text geht es nicht:"+lDieWahrheit);
+		 
+		 System.out.println(lDieWahrheit);
+		 lDieWahrheit = false;
 
 	  };
    }
