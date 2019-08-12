@@ -25,7 +25,5 @@ public class Main extends Application {
 	   HrJakobKonflikt newjacob = new HrJakobKonflikt();
 		newjacob.schwimmen();
 		launch(args);
-		
-		
 	}
 }
