@@ -19,6 +19,7 @@ public class Main extends Application {
    @Override
    public void start(Stage pPrimaryStage) throws IOException
    {
+
        this.bühne = pPrimaryStage;
        FXMLLoader lLoader = new FXMLLoader();
 

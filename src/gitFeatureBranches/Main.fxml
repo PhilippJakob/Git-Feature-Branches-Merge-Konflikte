@@ -41,5 +41,13 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <MenuBar fx:id="mbBar" layoutY="2.0" prefHeight="25.0" prefWidth="910.0">
+         <menus>
+            <Menu fx:id="mPersonen" mnemonicParsing="false" text="Personen">
+              <items>
+                <MenuItem fx:id="mPersonenloeschen" mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+         </menus></MenuBar>
    </children>
 </AnchorPane>
