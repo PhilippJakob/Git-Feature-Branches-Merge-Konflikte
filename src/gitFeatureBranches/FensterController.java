@@ -1,16 +1,16 @@
 package gitFeatureBranches;
 
-
-   import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-   import javafx.scene.control.ChoiceBox;
-   import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Tooltip;
+	import jfxtras.scene.control.*;
+	import javafx.collections.FXCollections;
+	import javafx.collections.ObservableList;
+	import javafx.fxml.FXML;
+	import javafx.scene.control.ChoiceBox;
+	import javafx.scene.control.Label;
+	import javafx.scene.control.Separator;
+	import javafx.scene.control.Tooltip;
 
    public class FensterController {
-
+	  
        @FXML
        private ChoiceBox<String> Personauswahl;
 

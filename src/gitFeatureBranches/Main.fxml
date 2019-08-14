@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import jfxtras.scene.control.agenda.*?>
 
+<!--
 <AnchorPane prefHeight="586.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.FensterController">
    <children>
-      <ChoiceBox fx:id="Personauswahl" layoutX="29.0" layoutY="47.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
-      <Label layoutX="21.0" layoutY="98.0" text="User Gruppen:">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="47.0" layoutY="26.0" text="Person Auswahl:" />
       <Label fx:id="Lrang1" layoutX="21.0" layoutY="143.0">
          <font>
             <Font size="20.0" />
@@ -41,5 +35,41 @@
             <Font size="20.0" />
          </font>
       </Label>
+      <BorderPane layoutX="121.0" layoutY="12.0" prefHeight="561.0" prefWidth="669.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="12.0">
+         <top>
+            <HBox prefHeight="80.0" prefWidth="669.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="271.0" text="User Gruppen:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="209.0" text="Person Auswahl:" />
+                  <ChoiceBox fx:id="Personauswahl" prefHeight="25.0" prefWidth="135.0" />
+               </children>
+            </HBox>
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>
+ -->
+
+<HBox alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="500.0" prefWidth="500.0">
+         <children>
+            <BorderPane prefHeight="800.0" prefWidth="800.0">
+               <bottom>
+                   <Agenda id="id1" BorderPane.alignment="CENTER" />
+               </bottom>
+               <top>
+                  <Label text="Kalender" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </top>
+            </BorderPane>
+         </children></AnchorPane>
+   </children>
+</HBox>
