@@ -1,16 +1,19 @@
-package gitFeatureBranches;
+package terminPaket;
 	
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 
-public class Main extends Application {
+public class TerminAufgabe extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
+			//BorderPane root = new BorderPane();
+			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("KalenderView.fxml"));
+
 			Scene scene = new Scene(root,700,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			//
@@ -22,8 +25,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-	   HrJakobKonflikt newjacob = new HrJakobKonflikt();
-		newjacob.schwimmen();
+
 		launch(args);
 		
 		
