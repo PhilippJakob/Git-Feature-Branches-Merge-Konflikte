@@ -3,8 +3,8 @@ package terminPaket;
 
    import java.time.LocalDate;
 
-import javafx.fxml.FXML;
-import jfxtras.scene.control.agenda.Agenda;
+   import javafx.fxml.FXML;
+   import jfxtras.scene.control.agenda.Agenda;
    import jfxtras.scene.control.agenda.Agenda.Appointment;
    import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 
