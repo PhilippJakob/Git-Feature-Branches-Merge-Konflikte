@@ -12,28 +12,29 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 
-public class PersonenloeschenController
+public class PersonenlöschenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
    @FXML
-   private ChoiceBox<Person> cbPersonen;
+   private ChoiceBox<String> cbPersonen;
    
    @FXML
-   private Button btPersonloeschen;
+   private Button btPersonlöschen;
    
    @FXML
    public void initialize()
    {
-	 cbPersonen.getItems().addAll(FensterController.getPersonenAL()); 
-	 btPersonloeschen.setOnAction(new EventHandler<ActionEvent>() {
+	  
+	 cbPersonen.getItems().addAll(Person.getPersonen()); 
+	 btPersonlöschen.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   loeschenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
+		   löschenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
 	    }
    } );
    }
-   public void loeschenPerson(Person pPerson, Connection connection)
+   public void löschenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  Statement lBefehl2;
@@ -42,7 +43,7 @@ public class PersonenloeschenController
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM personen where IDPerson ='"+pPerson.getID() +"';");
+		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+pPerson.substring(pPerson.length() - 1) +"';");
 	  }
 	  catch (SQLException e)
 	  {

@@ -33,9 +33,11 @@ import javafx.scene.control.MenuItem;
 	  @FXML
 	  private Menu mPersonen;
 	  @FXML
-	  private MenuItem mPersonenloeschen;
+	  private MenuItem mPersonenlöschen;
+	  @FXML 
+	  private MenuItem mPersonhinzufügen;
        @FXML
-       private ChoiceBox<String> Personauswahl;
+       private ChoiceBox<String> cbPersonauswahl;
 
        @FXML
        private Label Lrang4;
@@ -65,25 +67,14 @@ import javafx.scene.control.MenuItem;
     	  {
     		return;
     	  }
-    	  setPersonenAL(auslesenDB(DBVerbindung.holenConnection()));
-    	  ArrayList<Person> lPersonenAL = new ArrayList<Person>();
-    	  lPersonenAL = getPersonenAL();
-    	  for(int i = 0; i<lPersonenAL.size();i++)
-    	  {
-    		 String lName = new String();
-    		 lName = lPersonenAL.get(i).getName();
-    		 String lPersonenID = "";
-    		 lPersonenID = Integer.toString(lPersonenAL.get(i).getID());
-    		 lName = lName.concat(" " +lPersonenID);
-    		 Personauswahl.getItems().add(lName);
-    	  }
-    	  mPersonenloeschen.setText("Person löschen");
-    	  mPersonenloeschen.setOnAction(new EventHandler<ActionEvent>() {
+    	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
+    	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+    	  mPersonenlöschen.setText("Person löschen");
+    	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
     		 
 		    @Override
 		    public void handle(ActionEvent event)
 		    { 
-		   
 		       Stage bühne = new Stage();	
 		       FXMLLoader lLoader = new FXMLLoader();
     		       try
@@ -92,46 +83,41 @@ import javafx.scene.control.MenuItem;
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
 				       bühne.setScene(lScene);
-				       bühne.show();
-				     
+				       bühne.show();     
 			   }
 			   catch (IOException e)
 			   {
 				  // TODO Automatisch generierter Erfassungsblock
 				  e.printStackTrace();
 			   }
-
-		   
-		 	  
 		    }
 		 });
-    	  Personauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
+    	  mPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>(){
+    		    @Override
+    		    public void handle(ActionEvent event)
+    		    { 
+    		       Stage bühne = new Stage();	
+    		       FXMLLoader lLoader = new FXMLLoader();
+        		       try
+    			   {
+    		    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufügenView.fxml"));
+    		    	  	   grundPane = lLoader.load();
+    		    	  	   Scene lScene = new Scene(grundPane);
+    				       bühne.setScene(lScene);
+    				       bühne.show();     
+    			   }
+    			   catch (IOException e)
+    			   {
+    				  // TODO Automatisch generierter Erfassungsblock
+    				  e.printStackTrace();
+    			   }
+    		    }
+    		 });
+    	 
+    	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
 
-       public static ArrayList<Person> auslesenDB(Connection pConnection)
-	    {
-	      Person lPerson;
-	      ArrayList<Person> lPersonen = new ArrayList<Person>();
-	      Statement lBefehl;
-	      ResultSet lErgebnis;
-
-	      try {
-	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
-	      lErgebnis.first(); 
-
-	      while(! lErgebnis.isAfterLast())   
-	         {
-	          lPerson = new Person(lErgebnis.getString(1),lErgebnis.getInt(2));
-	           lPersonen.add(lPerson);
-	           lErgebnis.next();
-	         }
-	         } catch (Exception ex)
-	              {
-	                System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
-	              }
-	      return lPersonen;
-	 }
+  
 
 	  public static ArrayList<Person> getPersonenAL()
 	  {

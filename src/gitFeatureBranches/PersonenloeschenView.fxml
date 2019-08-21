@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="367.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.PersonenloeschenController">
+<AnchorPane prefHeight="367.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.PersonenlöschenController">
    <children>
       <ChoiceBox fx:id="cbPersonen" layoutX="123.0" layoutY="90.0" prefWidth="150.0" />
-      <Button fx:id="btPersonloeschen" layoutX="147.0" layoutY="216.0" mnemonicParsing="false" text="Person löschen" />
+      <Button fx:id="btPersonlöschen" layoutX="147.0" layoutY="216.0" mnemonicParsing="false" text="Person löschen" />
    </children>
 </AnchorPane>
