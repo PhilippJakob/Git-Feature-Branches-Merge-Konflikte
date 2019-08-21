@@ -1,9 +1,11 @@
 package gitFeatureBranches;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-
-public class OEController {
+import jfxtras.scene.control.agenda.Agenda;
+public class OEController 
+{
 
     @FXML
     private ChoiceBox<?> cbUeber;
@@ -14,5 +16,9 @@ public class OEController {
     @FXML
     private ChoiceBox<?> cbStelle;
 
+    @FXML
+    private Button btZuweisen;
+
 }
+
 
