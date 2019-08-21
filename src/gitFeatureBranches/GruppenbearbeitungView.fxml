@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="184.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ChoiceBox fx:id="cbPerson" layoutX="196.0" layoutY="73.0" prefWidth="150.0" />
+      <Label layoutX="52.0" layoutY="33.0" prefHeight="40.0" prefWidth="87.0" text="Gruppe">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="233.0" layoutY="35.0" text="Person">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="btErstellen" layoutX="65.0" layoutY="120.0" mnemonicParsing="false" text="Erstellen" />
+      <Button fx:id="btLöschen" layoutX="241.0" layoutY="120.0" mnemonicParsing="false" text="Löschen" />
+      <TextField fx:id="tfGruppe" layoutX="21.0" layoutY="73.0" />
+   </children>
+</AnchorPane>
