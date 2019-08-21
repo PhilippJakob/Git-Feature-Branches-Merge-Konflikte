@@ -29,7 +29,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
    public class FensterController {
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
-	  private static ArrayList<String> personenAL = new ArrayList<String>();
+	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  @FXML
 	  private Menu mPersonen;
 	  @FXML
@@ -66,7 +66,17 @@ import javafx.scene.control.MenuItem;
     		return;
     	  }
     	  setPersonenAL(auslesenDB(DBVerbindung.holenConnection()));
-    	  Personauswahl.getItems().addAll(getPersonenAL());
+    	  ArrayList<Person> lPersonenAL = new ArrayList<Person>();
+    	  lPersonenAL = getPersonenAL();
+    	  for(int i = 0; i<lPersonenAL.size();i++)
+    	  {
+    		 String lName = new String();
+    		 lName = lPersonenAL.get(i).getName();
+    		 String lPersonenID = "";
+    		 lPersonenID = Integer.toString(lPersonenAL.get(i).getID());
+    		 lName = lName.concat(" " +lPersonenID);
+    		 Personauswahl.getItems().add(lName);
+    	  }
     	  mPersonenloeschen.setText("Person löschen");
     	  mPersonenloeschen.setOnAction(new EventHandler<ActionEvent>() {
     		 
@@ -98,21 +108,21 @@ import javafx.scene.control.MenuItem;
     	  Personauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
 
-       public static ArrayList<String> auslesenDB(Connection pConnection)
+       public static ArrayList<Person> auslesenDB(Connection pConnection)
 	    {
-	      String lPerson;
-	      ArrayList<String> lPersonen = new ArrayList<String>();
+	      Person lPerson;
+	      ArrayList<Person> lPersonen = new ArrayList<Person>();
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
 
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT Name FROM personen p;");
+	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
 	      lErgebnis.first(); 
 
 	      while(! lErgebnis.isAfterLast())   
 	         {
-	          lPerson = lErgebnis.getString(1);
+	          lPerson = new Person(lErgebnis.getString(1),lErgebnis.getInt(2));
 	           lPersonen.add(lPerson);
 	           lErgebnis.next();
 	         }
@@ -123,14 +133,14 @@ import javafx.scene.control.MenuItem;
 	      return lPersonen;
 	 }
 
-	  public static ArrayList<String> getPersonenAL()
+	  public static ArrayList<Person> getPersonenAL()
 	  {
 	     return personenAL;
 	  }
 
 
 
-	  public void setPersonenAL(ArrayList<String> personenAL)
+	  public void setPersonenAL(ArrayList<Person> personenAL)
 	  {
 	     this.personenAL = personenAL;
 	  }

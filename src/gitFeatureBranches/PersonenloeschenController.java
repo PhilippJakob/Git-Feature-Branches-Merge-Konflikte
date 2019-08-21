@@ -16,7 +16,7 @@ public class PersonenloeschenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
    @FXML
-   private ChoiceBox<String> cbPersonen;
+   private ChoiceBox<Person> cbPersonen;
    
    @FXML
    private Button btPersonloeschen;
@@ -33,7 +33,7 @@ public class PersonenloeschenController
 	    }
    } );
    }
-   public void loeschenPerson(String pPerson, Connection connection)
+   public void loeschenPerson(Person pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  Statement lBefehl2;
@@ -42,7 +42,7 @@ public class PersonenloeschenController
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM personen where Name ='"+pPerson +"';");
+		 lBefehl2.executeUpdate("DELETE FROM personen where IDPerson ='"+pPerson.getID() +"';");
 	  }
 	  catch (SQLException e)
 	  {
