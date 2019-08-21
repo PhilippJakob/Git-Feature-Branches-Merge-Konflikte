@@ -28,5 +28,5 @@ public void setzenConnection(Connection pConnection)
 {
 	connection = pConnection;
 }
-
+ 
 }
