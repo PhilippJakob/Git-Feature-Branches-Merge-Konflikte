@@ -19,7 +19,6 @@ public class DBVerbindung
    	   System.out.println("Fehler");
    	   return false;
     }}
-   
 
    public static Connection holenConnection()
    {
