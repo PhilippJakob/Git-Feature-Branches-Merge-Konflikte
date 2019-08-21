@@ -20,6 +20,7 @@ package terminPaket;
 
    public class KalenderController 
    {
+	   private static DBVerbindung dbVerbindung = new DBVerbindung();
 
 
 	  @FXML
@@ -32,10 +33,11 @@ package terminPaket;
 	  @FXML  
        public void initialize()
        {
-       	   // create Agenda
-       	//agKalender = new Agenda();
-
-           // add an appointment
+     
+		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
+		 {
+			return;
+		 }
        	agKalender.appointments().addAll(
                new Agenda.AppointmentImplLocal()
                    .withStartLocalDateTime(LocalDate.now().atTime(4, 00))

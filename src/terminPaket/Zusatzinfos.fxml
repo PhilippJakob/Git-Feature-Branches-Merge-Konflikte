@@ -6,14 +6,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="285.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.ZusatzinfosController">
+<AnchorPane prefHeight="365.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.ZusatzinfosController">
    <children>
-      <TextField fx:id="tfZusatzinfos" layoutX="37.0" layoutY="125.0" prefHeight="36.0" prefWidth="317.0" />
-      <Label fx:id="lbZusatzinfos" layoutX="85.0" layoutY="61.0" text="Zusatzinformationen eingeben:">
+      <TextField fx:id="tfZusatzinfos" layoutX="74.0" layoutY="138.0" prefHeight="36.0" prefWidth="317.0" />
+      <Label fx:id="lbZusatzinfos" layoutX="117.0" layoutY="37.0" text="Zusatzinformationen eingeben:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="btÜbernehmen" layoutX="165.0" layoutY="197.0" mnemonicParsing="false" text="Übernehmen" />
+      <Button fx:id="btÜbernehmen" layoutX="190.0" layoutY="196.0" mnemonicParsing="false" text="Übernehmen" />
+      <ChoiceBox fx:id="cbTermine" layoutX="165.0" layoutY="88.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
