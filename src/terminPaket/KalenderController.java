@@ -1,20 +1,25 @@
 package terminPaket;
 
 
-   import java.time.LocalDate;
 
+   import java.time.LocalDate;
    import javafx.fxml.FXML;
+   import javafx.scene.control.Button;
    import jfxtras.scene.control.agenda.Agenda;
    import jfxtras.scene.control.agenda.Agenda.Appointment;
    import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 
 
-
    public class KalenderController 
    {
 
-       @FXML
-       private Agenda agKalender;
+
+	  @FXML
+	  private Button btZusatzinformationen;
+
+	  @FXML
+	  private Agenda agKalender;
+       
        
        public void initialize()
        {

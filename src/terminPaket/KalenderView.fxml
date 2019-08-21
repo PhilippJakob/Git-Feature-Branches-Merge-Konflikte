@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane prefHeight="813.0" prefWidth="880.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="terminPaket.KalenderController">
+<BorderPane prefHeight="813.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.KalenderController">
    <center>
       <Agenda fx:id="agKalender" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+      <Button fx:id="btZusatzinformationen" mnemonicParsing="false" text="Zusatzinformationen" BorderPane.alignment="CENTER" />
    </top>
    <left>
       <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
