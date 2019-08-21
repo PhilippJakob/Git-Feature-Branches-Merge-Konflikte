@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import gitFeatureBranches.NeueOE.OE;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -24,6 +26,17 @@ public class OEController
     @FXML
     private Button btZuweisen;
     
+    public void initialize()
+    {
+ 	
+ 	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
+ 		@Override
+ 	    public void handle(ActionEvent event)
+ 	    { 
+ 		   erstellenOE(tfName.commitValue(), DBVerbindung.holenConnection());
+ 	    }
+    } );
+    }
     public void erstellenOE(OE pOE, Connection connection)
     {
  	  Statement lBefehl;
