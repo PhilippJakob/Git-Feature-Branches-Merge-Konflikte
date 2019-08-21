@@ -2,12 +2,20 @@ package terminPaket;
 
 
 
-   import java.time.LocalDate;
-   import javafx.fxml.FXML;
-   import javafx.scene.control.Button;
-   import jfxtras.scene.control.agenda.Agenda;
-   import jfxtras.scene.control.agenda.Agenda.Appointment;
-   import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+	import java.io.IOException;
+   	import java.time.LocalDate;
+
+	import javafx.event.ActionEvent;
+	import javafx.event.EventHandler;
+	import javafx.fxml.FXML;
+	import javafx.fxml.FXMLLoader;
+	import javafx.scene.Scene;
+	import javafx.scene.control.Button;
+	import javafx.scene.layout.AnchorPane;
+	import javafx.stage.Stage;
+	import jfxtras.scene.control.agenda.Agenda;
+	import jfxtras.scene.control.agenda.Agenda.Appointment;
+	import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 
 
    public class KalenderController 
@@ -20,7 +28,8 @@ package terminPaket;
 	  @FXML
 	  private Agenda agKalender;
        
-       
+	  private AnchorPane 	grundPane;
+	  @FXML  
        public void initialize()
        {
        	   // create Agenda
@@ -34,6 +43,27 @@ package terminPaket;
                    .withDescription("It's time")
                    .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
            );
+       	btZusatzinformationen.setOnAction(new EventHandler<ActionEvent>(){
+		    @Override
+		    public void handle(ActionEvent event)
+		    { 
+		       Stage bühne = new Stage();	
+		       FXMLLoader lLoader = new FXMLLoader();
+   		       try
+			   {
+		    	  	   lLoader.setLocation(getClass().getResource("Zusatzinfos.fxml"));
+		    	  	   grundPane = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane);
+				       bühne.setScene(lScene);
+				       bühne.show();     
+			   }
+			   catch (IOException e)
+			   {
+				  // TODO Automatisch generierter Erfassungsblock
+				  e.printStackTrace();
+			   }
+		    }
+		 });
 
 
    /*        // setup appointment groups
