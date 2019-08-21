@@ -9,10 +9,11 @@
 <AnchorPane prefHeight="285.0" prefWidth="415.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.ZusatzinfosController">
    <children>
       <TextField fx:id="tfZusatzinfos" layoutX="37.0" layoutY="125.0" prefHeight="36.0" prefWidth="317.0" />
-      <Label fx:id="lbZusatzinfos" layoutX="84.0" layoutY="63.0" text="Zusatzinformationen eingeben:">
+      <Label fx:id="lbZusatzinfos" layoutX="85.0" layoutY="61.0" text="Zusatzinformationen eingeben:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <Button fx:id="btÜbernehmen" layoutX="165.0" layoutY="197.0" mnemonicParsing="false" text="Übernehmen" />
    </children>
 </AnchorPane>
