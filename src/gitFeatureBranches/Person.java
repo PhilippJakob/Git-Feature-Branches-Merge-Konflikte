@@ -56,6 +56,14 @@ public class Person
 	  }
 	  return(lPersonen);
    }
+   public static String getLetztePerson()
+   {
+	  String lPerson = new String();
+	  ArrayList<String> lPersonenAL = new ArrayList<String>();
+	  lPersonenAL = getPersonen();
+	  lPerson = lPersonenAL.get(lPersonenAL.size()-1);
+	  return(lPerson);
+   }
    public String getName()
    {
       return Name;

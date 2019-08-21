@@ -37,7 +37,7 @@ import javafx.scene.control.MenuItem;
 	  @FXML 
 	  private MenuItem mPersonhinzufügen;
        @FXML
-       private ChoiceBox<String> cbPersonauswahl;
+       public ChoiceBox<String> cbPersonauswahl;
 
        @FXML
        private Label Lrang4;
@@ -100,7 +100,7 @@ import javafx.scene.control.MenuItem;
     		       FXMLLoader lLoader = new FXMLLoader();
         		       try
     			   {
-    		    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufügenView.fxml"));
+    		    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
     		    	  	   grundPane = lLoader.load();
     		    	  	   Scene lScene = new Scene(grundPane);
     				       bühne.setScene(lScene);
@@ -117,7 +117,11 @@ import javafx.scene.control.MenuItem;
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
 
-  
+      public  void aktualisieren()
+      {
+    	 cbPersonauswahl.getItems().clear();
+    	 cbPersonauswahl.getItems().addAll(Person.getPersonen());
+      }
 
 	  public static ArrayList<Person> getPersonenAL()
 	  {

@@ -15,32 +15,38 @@ import javafx.scene.control.TextField;
 public class PersonenhinzufügenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
+
+
+
    @FXML
    private Button btPersonhinzufügen;
-   @FXML
-   private ChoiceBox<String> cbPersonen;
+
    @FXML
    private TextField tfName;
+
    @FXML
    public void initialize()
    {
-	 cbPersonen.getItems().addAll(Person.getPersonen()); 
+
 	 btPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   hinzufügenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
+		   hinzufügenPerson(tfName.getText(), dbVerbindung.holenConnection());
 	    }
    } );
    }
    void hinzufügenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
-	  
+	  String ID = new String();
+	  ID = Person.getLetztePerson();
+	  ID = ID.substring(ID.length() - 1);
+	  ID = Integer.toString(Integer.parseInt(ID)+1);
 	  try
 	  {
 		 lBefehl	= connection.createStatement();
-		 lBefehl.executeUpdate("INSERT INTO person where IDPerson ='"+pPerson.substring(pPerson.length() - 1) +"';");
+		 lBefehl.executeUpdate("INSERT INTO person(IDPerson,Name,StID) VALUES('"+ID+"','"+pPerson+"',NULL);");
 	  }
 	  catch (SQLException e)
 	  {

@@ -20,7 +20,7 @@ public class PersonenlöschenController
    
    @FXML
    private Button btPersonlöschen;
-   
+
    @FXML
    public void initialize()
    {
@@ -31,6 +31,8 @@ public class PersonenlöschenController
 	    public void handle(ActionEvent event)
 	    { 
 		   löschenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
+			  cbPersonen.getItems().remove(cbPersonen.getValue());
+			
 	    }
    } );
    }
@@ -51,6 +53,11 @@ public class PersonenlöschenController
 		e.printStackTrace();
 	  }
 	 
+   }
+   public void aktualisieren()
+   {
+
+
    }
 }
 
