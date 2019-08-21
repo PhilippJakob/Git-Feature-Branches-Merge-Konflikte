@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import jfxtras.scene.control.agenda.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -9,7 +10,7 @@
 
 <AnchorPane prefHeight="586.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.FensterController">
    <children>
-      <ChoiceBox fx:id="cbPersonauswahl" layoutX="29.0" layoutY="47.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
+      <ChoiceBox fx:id="Personauswahl" layoutX="29.0" layoutY="47.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
       <Label layoutX="21.0" layoutY="98.0" text="User Gruppen:">
          <font>
             <Font size="24.0" />
@@ -45,10 +46,14 @@
          <menus>
             <Menu fx:id="mPersonen" mnemonicParsing="false" text="Personen">
               <items>
-                  <MenuItem fx:id="mPersonhinzufügen" mnemonicParsing="false" text="Person hinzufügen" />
-                <MenuItem fx:id="mPersonenlöschen" mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="mPersonenloeschen" mnemonicParsing="false" text="Action 1" />
               </items>
             </Menu>
-         </menus></MenuBar>
+         </menus>
+      </MenuBar>
+      <BorderPane layoutX="194.0" layoutY="118.0" prefHeight="452.0" prefWidth="567.0">
+         <center>
+            <Agenda BorderPane.alignment="CENTER" />
+         </center></BorderPane>
    </children>
 </AnchorPane>
