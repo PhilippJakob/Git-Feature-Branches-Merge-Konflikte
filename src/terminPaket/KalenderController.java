@@ -5,7 +5,10 @@ package terminPaket;
 	import java.io.IOException;
    	import java.time.LocalDate;
 
-	import javafx.event.ActionEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ListChangeListener;
+import javafx.collections.WeakListChangeListener;
+import javafx.event.ActionEvent;
 	import javafx.event.EventHandler;
 	import javafx.fxml.FXML;
 	import javafx.fxml.FXMLLoader;
@@ -13,7 +16,8 @@ package terminPaket;
 	import javafx.scene.control.Button;
 	import javafx.scene.layout.AnchorPane;
 	import javafx.stage.Stage;
-	import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.icalendarfx.utilities.Callback;
+import jfxtras.scene.control.agenda.Agenda;
 	import jfxtras.scene.control.agenda.Agenda.Appointment;
 	import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 
@@ -34,17 +38,26 @@ package terminPaket;
        public void initialize()
        {
      
-		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
-		 {
-			return;
-		 }
-       	agKalender.appointments().addAll(
-               new Agenda.AppointmentImplLocal()
-                   .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
-                   .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
-                   .withDescription("It's time")
-                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
-           );
+//		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
+//		 {
+//			return;
+//		 }
+		 Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal()
+                  .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
+                  .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
+                  .withDescription("It's time")
+                  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+          ;
+      agKalender.appointments().addAll(lAppointment);
+       	
+ 
+
+
+	  agKalender.setAppointmentChangedCallback( new AppointmentCallback()); 
+  
+     	
+       	
+       	
        	btZusatzinformationen.setOnAction(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event)
@@ -65,14 +78,7 @@ package terminPaket;
 				  e.printStackTrace();
 			   }
 		    }
-		 });
 
-
-   /*        // setup appointment groups
-           final Map<String, Agenda.AppointmentGroup> lAppointmentGroupMap = new TreeMap<String, Agenda.AppointmentGroup>();
-           Agenda lAgenda;
-   		for (Agenda.AppointmentGroup lAppointmentGroup : lAgenda.appointmentGroups()) {
-             lAppointmentGroupMap.put(lAppointmentGroup.getDescription(), lAppointmentGroup);
-           } */
+       	});
        }
 }
