@@ -22,7 +22,6 @@ package terminPaket;
    {
 	   private static DBVerbindung dbVerbindung = new DBVerbindung();
 
-
 	  @FXML
 	  private Button btZusatzinformationen;
 
