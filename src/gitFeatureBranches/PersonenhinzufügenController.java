@@ -16,14 +16,14 @@ public class PersonenhinzufügenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
 
-
+   private int hinzugefügtePersonen =1 ;
 
    @FXML
    private Button btPersonhinzufügen;
 
    @FXML
    private TextField tfName;
-
+   //Füllt CB und Handelt Knopfdruck
    @FXML
    public void initialize()
    {
@@ -36,13 +36,17 @@ public class PersonenhinzufügenController
 	    }
    } );
    }
+   //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  String ID = new String();
 	  ID = Person.getLetztePerson();
-	  ID = ID.substring(ID.length() - 1);
-	  ID = Integer.toString(Integer.parseInt(ID)+1);
+	  ID = ID.substring(ID.length()-2);
+	  if(ID.charAt(0) ==' ')
+		 ID = Character.toString(ID.charAt(1));
+	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügtePersonen);
+	  hinzugefügtePersonen++;
 	  try
 	  {
 		 lBefehl	= connection.createStatement();

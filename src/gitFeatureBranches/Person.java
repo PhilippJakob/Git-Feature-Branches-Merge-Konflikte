@@ -15,7 +15,7 @@ public class Person
 	  Name = name;
 	  ID = iD;
    }
-
+   //Liest DB aus und füllt AL
    public static ArrayList<Person> auslesenDB(Connection pConnection)
 	    {
 	      Person lPerson;
@@ -40,6 +40,7 @@ public class Person
 	              }
 	      return lPersonenAL ;
 	 }
+   //Wandelt AL<Personen> in AL<String> um
    public static ArrayList<String> getPersonen()
    {
 	  ArrayList<String> lPersonen = new ArrayList<String>();
@@ -56,6 +57,7 @@ public class Person
 	  }
 	  return(lPersonen);
    }
+   //Holt höchste ID
    public static String getLetztePerson()
    {
 	  String lPerson = new String();

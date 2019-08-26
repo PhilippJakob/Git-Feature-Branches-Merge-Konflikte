@@ -57,9 +57,11 @@ import javafx.scene.control.MenuItem;
        @FXML
        private Label Lrang3;
        
-     
-
+       private Stage 		bühnePersonenlöschen = new Stage();	
+       private Stage 		bühnePersonenhinzufügen = new Stage();	
        private AnchorPane 	grundPane;
+       private AnchorPane 	grundPane2;
+       //Handelt Untermenüs und füllt bei Start AL und CB
        @FXML
        public void initialize()
        {
@@ -75,15 +77,15 @@ import javafx.scene.control.MenuItem;
 		    @Override
 		    public void handle(ActionEvent event)
 		    { 
-		       Stage bühne = new Stage();	
+		     
 		       FXMLLoader lLoader = new FXMLLoader();
     		       try
 			   {
 		    	  	   lLoader.setLocation(getClass().getResource("PersonenloeschenView.fxml"));
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
-				       bühne.setScene(lScene);
-				       bühne.show();     
+				       bühnePersonenlöschen.setScene(lScene);
+				       bühnePersonenlöschen.show();     
 			   }
 			   catch (IOException e)
 			   {
@@ -96,15 +98,15 @@ import javafx.scene.control.MenuItem;
     		    @Override
     		    public void handle(ActionEvent event)
     		    { 
-    		       Stage bühne = new Stage();	
+    		      
     		       FXMLLoader lLoader = new FXMLLoader();
         		       try
     			   {
     		    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
-    		    	  	   grundPane = lLoader.load();
-    		    	  	   Scene lScene = new Scene(grundPane);
-    				       bühne.setScene(lScene);
-    				       bühne.show();     
+    		    	  	   grundPane2 = lLoader.load();
+    		    	  	   Scene lScene = new Scene(grundPane2);
+    				       bühnePersonenhinzufügen.setScene(lScene);
+    				       bühnePersonenhinzufügen.show();     
     			   }
     			   catch (IOException e)
     			   {
@@ -113,13 +115,19 @@ import javafx.scene.control.MenuItem;
     			   }
     		    }
     		 });
-    	 
+    	  bühnePersonenhinzufügen.setOnCloseRequest(event->{
+    		 aktualisieren();
+    	  });
+    	  bühnePersonenlöschen.setOnCloseRequest(event->{
+    		 aktualisieren();
+    	  });
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
-
-      public  void aktualisieren()
+      //Aktualisiert Choiceboxen
+      public void aktualisieren()
       {
     	 cbPersonauswahl.getItems().clear();
+    	 setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
     	 cbPersonauswahl.getItems().addAll(Person.getPersonen());
       }
 

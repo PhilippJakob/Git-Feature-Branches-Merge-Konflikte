@@ -20,7 +20,7 @@ public class PersonenlöschenController
    
    @FXML
    private Button btPersonlöschen;
-
+   //Füllt Choicebox mit Personen bei Knopfdruck löscht ausgewählte Person aus Choicebox
    @FXML
    public void initialize()
    {
@@ -36,16 +36,20 @@ public class PersonenlöschenController
 	    }
    } );
    }
+   //Führt SQL Befehl aus, welcher die Person mit der ID löscht, welche im Moment in der Choicebox ausgewählt ist 
    public void löschenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  Statement lBefehl2;
+	  String ID = pPerson.substring(pPerson.length()-2);
+	  if(ID.charAt(0) ==' ')
+		 ID = Character.toString(ID.charAt(1));
 	  try
 	  {
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+pPerson.substring(pPerson.length() - 1) +"';");
+		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+ ID +"';");
 	  }
 	  catch (SQLException e)
 	  {
@@ -54,10 +58,6 @@ public class PersonenlöschenController
 	  }
 	 
    }
-   public void aktualisieren()
-   {
 
-
-   }
 }
 
