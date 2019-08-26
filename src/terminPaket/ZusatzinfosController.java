@@ -12,7 +12,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ZusatzinfosController {
+public class ZusatzinfosController 
+{
 
    private static DBVerbindung dbVerbindung = new DBVerbindung();
     @FXML
@@ -59,7 +60,33 @@ public class ZusatzinfosController {
 	  }
        return IDTerminAL;
     }
-    
-    
+     
+     @FXML
+     public void erstellenZusatzinfos(Connection connection)
+     {
+    	Statement lBefehl;
+    	
+
+		 try
+		 {
+			if(btÜbernehmen.onActionProperty() != null)
+			{
+			lBefehl = connection.createStatement();
+			lBefehl.executeUpdate("update termin set InfoTermin = '"+tfZusatzinfos.getText()+"' Where IDTermin = '"+cbTermine.getValue()+"'");
+			}
+		 }
+		 catch (SQLException e)
+		 {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		 }
+		
+		 
+     }
+     
+     
+     
+     
+     
     
 }	
