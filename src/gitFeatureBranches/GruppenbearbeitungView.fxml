@@ -9,12 +9,12 @@
 <AnchorPane prefHeight="184.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ChoiceBox fx:id="cbPerson" layoutX="196.0" layoutY="73.0" prefWidth="150.0" />
-      <Label layoutX="52.0" layoutY="33.0" prefHeight="40.0" prefWidth="87.0" text="Gruppe">
+      <Label layoutX="22.0" layoutY="33.0" prefHeight="40.0" prefWidth="149.0" text="Gruppe erstellen">
          <font>
-            <Font size="25.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="233.0" layoutY="35.0" text="Person">
+      <Label layoutX="233.0" layoutY="35.0" text="Gruppe">
          <font>
             <Font size="25.0" />
          </font>
