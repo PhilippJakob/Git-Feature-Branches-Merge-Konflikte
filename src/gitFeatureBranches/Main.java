@@ -6,6 +6,9 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +30,7 @@ public class Main extends Application {
        grundPane = lLoader.load();
 
        Scene lScene = new Scene(grundPane);
+   
        bühne.setScene(lScene);
        bühne.show();
    }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import jfxtras.scene.layout.*?>
+<?import jfxtras.scene.control.agenda.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -50,5 +52,13 @@
               </items>
             </Menu>
          </menus></MenuBar>
+      <BorderPane fx:id="bpAgenda" layoutX="250.0" layoutY="250.0" prefHeight="500.0" prefWidth="500.0">
+         <center>
+            <VBox fx:id="vbAgenda" BorderPane.alignment="CENTER">
+               <children>
+                  <Agenda fx:id="agKalendar" />
+               </children></VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

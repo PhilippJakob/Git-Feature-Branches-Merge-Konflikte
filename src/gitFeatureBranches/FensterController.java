@@ -24,10 +24,17 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
+import jfxtras.scene.layout.VBox;
 import javafx.scene.control.MenuBar;
+
 import javafx.scene.control.MenuItem;
    public class FensterController {
+	  
+
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  @FXML
@@ -38,7 +45,8 @@ import javafx.scene.control.MenuItem;
 	  private MenuItem mPersonhinzufügen;
        @FXML
        public ChoiceBox<String> cbPersonauswahl;
-
+       @FXML
+       private Agenda agKalendar;
        @FXML
        private Label Lrang4;
 
@@ -56,7 +64,10 @@ import javafx.scene.control.MenuItem;
 
        @FXML
        private Label Lrang3;
-       
+       @FXML
+       private VBox vbAgenda;
+       @FXML
+       private BorderPane bpAgenda;
        private Stage 		bühnePersonenlöschen = new Stage();	
        private Stage 		bühnePersonenhinzufügen = new Stage();	
        private AnchorPane 	grundPane;
@@ -65,6 +76,9 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
+    	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalendar);
+    	  vbAgenda.getChildren().clear();
+    	  vbAgenda.getChildren().addAll(skin,agKalendar);
     	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
     	  {
     		return;
