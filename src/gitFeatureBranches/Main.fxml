@@ -10,35 +10,6 @@
 <AnchorPane prefHeight="586.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.FensterController">
    <children>
       <ChoiceBox fx:id="cbGruppenauswahl" layoutX="17.0" layoutY="81.0" prefWidth="150.0" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="81.0" />
-      <Label layoutX="18.0" layoutY="51.0" text="Gruppenauswahl">
-         <font>
-            <Font size="20.0" />
-         </font></Label>
-      <Label fx:id="Lrang1" layoutX="21.0" layoutY="143.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Lrang2" layoutX="21.0" layoutY="173.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Lrang3" layoutX="21.0" layoutY="203.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Lrang4" layoutX="21.0" layoutY="233.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Label fx:id="Lrang5" layoutX="21.0" layoutY="263.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
       <MenuBar fx:id="mbBar" layoutY="2.0" prefHeight="25.0" prefWidth="910.0">
          <menus>
             <Menu fx:id="mGruppe" mnemonicParsing="false" text="Gruppe">

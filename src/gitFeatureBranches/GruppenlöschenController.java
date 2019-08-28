@@ -1,6 +1,5 @@
 package gitFeatureBranches;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
@@ -25,12 +24,12 @@ public class GruppenlöschenController
    public void initialize()
    {
 	  
-	 cbGruppe.getItems().addAll(Gruppe.getGruppe()); 
+	 cbGruppe.getItems().addAll(Gruppe.getGruppe());
 	 btGruppelöschen.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   löschenGruppe(cbGruppe.getValue(), dbVerbindung.holenConnection());
+		   löschenGruppe(cbGruppe.getValue(), DBVerbindung.holenConnection());
 	    }
    } );
    }
@@ -43,7 +42,7 @@ public class GruppenlöschenController
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM gruppe where IDPerson ='"+pGruppe.substring(pGruppe.length() - 1) +"';");
+		 lBefehl2.executeUpdate("DELETE FROM gruppe where IDGruppe ='"+pGruppe.substring(pGruppe.length() - 1) +"';");
 	  }
 	  catch (SQLException e)
 	  {
@@ -51,6 +50,14 @@ public class GruppenlöschenController
 		e.printStackTrace();
 	  }
 	 
+   }
+   public static DBVerbindung getDbVerbindung()
+   {
+	  return dbVerbindung;
+   }
+   public static void setDbVerbindung(DBVerbindung dbVerbindung)
+   {
+	  GruppenlöschenController.dbVerbindung = dbVerbindung;
    }
 }
 

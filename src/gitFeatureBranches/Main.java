@@ -21,7 +21,7 @@ public class Main extends Application {
        this.bühne = pPrimaryStage;
        FXMLLoader lLoader = new FXMLLoader();
 
-       lLoader.setLocation(Main.class.getResource("GruppenbearbeitungView.fxml"));
+       lLoader.setLocation(Main.class.getResource("GruppenlöschenView.fxml"));
        grundPane = lLoader.load();
 
        Scene lScene = new Scene(grundPane);

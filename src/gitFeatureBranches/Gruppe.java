@@ -18,27 +18,27 @@ public class Gruppe
 
    public static ArrayList<Gruppe> auslesenDB(Connection pConnection)
 	    {
-	      Gruppe lPerson;
-	      ArrayList<Gruppe> lPersonenAL = new ArrayList<Gruppe>();
+	      Gruppe lGruppen;
+	      ArrayList<Gruppe> lGruppenAL = new ArrayList<Gruppe>();
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
 
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
+	      lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g;");
 	      lErgebnis.first(); 
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lPerson = new Gruppe(lErgebnis.getString(1),lErgebnis.getInt(2));
-	           lPersonenAL.add(lPerson);
+	          lGruppen = new Gruppe(lErgebnis.getString(1),lErgebnis.getString(2));
+	           lGruppenAL.add(lGruppen);
 	           lErgebnis.next();
 	         }
 	         } catch (Exception ex)
 	              {
 	                System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
 	              }
-	      return lPersonenAL ;
+	      return lGruppenAL ;
 	 }
    public static ArrayList<String> getGruppe()
    {
@@ -47,29 +47,34 @@ public class Gruppe
 	  lGruppenAL = FensterController.getGruppenAL();
 	  for(int i = 0; i<lGruppenAL.size();i++)
 	  {
-		 String lName = new String();
-		 lName = lGruppenAL.get(i).getName();
+		 String lBezeichnung = new String();
+		 lBezeichnung = lGruppenAL.get(i).getID_Gruppe();
 		 String lGruppeID = "";
-		 lGruppeID = Integer.toString(lGruppenAL.get(i).getID());
-		 lName = lName.concat(" " +lGruppeID);
-		 lGruppe.add(lName);
+		 lGruppeID = lGruppenAL.get(i).getBezeichnung();
+		 lBezeichnung = lBezeichnung.concat(" " +lGruppeID);
+		 lGruppe.add(lBezeichnung);
 	  }
 	  return(lGruppe);
-   }
-   public String getName()
+
+}
+
+   public String getBezeichnung()
    {
-      return Name;
+      return Bezeichnung;
    }
-   public void setName(String name)
+
+   public void setBezeichnung(String bezeichnung)
    {
-      Name = name;
+      Bezeichnung = bezeichnung;
    }
-   public int getID()
+
+   public String getID_Gruppe()
    {
-      return ID;
+      return ID_Gruppe;
    }
-   public void setID(int iD)
+
+   public void setID_Gruppe(String iD_Gruppe)
    {
-      ID = iD;
+      ID_Gruppe = iD_Gruppe;
    }
 }
