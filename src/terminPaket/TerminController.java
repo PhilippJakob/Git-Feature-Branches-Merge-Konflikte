@@ -3,94 +3,122 @@ package terminPaket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.Agenda.AppointmentImpl;
 
-public class TerminController 
-{
-   	
-	  private static String Beschreibung;
-   	  private static LocalDate Datum; 
-   	  private static LocalTime UhrzeitBis;
-   	  private static LocalTime UhrzeitVon;
-	  
-   	 
-	 
+public class TerminController {
    
-   @FXML
-   private Button btBestätigen;
+   private static String Beschreibung;
+   private static LocalDate Datum;
+   private static LocalTime UhrzeitVon;
+   private static LocalTime UhrzeitBis;
 
-   @FXML
-   private Button btZurück;
-   
-   @FXML
-   private DatePicker dpDatum;
+    @FXML
+    private TextField tfBeschreibung;
 
-   @FXML
-   private TextArea tfBeschreibung;
+    @FXML
+    private TextField tfUhrzeitVon;
 
-   @FXML
-   private TextField tfUhrBis;
+    @FXML
+    private Button btzurück;
 
-   @FXML
-   private TextField tfUhrVon;
+    @FXML
+    private DatePicker dpDatum;
 
-   public void bestätigenTermin(ActionEvent Event)
+    @FXML
+    private TextField tfUhrzeitBis;
+
+    @FXML
+    private Button btBestätigen;
+
+    @FXML
+    void erstellenTermin(ActionEvent event) 
+    {
+       setBeschreibung(getTfBeschreibung().getText());
+       setDatum(getDpDatum().getValue());
+       setUhrzeitVon(LocalTime.parse(getTfUhrzeitVon().getText()));
+       setUhrzeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+    }
+
+    @FXML
+    void zurück(ActionEvent event) 
+    {
+       Stage stage = (Stage) btzurück.getScene().getWindow();
+    	stage.close();  
+    }
+
+   public static String getBeschreibung()
    {
-	  
-	  setBeschreibung(getTfBeschreibung().getText());
-	  setDatum(getDpDatum().getValue());
-	  setUhrzeitBis(LocalTime.parse(getTfUhrBis().getText()));
-	  setUhrzeitVon(LocalTime.parse(getTfUhrVon().getText()));
-	  
-
-	 
-	  
+      return Beschreibung;
    }
-   public void zurück(ActionEvent event)
+
+   public static void setBeschreibung(String beschreibung)
    {
-	  Stage stage = (Stage) btZurück.getScene().getWindow();
-	  stage.close();
+      Beschreibung = beschreibung;
    }
-   
-  
 
-   public TextArea getTfBeschreibung()
+   public static LocalDate getDatum()
+   {
+      return Datum;
+   }
+
+   public static void setDatum(LocalDate datum)
+   {
+      Datum = datum;
+   }
+
+   public static LocalTime getUhrzeitVon()
+   {
+      return UhrzeitVon;
+   }
+
+   public static void setUhrzeitVon(LocalTime uhrzeitVon)
+   {
+      UhrzeitVon = uhrzeitVon;
+   }
+
+   public static LocalTime getUhrzeitBis()
+   {
+      return UhrzeitBis;
+   }
+
+   public static void setUhrzeitBis(LocalTime uhrzeitBis)
+   {
+      UhrzeitBis = uhrzeitBis;
+   }
+
+   public TextField getTfBeschreibung()
    {
       return tfBeschreibung;
    }
 
-   public void setTfBeschreibung(TextArea tfBeschreibung)
+   public void setTfBeschreibung(TextField tfBeschreibung)
    {
       this.tfBeschreibung = tfBeschreibung;
    }
 
-   public TextField getTfUhrBis()
+   public TextField getTfUhrzeitVon()
    {
-      return tfUhrBis;
+      return tfUhrzeitVon;
    }
 
-   public void setTfUhrBis(TextField tfUhrBis)
+   public void setTfUhrzeitVon(TextField tfUhrzeitVon)
    {
-      this.tfUhrBis = tfUhrBis;
+      this.tfUhrzeitVon = tfUhrzeitVon;
    }
 
-   public TextField getTfUhrVon()
+   public Button getBtzurück()
    {
-      return tfUhrVon;
+      return btzurück;
    }
 
-   public void setTfUhrVon(TextField tfUhrVon)
+   public void setBtzurück(Button btzurück)
    {
-      this.tfUhrVon = tfUhrVon;
+      this.btzurück = btzurück;
    }
 
    public DatePicker getDpDatum()
@@ -103,75 +131,25 @@ public class TerminController
       this.dpDatum = dpDatum;
    }
 
+   public TextField getTfUhrzeitBis()
+   {
+      return tfUhrzeitBis;
+   }
 
+   public void setTfUhrzeitBis(TextField tfUhrzeitBis)
+   {
+      this.tfUhrzeitBis = tfUhrzeitBis;
+   }
 
    public Button getBtBestätigen()
    {
       return btBestätigen;
    }
 
-
-
    public void setBtBestätigen(Button btBestätigen)
    {
       this.btBestätigen = btBestätigen;
    }
 
-
-
-   public String getBeschreibung()
-   {
-      return Beschreibung;
-   }
-
-
-
-   public void setBeschreibung(String beschreibung)
-   {
-      Beschreibung = beschreibung;
-   }
-
-
-
-   public LocalDate getDatum()
-   {
-      return Datum;
-   }
-
-
-
-   public void setDatum(LocalDate datum)
-   {
-      Datum = datum;
-   }
-
-
-
-   public LocalTime getUhrzeitBis()
-   {
-      return UhrzeitBis;
-   }
-
-
-
-   public void setUhrzeitBis(LocalTime uhrzeitBis)
-   {
-      UhrzeitBis = uhrzeitBis;
-   }
-
-
-
-   public LocalTime getUhrzeitVon()
-   {
-      return UhrzeitVon;
-   }
-
-
-
-   public void setUhrzeitVon(LocalTime uhrzeitVon)
-   {
-      UhrzeitVon = uhrzeitVon;
-   }
-
-  
 }
+

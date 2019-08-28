@@ -114,10 +114,10 @@ import javafx.event.ActionEvent;
 	  public void Termin()
 	  {
 		 TerminController terminController = new TerminController();
-		 LocalTime lStartpunkt = terminController.getUhrzeitVon();
-		 LocalTime lEndpunkt = terminController.getUhrzeitBis();
-		 LocalDate lTag = terminController.getDatum();
-		 String lBeschreibung = terminController.getBeschreibung();
+		 LocalTime lStartpunkt = TerminController.getUhrzeitVon();
+		 LocalTime lEndpunkt = TerminController.getUhrzeitBis();
+		 LocalDate lTag = TerminController.getDatum();
+		 String lBeschreibung = TerminController.getBeschreibung();
 		 agKalender.appointments().addAll(
 	               new Agenda.AppointmentImplLocal()
 	                   .withStartLocalDateTime(lTag.atTime(lStartpunkt))

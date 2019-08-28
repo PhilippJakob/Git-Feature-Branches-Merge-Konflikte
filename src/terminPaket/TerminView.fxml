@@ -6,22 +6,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="490.0" prefWidth="433.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.TerminController">
+
+<AnchorPane prefHeight="497.0" prefWidth="348.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="TerminController">
    <children>
-      <Text layoutX="146.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Termin erstellen">
+      <Text layoutX="86.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Termin erstellen">
          <font>
-            <Font size="20.0" />
+            <Font size="25.0" />
          </font>
       </Text>
-      <Text layoutX="48.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" />
-      <Text layoutX="47.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uhrzeit von:" />
-      <Text layoutX="48.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="bis:" />
-      <TextField fx:id="tfUhrVon" layoutX="197.0" layoutY="131.0" prefHeight="25.0" prefWidth="200.0" />
-      <TextField fx:id="tfUhrBis" layoutX="197.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" />
-      <Text layoutX="46.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung:" />
-      <TextArea fx:id="tfBeschreibung" layoutX="197.0" layoutY="245.0" prefHeight="119.0" prefWidth="200.0" />
-      <Button fx:id="btBestätigen" layoutX="94.0" layoutY="439.0" mnemonicParsing="false" onAction="#bestätigenTermin" text="Bestätigen" />
-      <Button fx:id="btZurück" layoutX="271.0" layoutY="439.0" mnemonicParsing="false" onAction="#zurück" text="Zurück" />
-      <DatePicker fx:id="dpDatum" layoutX="197.0" layoutY="77.0" prefHeight="25.0" prefWidth="200.0" />
+      <DatePicker fx:id="dpDatum" layoutX="160.0" layoutY="85.0" />
+      <TextField fx:id="tfUhrzeitVon" layoutX="160.0" layoutY="142.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="tfUhrzeitBis" layoutX="160.0" layoutY="199.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="tfBeschreibung" layoutX="160.0" layoutY="254.0" prefHeight="109.0" prefWidth="174.0" />
+      <Text layoutX="14.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" />
+      <Text layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uhrzeit von:" />
+      <Text layoutX="16.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uhrzeit bis:" />
+      <Text layoutX="16.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung:" />
+      <Button fx:id="btBestätigen" layoutX="64.0" layoutY="423.0" mnemonicParsing="false" onAction="#erstellenTermin" text="Bestätigen" />
+      <Button fx:id="btzurück" layoutX="237.0" layoutY="423.0" mnemonicParsing="false" onAction="#zurück" text="Zurück" />
    </children>
 </AnchorPane>
