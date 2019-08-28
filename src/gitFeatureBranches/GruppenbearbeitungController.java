@@ -39,8 +39,8 @@ import javafx.stage.Stage;
    	  {
    		return;
    	  }
-   	  setPersonenAL(dbVerbindung.auslesenDB(DBVerbindung.holenConnection()));
-   	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+   	  setGruppeAL(Gruppe.auslesenDB(DBVerbindung.holenConnection()));
+   	  cbGruppe.getItems().addAll(Gruppe.getPersonen());
    	  mPersonenlöschen.setText("Person löschen");
    	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
    		 
@@ -86,7 +86,7 @@ import javafx.stage.Stage;
    		    }
    		 });
    	 
-   	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
+   	  cbGruppe.setTooltip(new Tooltip("Wähle die Person aus"));
       }
 
  
