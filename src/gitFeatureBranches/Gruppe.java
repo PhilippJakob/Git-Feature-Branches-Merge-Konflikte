@@ -8,73 +8,68 @@ import java.util.ArrayList;
 public class Gruppe
 {
    String Bezeichnung;
-   int ID_Gruppe;
-   public Gruppe(String bezeichnung, int iD_Gruppe)
+   String ID_Gruppe;
+   public Gruppe(String id_Gruppe, String bezeichnung)
    {
 	  super();
+	  ID_Gruppe = id_Gruppe;
 	  Bezeichnung = bezeichnung;
-	  ID_Gruppe = iD_Gruppe;
    }
 
    public static ArrayList<Gruppe> auslesenDB(Connection pConnection)
 	    {
-	      Gruppe lGruppe;
-	      ArrayList<Gruppe> lGruppeAL = new ArrayList<Gruppe>();
+	      Gruppe lPerson;
+	      ArrayList<Gruppe> lPersonenAL = new ArrayList<Gruppe>();
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
 
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT Bezeichnung,ID Gruppe FROM person p;");
+	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
 	      lErgebnis.first(); 
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lGruppe = new Gruppe(lErgebnis.getString(1),lErgebnis.getInt(2));
-	           lGruppeAL.add(lGruppe);
+	          lPerson = new Gruppe(lErgebnis.getString(1),lErgebnis.getInt(2));
+	           lPersonenAL.add(lPerson);
 	           lErgebnis.next();
 	         }
 	         } catch (Exception ex)
 	              {
 	                System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
 	              }
-	      return lGruppeAL ;
+	      return lPersonenAL ;
 	 }
-   public static ArrayList<String> getPersonen()
+   public static ArrayList<String> getGruppe()
    {
 	  ArrayList<String> lGruppe = new ArrayList<String>();
-	  ArrayList<Gruppe> lGruppeAL = new ArrayList<Gruppe>();
-	  lGruppeAL = GruppenbearbeitungController.; //Methode in controller verknüpfen
-	  for(int i = 0; i<lGruppeAL.size();i++)
+	  ArrayList<Gruppe> lGruppenAL = new ArrayList<Gruppe>();
+	  lGruppenAL = FensterController.getGruppenAL();
+	  for(int i = 0; i<lGruppenAL.size();i++)
 	  {
 		 String lName = new String();
-		 lName = lGruppeAL.get(i).getBezeichnung();
-		 String lPersonenID = "";
-		 lPersonenID = Integer.toString(lGruppeAL.get(i).getID_Gruppe());
-		 lName = lName.concat(" " +lPersonenID);
+		 lName = lGruppenAL.get(i).getName();
+		 String lGruppeID = "";
+		 lGruppeID = Integer.toString(lGruppenAL.get(i).getID());
+		 lName = lName.concat(" " +lGruppeID);
 		 lGruppe.add(lName);
 	  }
 	  return(lGruppe);
    }
-
-   public String getBezeichnung()
+   public String getName()
    {
-      return Bezeichnung;
+      return Name;
    }
-
-   public void setBezeichnung(String bezeichnung)
+   public void setName(String name)
    {
-      Bezeichnung = bezeichnung;
+      Name = name;
    }
-
-   public int getID_Gruppe()
+   public int getID()
    {
-      return ID_Gruppe;
+      return ID;
    }
-
-   public void setID_Gruppe(int iD_Gruppe)
+   public void setID(int iD)
    {
-      ID_Gruppe = iD_Gruppe;
+      ID = iD;
    }
-
 }
