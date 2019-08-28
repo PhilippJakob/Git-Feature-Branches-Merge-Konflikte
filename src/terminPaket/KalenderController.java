@@ -3,11 +3,14 @@ package terminPaket;
 
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 
 import javafx.event.ActionEvent;
 	import javafx.event.EventHandler;
@@ -49,6 +52,7 @@ import javafx.event.ActionEvent;
 	  @FXML  
        public void initialize()
        {
+		
 		 bühne.setOnCloseRequest(event -> {Termin();});
      
 		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
@@ -125,18 +129,9 @@ import javafx.event.ActionEvent;
 	                   .withEndLocalDateTime(lTag.atTime(lEndpunkt))
 	                   .withDescription(lBeschreibung)
 	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
-		 try
-		 {
-			Statement stmt = DBVerbindung.connection.createStatement();
-			ResultSet result = stmt.executeQuery("insert into termin (Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values "
-					 + "											 ("+lTag+""+lStartpunkt+""+lEndpunkt+""+lBeschreibung+"");
-		 }
-		 catch (SQLException e)
-		 {
-			
-			e.printStackTrace();
-		 }
+
 	  }
+	  
 	  @FXML	
 	  public void updateDB()
 	  {

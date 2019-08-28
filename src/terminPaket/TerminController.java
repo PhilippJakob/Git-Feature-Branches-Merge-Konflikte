@@ -1,5 +1,8 @@
 package terminPaket;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -43,8 +46,33 @@ public class TerminController {
        setDatum(getDpDatum().getValue());
        setUhrzeitVon(LocalTime.parse(getTfUhrzeitVon().getText()));
        setUhrzeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+       if (btBestätigen.onActionProperty() != null)
+		{
+		   übergebenInDB(DBVerbindung.holenConnection());
+		}
     }
+    @FXML
+    public void übergebenInDB(Connection connection)
+    {
+   	Statement lBefehl;
+   	
 
+		 try
+		 {
+			{
+			lBefehl = connection.createStatement();
+			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+getDatum()+"','"+getUhrzeitVon()+"','"+getUhrzeitBis()+"','"+getBeschreibung()+"'" );
+//			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
+			}
+		 }
+		 catch (SQLException e)
+		 {
+			// TODO Automatisch generierter Erfassungsblock
+			e.printStackTrace();
+		 }
+		
+		 
+    }
     @FXML
     void zurück(ActionEvent event) 
     {
