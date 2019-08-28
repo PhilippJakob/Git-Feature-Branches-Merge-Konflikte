@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -18,7 +19,7 @@ public class TerminController {
    private static LocalTime UhrzeitBis;
 
     @FXML
-    private TextField tfBeschreibung;
+    private TextArea tfBeschreibung;
 
     @FXML
     private TextField tfUhrzeitVon;
@@ -91,12 +92,12 @@ public class TerminController {
       UhrzeitBis = uhrzeitBis;
    }
 
-   public TextField getTfBeschreibung()
+   public TextArea getTfBeschreibung()
    {
       return tfBeschreibung;
    }
 
-   public void setTfBeschreibung(TextField tfBeschreibung)
+   public void setTfBeschreibung(TextArea tfBeschreibung)
    {
       this.tfBeschreibung = tfBeschreibung;
    }

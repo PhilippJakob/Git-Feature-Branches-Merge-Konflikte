@@ -110,14 +110,15 @@ import javafx.event.ActionEvent;
        }
 
 	
+	  @SuppressWarnings("static-access")
 	  @FXML
 	  public void Termin()
 	  {
 		 TerminController terminController = new TerminController();
-		 LocalTime lStartpunkt = TerminController.getUhrzeitVon();
-		 LocalTime lEndpunkt = TerminController.getUhrzeitBis();
-		 LocalDate lTag = TerminController.getDatum();
-		 String lBeschreibung = TerminController.getBeschreibung();
+		 LocalTime lStartpunkt = terminController.getUhrzeitVon();
+		 LocalTime lEndpunkt = terminController.getUhrzeitBis();
+		 LocalDate lTag = terminController.getDatum();
+		 String lBeschreibung = terminController.getBeschreibung();
 		 agKalender.appointments().addAll(
 	               new Agenda.AppointmentImplLocal()
 	                   .withStartLocalDateTime(lTag.atTime(lStartpunkt))
