@@ -60,5 +60,6 @@
                </children></VBox>
          </center>
       </BorderPane>
+      <ChoiceBox fx:id="cbOE" layoutX="23.0" layoutY="146.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

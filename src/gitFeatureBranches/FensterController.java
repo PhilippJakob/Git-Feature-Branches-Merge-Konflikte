@@ -37,6 +37,7 @@ import javafx.scene.control.MenuItem;
 
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
+	  private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
 	  @FXML
 	  private Menu mPersonen;
 	  @FXML
@@ -67,6 +68,8 @@ import javafx.scene.control.MenuItem;
        @FXML
        private VBox vbAgenda;
        @FXML
+       private ChoiceBox<String> cbOE;
+       @FXML
        private BorderPane bpAgenda;
        private Stage 		bühnePersonenlöschen = new Stage();	
        private Stage 		bühnePersonenhinzufügen = new Stage();	
@@ -83,8 +86,10 @@ import javafx.scene.control.MenuItem;
     	  {
     		return;
     	  }
+    	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
     	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
     	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+    	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
     	  mPersonenlöschen.setText("Person löschen");
     	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
     		 
@@ -155,6 +160,14 @@ import javafx.scene.control.MenuItem;
 	  public void setPersonenAL(ArrayList<Person> personenAL)
 	  {
 	     this.personenAL = personenAL;
+	  }
+	  public static ArrayList<Organisationseinheit> getOrganisationseinheitAL()
+	  {
+	     return organisationseinheitAL;
+	  }
+	  public static void setOrganisationseinheitAL(ArrayList<Organisationseinheit> organisationseinheitAL)
+	  {
+	     FensterController.organisationseinheitAL = organisationseinheitAL;
 	  }
        
 
