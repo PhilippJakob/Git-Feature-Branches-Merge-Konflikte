@@ -41,15 +41,16 @@ public class PersonenhinzufügenController
    {
 	  Statement lBefehl;
 	  String ID = new String();
+	  String[] tokens;
+	  
 	  ID = Person.getLetztePerson();
-	  ID = ID.substring(ID.length()-2);
-	  if(ID.charAt(0) ==' ')
-		 ID = Character.toString(ID.charAt(1));
+	  tokens = ID.split(" ");
+	  ID = tokens[tokens.length-1];
 	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügtePersonen);
 	  hinzugefügtePersonen++;
 	  try
 	  {
-		 lBefehl	= connection.createStatement();
+		 lBefehl= connection.createStatement();
 		 lBefehl.executeUpdate("INSERT INTO person(IDPerson,Name,StID) VALUES('"+ID+"','"+pPerson+"',NULL);");
 	  }
 	  catch (SQLException e)

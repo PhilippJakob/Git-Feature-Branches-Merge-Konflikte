@@ -41,15 +41,14 @@ public class PersonenlöschenController
    {
 	  Statement lBefehl;
 	  Statement lBefehl2;
-	  String ID = pPerson.substring(pPerson.length()-2);
-	  if(ID.charAt(0) ==' ')
-		 ID = Character.toString(ID.charAt(1));
+	  String[] tokens;
+	  tokens = pPerson.split(" ");
 	  try
 	  {
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+ ID +"';");
+		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+ tokens[tokens.length-1] +"';");
 	  }
 	  catch (SQLException e)
 	  {
