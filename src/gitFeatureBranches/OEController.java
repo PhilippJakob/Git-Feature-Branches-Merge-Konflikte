@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
@@ -84,28 +85,35 @@ public class OEController
     } );
     }
     
-    public void erstellenOE(Organisationseinheit pOrganisationseinheit, Connection connection)
-    {
-    Statement lBefehl;
-	  String ID = new String();
-	  String[] tokens;
-	  
-	  ID = Organisationseinheit.getOrganisationseinheiten();
-	  tokens = ID.split(" ");
-	  ID = tokens[tokens.length-1];
-	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOrganisationseinheiten);
-	  hinzugefügteOrganisationseinheiten++;
-	  try
-	  {
-		 lBefehl= connection.createStatement();
-		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
-	  }
-	  catch (SQLException e)
-	  {
-		 // TODO Automatisch generierter Erfassungsblock
-		e.printStackTrace();
-	  }
- }
+    mPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>()
+    @Override
+	    public void handle(ActionEvent event)
+	    { 
+	      
+	       FXMLLoader lLoader = new FXMLLoader();
+		       try
+		   {
+	    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
+	    	  	   grundPane2 = lLoader.load();
+	    	  	   Scene lScene = new Scene(grundPane2);
+			       bühnePersonenhinzufügen.setScene(lScene);
+			       bühnePersonenhinzufügen.show();     
+		   }
+		   catch (IOException e)
+		   {
+			  // TODO Automatisch generierter Erfassungsblock
+			  e.printStackTrace();
+		   }
+	    }
+});
+ bühnePersonenhinzufügen.setOnCloseRequest(event->{
+	 aktualisieren();
+ });
+ bühnePersonenlöschen.setOnCloseRequest(event->{
+	 aktualisieren();
+ });
+ cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
+}
 
    
     public static ArrayList<Organisationseinheit> getOrganisationseinheitAL()
