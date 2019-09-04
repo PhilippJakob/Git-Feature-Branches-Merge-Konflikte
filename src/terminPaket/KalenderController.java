@@ -55,6 +55,7 @@ import sun.security.action.GetBooleanAction;
        public void auslesenTermine()
        {
     	  
+    	  
 //    	  KalenderController lTermin = new KalenderController();
     	  ArrayList<Termin> lTerminListe = Termin.auslesenTermine(Datenbankverbindung.getConnection(), 2);
     	  agKalender.appointments().addAll(

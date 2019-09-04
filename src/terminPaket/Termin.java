@@ -62,6 +62,7 @@ public class Termin
    	             lTermin.setTerminFarbe(lErgebnis.getString(11));
    	             lTerminAL.add(lTermin);
    	             lErgebnis.next();
+   	             
 	        }
 		
 	      

@@ -25,6 +25,7 @@ public  class Datenbankverbindung
 	      Class.forName("com.mysql.jdbc.Driver").newInstance(); // neue Instanz des Treibers holen
 	      String connectionCommand = "jdbc:mysql://"+lHostrechner+":3306/"+lDatenbank+"?user="+lBenutzer+"&password="+lPasswort;
           connection = DriverManager.getConnection(connectionCommand);
+          
           return true;
 
       }
