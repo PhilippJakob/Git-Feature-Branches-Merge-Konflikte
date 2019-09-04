@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 public class OEController 
@@ -29,6 +31,9 @@ public class OEController
 
     @FXML
     private Button btZuweisen;
+    private Stage 		bühnePersonenhinzufügen = new Stage();	
+    private AnchorPane 	grundPane;
+    private AnchorPane 	grundPane2;
     
     public void initialize()
     {
