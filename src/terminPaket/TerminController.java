@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,7 +63,7 @@ public class TerminController {
 		   übergebenInDB(DBVerbindung.holenConnection());
 		}
       
-       
+       Platform.exit();
     }
     @FXML
     public void übergebenInDB(Connection connection)
@@ -94,6 +95,9 @@ public class TerminController {
 		
 		 
     }
+    
+   
+   
    public int ermittelnReihen(Connection connection)
     {
        int size = 0;
