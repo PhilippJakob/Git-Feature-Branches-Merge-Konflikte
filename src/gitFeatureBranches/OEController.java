@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 public class OEController 
 {
    private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
@@ -30,6 +31,12 @@ public class OEController
     
     public void initialize()
     {
+       
+ 	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
+ 	  {
+ 		return;
+ 	  }
+ 	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
       cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
  	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
  		@Override
