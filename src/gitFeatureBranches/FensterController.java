@@ -37,6 +37,7 @@ import javafx.scene.control.MenuItem;
 
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
+	  private static ArrayList<Gruppe> gruppenAL = new ArrayList<Gruppe>();
 	  private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
 	  @FXML
 	  private Menu mPersonen;
@@ -62,7 +63,8 @@ import javafx.scene.control.MenuItem;
        
        @FXML
        private Label Lrang2;
-
+       @FXML
+       private ChoiceBox<String> cbGruppen;
        @FXML
        private Label Lrang3;
        @FXML
@@ -86,10 +88,13 @@ import javafx.scene.control.MenuItem;
     	  {
     		return;
     	  }
+    	  setGruppenAL(Gruppe.auslesenDB(dbVerbindung.holenConnection()));
     	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
     	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
     	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
     	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+
+    	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
     	  mPersonenlöschen.setText("Person löschen");
     	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
     		 
@@ -140,6 +145,15 @@ import javafx.scene.control.MenuItem;
     	  bühnePersonenlöschen.setOnCloseRequest(event->{
     		 aktualisieren();
     	  });
+    	  cbPersonauswahl.setOnAction(new  EventHandler<ActionEvent>(){
+
+			@Override
+			public void handle(ActionEvent event)
+			{
+			   filtern();
+			}
+    		 
+    	  });
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
       //Aktualisiert Choiceboxen
@@ -168,6 +182,14 @@ import javafx.scene.control.MenuItem;
 	  public static void setOrganisationseinheitAL(ArrayList<Organisationseinheit> organisationseinheitAL)
 	  {
 	     FensterController.organisationseinheitAL = organisationseinheitAL;
+	  }
+	  public static ArrayList<Gruppe> getGruppenAL()
+	  {
+	     return gruppenAL;
+	  }
+	  public static void setGruppenAL(ArrayList<Gruppe> gruppenAL)
+	  {
+	     FensterController.gruppenAL = gruppenAL;
 	  }
        
 
