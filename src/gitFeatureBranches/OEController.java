@@ -16,6 +16,7 @@ import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 public class OEController 
 {
+   private static DBVerbindung dbVerbindung = new DBVerbindung();
    private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
     @FXML
     private ChoiceBox<?> cbUeber;
