@@ -1,4 +1,5 @@
 package gitFeatureBranches;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -7,13 +8,14 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import jfxtras.scene.control.agenda.Agenda;
 public class OEController 
 {
-
+   private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
     @FXML
     private ChoiceBox<?> cbUeber;
 
@@ -28,12 +30,23 @@ public class OEController
     
     public void initialize()
     {
- 	
+      cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
  	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
  		@Override
  	    public void handle(ActionEvent event)
  	    { 
- 		   erstellenOE(tfName.commitValue(), DBVerbindung.holenConnection());
+ 		  FXMLLoader lLoader = new FXMLLoader();
+	       try
+	   {
+   	  	   lLoader.setLocation(getClass().getResource("AnzeigeOEView.fxml"));
+   	  	  
+		        
+	   }
+	   catch (IOException e)
+	   {
+		  // TODO Automatisch generierter Erfassungsblock
+		  e.printStackTrace();
+	   }
  	    }
     } );
     }
@@ -62,8 +75,22 @@ public class OEController
  }
 
    
-  
+    public static ArrayList<Organisationseinheit> getOrganisationseinheitAL()
+	  {
+	     return organisationseinheitAL;
+	  }
+	  public static void setOrganisationseinheitAL(ArrayList<Organisationseinheit> organisationseinheitAL)
+	  {
+	     OEController.organisationseinheitAL = organisationseinheitAL;
+	  } 
   
 }
+
+
+
+	  
+    	
+    	 
+
 
 
