@@ -4,7 +4,10 @@
  */
 package terminPaket;
 
+import java.sql.DriverManager;
+
 import java.sql.*;
+
 public  class Datenbankverbindung 
 {
    private static Connection connection;
