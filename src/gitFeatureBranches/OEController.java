@@ -38,7 +38,7 @@ public class OEController
  	    }
     } );
     }
-    public void erstellenOE(OE pOE, Connection connection)
+    public void erstellenOE(String pOE, Connection connection)
     {
  	  Statement lBefehl;
  	  Statement lBefehl2;
