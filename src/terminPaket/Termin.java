@@ -63,6 +63,7 @@ public class Termin
    	             lTerminAL.add(lTermin);
    	             lErgebnis.next();
    	             
+   	             
 	        }
 		
 	      

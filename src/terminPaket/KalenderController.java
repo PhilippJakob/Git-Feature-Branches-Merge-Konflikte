@@ -68,5 +68,6 @@ import sun.security.action.GetBooleanAction;
                        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
                );
     	  
+    	  
        }
    }
