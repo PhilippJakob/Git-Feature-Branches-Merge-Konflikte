@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import gitFeatureBranches.OE.OE;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,21 +38,21 @@ public class OEController
     } );
     }
     
-    public void erstellenOE(String pOE, Connection connection)
+    public void erstellenOE(Organisationseinheit pOrganisationseinheit, Connection connection)
     {
     Statement lBefehl;
 	  String ID = new String();
 	  String[] tokens;
 	  
-	  ID = OE.getLetzteOE();
+	  ID = Organisationseinheit.getOrganisationseinheiten();
 	  tokens = ID.split(" ");
 	  ID = tokens[tokens.length-1];
-	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOEn);
-	  hinzugefügteOEn++;
+	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOrganisationseinheiten);
+	  hinzugefügteOrganisationseinheiten++;
 	  try
 	  {
 		 lBefehl= connection.createStatement();
-		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME) VALUES('"+ID+"','"+pOE+"',NULL);");
+		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
 	  }
 	  catch (SQLException e)
 	  {
@@ -62,11 +61,7 @@ public class OEController
 	  }
  }
 
-   public static ArrayList<gitFeatureBranches.OE> getOEnAL()
-   {
-	  // TODO Automatisch generierter Methodenstub
-	  return null;
-   }
+   
   
   
 }
