@@ -148,4 +148,16 @@ import javafx.event.ActionEvent;
 	  {
 	     this.agKalender = agKalender;
 	  }
+
+
+	  public Stage getBühne()
+	  {
+	     return bühne;
+	  }
+
+
+	  public void setBühne(Stage bühne)
+	  {
+	     this.bühne = bühne;
+	  }
 }

@@ -2,18 +2,21 @@ package terminPaket;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class TerminController {
@@ -58,25 +61,34 @@ public class TerminController {
 		{
 		   übergebenInDB(DBVerbindung.holenConnection());
 		}
+      
+       
     }
     @FXML
     public void übergebenInDB(Connection connection)
     {
-   	Statement lBefehl;
-   	
+ 
+    int size = 0;
    	
 		 try
 		 {
-			{
-			String insertSQL = "Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?)";
+			{ 
+			Statement stmt = connection.createStatement();
+			String query = "SELECT * FROM termin";
+		    ResultSet rs = stmt.executeQuery(query);
+		    rs.last();
+		    size = rs.getRow();
+		    rs.beforeFirst();
+		    System.out.print(size);
+	//		String insertSQL = "Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?)";
 //			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
-			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, getDatum().toString());
-			preparedStatement.setString(2, getUhrzeitVon().toString());
-			preparedStatement.setString(3, getUhrzeitBis().toString());
-			preparedStatement.setString(4, getBeschreibung());
-			preparedStatement.setString(5, "1");
-			preparedStatement.executeUpdate();
+	//		PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+	//		preparedStatement.setString(1, getDatum().toString());
+	//		preparedStatement.setString(2, getUhrzeitVon().toString());
+	//		preparedStatement.setString(3, getUhrzeitBis().toString());
+	//		preparedStatement.setString(4, getBeschreibung());
+	//		preparedStatement.setString(5, "1");
+	//		preparedStatement.executeUpdate();
 			}
 		 }
 		 catch (SQLException e)
