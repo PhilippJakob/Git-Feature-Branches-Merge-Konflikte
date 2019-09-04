@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -93,7 +95,6 @@ import javafx.scene.control.MenuItem;
     	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
     	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
     	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
-
     	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
     	  mPersonenlöschen.setText("Person löschen");
     	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
@@ -145,15 +146,14 @@ import javafx.scene.control.MenuItem;
     	  bühnePersonenlöschen.setOnCloseRequest(event->{
     		 aktualisieren();
     	  });
-    	  cbPersonauswahl.setOnAction(new  EventHandler<ActionEvent>(){
-
-			@Override
-			public void handle(ActionEvent event)
-			{
-			   filtern();
-			}
-    		 
-    	  });
+    	  cbPersonauswahl.setOnAction(new EventHandler<ActionEvent>(){
+ 		    @Override
+ 		    public void handle(ActionEvent event)
+ 		    { 
+ 		       
+ 		      filtern();
+ 		    }
+ 		 });
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
       //Aktualisiert Choiceboxen
@@ -168,7 +168,12 @@ import javafx.scene.control.MenuItem;
 	  {
 	     return personenAL;
 	  }
-
+	  public void filtern()
+	  {
+		 cbGruppen.getItems().clear();
+		 setGruppenAL(Gruppenzugehörigkeit.auslesenDB(dbVerbindung.holenConnection(),cbPersonauswahl.getValue()));
+		 cbGruppen.getItems().addAll(Gruppe.getGruppen());
+	  }
 
 
 	  public void setPersonenAL(ArrayList<Person> personenAL)

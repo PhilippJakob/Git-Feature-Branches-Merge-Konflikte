@@ -23,7 +23,7 @@ public class Gruppenzugehörigkeit
      tokens = pPerson.split(" ");
      try {
      lBefehl 	= pConnection.createStatement();
-     lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g where IDGruppe = ANY(SELECT IDGruppe from gruppenzugehörigkeit where IDPerson = " + + ";");
+     lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g where IDGruppe = ANY(SELECT IDGruppe from gruppenzugehörigkeit where IDPerson = " + tokens[tokens.length-1] + ");");
      lErgebnis.first(); 
 
      while(!lErgebnis.isAfterLast())   
@@ -56,21 +56,5 @@ public class Gruppenzugehörigkeit
    }
 
    
-   
-   public int getID()
-   {
-      return ID;
-   }
-   public void setID(int iD)
-   {
-      ID = iD;
-   }
-   public String getBezeichnung()
-   {
-      return Bezeichnung;
-   }
-   public void setBezeichnung(String bezeichnung)
-   {
-      Bezeichnung = bezeichnung;
-   }
+
 }

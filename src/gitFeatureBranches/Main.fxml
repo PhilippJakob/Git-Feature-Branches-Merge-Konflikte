@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import jfxtras.scene.layout.*?>
-<?import jfxtras.scene.control.agenda.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import jfxtras.scene.control.agenda.Agenda?>
+<?import jfxtras.scene.layout.VBox?>
 
-<AnchorPane prefHeight="586.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.FensterController">
+<AnchorPane prefHeight="586.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.FensterController">
    <children>
       <ChoiceBox fx:id="cbPersonauswahl" layoutX="29.0" layoutY="47.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
       <Label layoutX="21.0" layoutY="98.0" text="User Gruppen:">
@@ -43,7 +45,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <MenuBar fx:id="mbBar" layoutY="2.0" prefHeight="25.0" prefWidth="910.0">
+      <MenuBar fx:id="mbBar" layoutX="3.0" layoutY="1.0" prefHeight="25.0" prefWidth="910.0">
          <menus>
             <Menu fx:id="mPersonen" mnemonicParsing="false" text="Personen">
               <items>
