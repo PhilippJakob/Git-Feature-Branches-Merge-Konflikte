@@ -26,7 +26,7 @@ public class OE
 
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
+	      lErgebnis = lBefehl.executeQuery("SELECT OENAME,OEID FROM organisationseinheit p;");
 	      lErgebnis.first(); 
 
 	      while(!lErgebnis.isAfterLast())   
