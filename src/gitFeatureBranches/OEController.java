@@ -2,6 +2,7 @@ package gitFeatureBranches;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import gitFeatureBranches.NeueOE.OE;
 import javafx.event.ActionEvent;
@@ -55,7 +56,12 @@ public class OEController
  	  }
  	 
     }
-
+   public static ArrayList<gitFeatureBranches.OE> getOEnAL()
+   {
+	  // TODO Automatisch generierter Methodenstub
+	  return null;
+   }
+  
 }
 
 
