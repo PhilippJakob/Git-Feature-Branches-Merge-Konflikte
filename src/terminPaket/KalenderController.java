@@ -32,7 +32,6 @@ import javafx.event.ActionEvent;
 
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 
-
 	  @FXML
 	  private Button btZusatzinformationen;
 	  
