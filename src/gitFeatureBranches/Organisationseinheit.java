@@ -41,11 +41,12 @@ public class Organisationseinheit
              }
      return lOrganisationsAL ;
 }
+  
+
    public static ArrayList<String> getOrganisationseinheiten()
    {
 	  ArrayList<String> lOrganisationseinheit = new ArrayList<String>();
 	  ArrayList<Organisationseinheit> lOrganisationseinheitenAL = new ArrayList<Organisationseinheit>();
-	  lOrganisationseinheitenAL = FensterController.getOrganisationseinheitAL();
 	  for(int i = 0; i<lOrganisationseinheitenAL.size();i++)
 	  {
 		 String lOEName = new String();
@@ -77,4 +78,13 @@ public class Organisationseinheit
    {
       Name = name;
    }
+   public Organisationseinheit(int iD, String name)
+   {
+	  super();
+	  ID = iD;
+	  Name = name;
+   }
+
+   
+   
 }
