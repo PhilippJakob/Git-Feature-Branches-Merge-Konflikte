@@ -85,6 +85,13 @@ public class Organisationseinheit
 	  Name = name;
    }
 
+   public static String getLetzteOrganisationseinheit()
+   {
+	  // TODO Automatisch generierter Methodenstub
+	  return null;
+   }
+
+ 
    
    
 }

@@ -36,58 +36,41 @@ public class OEController
     private Stage 		bühneOrganisationseinheitenhinzufuegen = new Stage();	
     private AnchorPane 	grundPane;
     private AnchorPane 	grundPane2;
+   private int hinzugefügteOrganisationseinheiten;
     
     public void initialize()
     {
-       
- 	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
- 	  {
- 		return;
- 	  }
- 	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
-      cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+
  	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override
-		    public void handle(ActionEvent event)
-		    { 
-		      
-		       FXMLLoader lLoader = new FXMLLoader();
-   		       try
-			   {
-		    	  	   lLoader.setLocation(getClass().getResource("AnzeigeOE.fxml"));
-		    	  	   grundPane2 = lLoader.load();
-		    	  	   Scene lScene = new Scene(grundPane2);
-		    	  	 bühneOrganisationseinheitenhinzufuegen.setScene(lScene);
-		    	  	bühneOrganisationseinheitenhinzufuegen.show();     
-			   }
-			   catch (IOException e)
-			   {
-				  // TODO Automatisch generierter Erfassungsblock
-				  e.printStackTrace();
-			   }
-		    }
-		 });
- 	
-	  cbUeber.setTooltip(new Tooltip("Wähle die OE aus"));
-  }
-   
-   
-    public static ArrayList<Organisationseinheit> getOrganisationseinheitAL()
-	  {
-	     return organisationseinheitAL;
-	  }
-	  public static void setOrganisationseinheitAL(ArrayList<Organisationseinheit> organisationseinheitAL)
-	  {
-	     OEController.organisationseinheitAL = organisationseinheitAL;
-	  } 
-  
+ 		@Override
+ 	    public void handle(ActionEvent event)
+ 	    { 
+ 		   hinzufügenOrganisationseinheit(tfName.getText(), dbVerbindung.holenConnection());
+ 	    }
+    } );
+    }
+    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
+    void hinzufügenOrganisationseinheit(String pOrganisationseinheit, Connection connection)
+    {
+ 	  Statement lBefehl;
+ 	  String ID = new String();
+ 	  String[] tokens;
+ 	  
+ 	  ID = Organisationseinheit.getLetzteOrganisationseinheit();
+ 	  tokens = ID.split(" ");
+ 	  ID = tokens[tokens.length-1];
+ 	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOrganisationseinheiten);
+ 	  hinzugefügteOrganisationseinheiten++;
+ 	  try
+ 	  {
+ 		 lBefehl= connection.createStatement();
+ 		 lBefehl.executeUpdate("INSERT INTO person(IDPerson,Name,StID) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
+ 	  }
+ 	  catch (SQLException e)
+ 	  {
+ 		 // TODO Automatisch generierter Erfassungsblock
+ 		e.printStackTrace();
+ 	  }
+    }
 }
-
-
-
-	  
-    	
-    	 
-
-
 
