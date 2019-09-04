@@ -33,7 +33,7 @@ public class OEController
 
     @FXML
     private Button btZuweisen;
-    private Stage 		bühnePersonenhinzufügen = new Stage();	
+    private Stage 		bühneOrganisationseinheitenhinzufuegen = new Stage();	
     private AnchorPane 	grundPane;
     private AnchorPane 	grundPane2;
     
@@ -47,74 +47,30 @@ public class OEController
  	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
       cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
  	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
- 		@Override
- 	    public void handle(ActionEvent event)
- 	    { 
- 		  FXMLLoader lLoader = new FXMLLoader();
-	       try
-	   {
-   	  	   lLoader.setLocation(getClass().getResource("AnzeigeOEView.fxml"));
-   	  	  
-		        
-	   }
-	   catch (IOException e)
-	   {
-		  // TODO Automatisch generierter Erfassungsblock
-		  e.printStackTrace();
-	   }
- 	    }
- 		@Override
-	    public void handle(ActionEvent event)
-	    { 
-	      
-	       FXMLLoader lLoader = new FXMLLoader();
-		       try
-		   {
-	    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
-	    	  	   grundPane2 = lLoader.load();
-	    	  	   Scene lScene = new Scene(grundPane2);
-			       bühnePersonenhinzufügen.setScene(lScene);
-			       bühnePersonenhinzufügen.show();     
-		   }
-		   catch (IOException e)
-		   {
-			  // TODO Automatisch generierter Erfassungsblock
-			  e.printStackTrace();
-		   }
-	    }
-    } );
-    }
-    
-    mPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>()
-    @Override
-	    public void handle(ActionEvent event)
-	    { 
-	      
-	       FXMLLoader lLoader = new FXMLLoader();
-		       try
-		   {
-	    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
-	    	  	   grundPane2 = lLoader.load();
-	    	  	   Scene lScene = new Scene(grundPane2);
-			       bühnePersonenhinzufügen.setScene(lScene);
-			       bühnePersonenhinzufügen.show();     
-		   }
-		   catch (IOException e)
-		   {
-			  // TODO Automatisch generierter Erfassungsblock
-			  e.printStackTrace();
-		   }
-	    }
-});
- bühnePersonenhinzufügen.setOnCloseRequest(event->{
-	 aktualisieren();
- });
- bühnePersonenlöschen.setOnCloseRequest(event->{
-	 aktualisieren();
- });
- cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
-}
-
+		    @Override
+		    public void handle(ActionEvent event)
+		    { 
+		      
+		       FXMLLoader lLoader = new FXMLLoader();
+   		       try
+			   {
+		    	  	   lLoader.setLocation(getClass().getResource("AnzeigeOE.fxml"));
+		    	  	   grundPane2 = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane2);
+		    	  	 bühneOrganisationseinheitenhinzufuegen.setScene(lScene);
+		    	  	bühneOrganisationseinheitenhinzufuegen.show();     
+			   }
+			   catch (IOException e)
+			   {
+				  // TODO Automatisch generierter Erfassungsblock
+				  e.printStackTrace();
+			   }
+		    }
+		 });
+ 	
+	  cbUeber.setTooltip(new Tooltip("Wähle die OE aus"));
+  }
+   
    
     public static ArrayList<Organisationseinheit> getOrganisationseinheitAL()
 	  {
