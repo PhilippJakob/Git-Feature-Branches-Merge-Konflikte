@@ -21,7 +21,6 @@ import javafx.stage.WindowEvent;
 
 
 public class TerminController {
-   private static DBVerbindung         dbVerbindung = 		  new DBVerbindung();
    private static String Beschreibung;
    private static LocalDate Datum;
    private static LocalTime UhrzeitVon;
