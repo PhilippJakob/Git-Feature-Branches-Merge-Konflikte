@@ -68,27 +68,21 @@ public class TerminController {
     public void übergebenInDB(Connection connection)
     {
  
-    int size = 0;
+      int size = ermittelnReihen(connection);
    	
 		 try
 		 {
-			{ 
-			Statement stmt = connection.createStatement();
-			String query = "SELECT * FROM termin";
-		    ResultSet rs = stmt.executeQuery(query);
-		    rs.last();
-		    size = rs.getRow();
-		    rs.beforeFirst();
-		    System.out.print(size);
-	//		String insertSQL = "Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?)";
+			{
+			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?,?)";
 //			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
-	//		PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
-	//		preparedStatement.setString(1, getDatum().toString());
-	//		preparedStatement.setString(2, getUhrzeitVon().toString());
-	//		preparedStatement.setString(3, getUhrzeitBis().toString());
-	//		preparedStatement.setString(4, getBeschreibung());
-	//		preparedStatement.setString(5, "1");
-	//		preparedStatement.executeUpdate();
+			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setLong(1, size);
+			preparedStatement.setString(2, getDatum().toString());
+			preparedStatement.setString(3, getUhrzeitVon().toString());
+			preparedStatement.setString(4, getUhrzeitBis().toString());
+			preparedStatement.setString(5, getBeschreibung());
+			preparedStatement.setString(6, "1");
+			preparedStatement.executeUpdate();
 			}
 		 }
 		 catch (SQLException e)
@@ -98,6 +92,31 @@ public class TerminController {
 			e.printStackTrace();
 		 }
 		
+		 
+    }
+   public int ermittelnReihen(Connection connection)
+    {
+       int size = 0;
+      	
+		 try
+		 {
+			{ 
+			Statement stmt = connection.createStatement();
+			String query = "SELECT * FROM termin";
+		    ResultSet rs = stmt.executeQuery(query);
+		    rs.last();
+		    size = rs.getRow();
+		    rs.beforeFirst();
+		    System.out.print(size+1);
+			}
+		  }
+		    catch (SQLException e)
+			 {
+				// TODO Automatisch generierter Erfassungsblock
+				System.out.print("Fehler");
+				e.printStackTrace();
+			 }
+		 return size+1;
 		 
     }
     @FXML
