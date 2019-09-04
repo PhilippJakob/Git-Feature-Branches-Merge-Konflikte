@@ -64,7 +64,7 @@ public class OEController
  	  try
  	  {
  		 lBefehl= connection.createStatement();
- 		 lBefehl.executeUpdate("INSERT INTO Organisationseinheit(OEID,Name) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
+ 		 lBefehl.executeUpdate("INSERT INTO Organisationseinheit(OEID,OENAME) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
  	  }
  	  catch (SQLException e)
  	  {
