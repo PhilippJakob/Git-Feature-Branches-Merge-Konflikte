@@ -3,7 +3,8 @@ package terminPaket;
 import java.sql.*;
 
 public class DBVerbindung {
-static Connection connection;
+static Connection connection; 
+
 
 public boolean verbinden(String pHostrechner, String pDatenbank, String pBenutzer, String pPasswort){
 	try{

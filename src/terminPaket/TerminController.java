@@ -1,6 +1,7 @@
 package terminPaket;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -14,8 +15,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 public class TerminController {
-   
+   private static DBVerbindung         dbVerbindung = 		  new DBVerbindung();
    private static String Beschreibung;
    private static LocalDate Datum;
    private static LocalTime UhrzeitVon;
@@ -40,12 +42,18 @@ public class TerminController {
     private Button btBestätigen;
 
     @FXML
+    void initialize()
+    {
+     
+    }
+    @FXML
     void erstellenTermin(ActionEvent event) 
     {
        setBeschreibung(getTfBeschreibung().getText());
        setDatum(getDpDatum().getValue());
        setUhrzeitVon(LocalTime.parse(getTfUhrzeitVon().getText()));
        setUhrzeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+
        if (btBestätigen.onActionProperty() != null)
 		{
 		   übergebenInDB(DBVerbindung.holenConnection());
@@ -56,18 +64,25 @@ public class TerminController {
     {
    	Statement lBefehl;
    	
-
+   	
 		 try
 		 {
 			{
-			lBefehl = connection.createStatement();
-			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+getDatum()+"','"+getUhrzeitVon()+"','"+getUhrzeitBis()+"','"+getBeschreibung()+"'" );
+			String insertSQL = "Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?)";
 //			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
+			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setString(1, getDatum().toString());
+			preparedStatement.setString(2, getUhrzeitVon().toString());
+			preparedStatement.setString(3, getUhrzeitBis().toString());
+			preparedStatement.setString(4, getBeschreibung());
+			preparedStatement.setString(5, "1");
+			preparedStatement.executeUpdate();
 			}
 		 }
 		 catch (SQLException e)
 		 {
 			// TODO Automatisch generierter Erfassungsblock
+			System.out.print("Fehler");
 			e.printStackTrace();
 		 }
 		
