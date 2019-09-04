@@ -57,7 +57,6 @@ public class SendEmailSMTP {
     			System.out.println("Sent message");
     		} catch (MessagingException e) {
     			e.printStackTrace();
-    		
     		}
     	}
 }
