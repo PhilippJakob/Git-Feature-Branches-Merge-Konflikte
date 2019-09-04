@@ -40,8 +40,16 @@ public class OEController
     }
     public void erstellenOE(String pOE, Connection connection)
     {
- 	  Statement lBefehl;
- 	  Statement lBefehl2;
+       Statement lBefehl;
+       Statement lBefehl2;
+ 	  String ID = new String();
+ 	  String[] tokens;
+ 	  
+ 	  ID = OE.getLetzteOE();
+ 	  tokens = ID.split(" ");
+ 	  ID = tokens[tokens.length-1];
+ 	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOEn);
+ 	  hinzugefügteOEn++;
  	  try
  	  {
  		 lBefehl 	= connection.createStatement();
@@ -56,11 +64,7 @@ public class OEController
  	  }
  	 
     }
-   public static ArrayList<gitFeatureBranches.OE> getOEnAL()
-   {
-	  // TODO Automatisch generierter Methodenstub
-	  return null;
-   }
+  
   
 }
 
