@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -61,6 +62,25 @@ public class OEController
 		  e.printStackTrace();
 	   }
  	    }
+ 		@Override
+	    public void handle(ActionEvent event)
+	    { 
+	      
+	       FXMLLoader lLoader = new FXMLLoader();
+		       try
+		   {
+	    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufuegenView.fxml"));
+	    	  	   grundPane2 = lLoader.load();
+	    	  	   Scene lScene = new Scene(grundPane2);
+			       bühnePersonenhinzufügen.setScene(lScene);
+			       bühnePersonenhinzufügen.show();     
+		   }
+		   catch (IOException e)
+		   {
+			  // TODO Automatisch generierter Erfassungsblock
+			  e.printStackTrace();
+		   }
+	    }
     } );
     }
     
