@@ -14,6 +14,10 @@ public class AppointmentCallback implements Callback<Agenda.Appointment, Void>
 	  // TODO Auto-generated method stub
 	  System.out.println("Callback Terminstartzeit: "+param.getStartTemporal().toString());
 	  return null;
+	  
+	  
    }
+   
+   
 
-}
+}  

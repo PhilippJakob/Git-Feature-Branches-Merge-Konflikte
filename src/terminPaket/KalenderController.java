@@ -15,7 +15,9 @@ import javafx.event.ActionEvent;
 	import javafx.scene.Scene;
 	import javafx.scene.control.Button;
 	import javafx.scene.layout.AnchorPane;
-	import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import jfxtras.icalendarfx.utilities.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 	import jfxtras.scene.control.agenda.Agenda.Appointment;
@@ -37,7 +39,39 @@ import jfxtras.scene.control.agenda.Agenda;
 	  @FXML  
        public void initialize()
        {
-     
+		 agKalender.setEditAppointmentCallback( (appointment) -> {
+			PopupController.setAppointment(appointment);
+		       PopupController.setAgkalender(agKalender);
+		       appointment.setLocation("A1110");
+		       appointment.setDescription("hallo meine freunde der sonne");
+		       //agKaleder.appointments().remove(appointment);
+//		       PopupController.setGanztag(appointment.setWholeDay());
+		      
+			System.out.println("KalenderController");
+			
+		       try
+			   {
+		    	  Stage bühne = new Stage();	
+			       FXMLLoader lLoader = new FXMLLoader();
+		    	  	   lLoader.setLocation(getClass().getResource("popupnew.fxml"));
+		    	  	   grundPane = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane);
+				       bühne.setScene(lScene);
+				       bühne.show();  
+				      
+				       System.out.println(appointment.getEndLocalDateTime());
+				       System.out.println(appointment.getStartLocalDateTime());
+				       
+			   }
+			   catch (IOException e)
+			   {
+				  // TODO Automatisch generierter Erfassungsblock
+				  e.printStackTrace();
+			   }
+		
+			
+	        return null;
+	    });
 //		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
 //		 {
 //			return;
