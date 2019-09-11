@@ -14,7 +14,7 @@
       <Button fx:id="btZusatzinformationen" mnemonicParsing="false" text="Zusatzinformationen" BorderPane.alignment="CENTER" />
    </top>
    <left>
-      <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#auslesenTermine" text="Button" BorderPane.alignment="CENTER" />
    </left>
    <right>
       <Button fx:id="btTermin" mnemonicParsing="false" text="Termin erstellen" BorderPane.alignment="CENTER" />
@@ -23,3 +23,5 @@
       <Button fx:id="bterstellen" mnemonicParsing="false" onAction="#Termin" text="Erstellen" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
+
+
