@@ -14,7 +14,7 @@
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
 <?import jfxtras.scene.layout.GridPane?>
 
-<AnchorPane prefHeight="509.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.PopupController">
+<AnchorPane prefHeight="509.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.PopupController">
    <children>
       <GridPane layoutX="18.0" prefHeight="175.0" prefWidth="339.0">
         <columnConstraints>

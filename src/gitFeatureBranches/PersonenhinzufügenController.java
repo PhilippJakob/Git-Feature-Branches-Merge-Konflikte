@@ -47,7 +47,7 @@ public class PersonenhinzufügenController
 	  tokens = ID.split(" ");
 	  ID = tokens[tokens.length-1];
 	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügtePersonen);
-	  hinzugefügtePersonen++;
+	  hinzugefügtePersonen++; 
 	  try
 	  {
 		 lBefehl= connection.createStatement();

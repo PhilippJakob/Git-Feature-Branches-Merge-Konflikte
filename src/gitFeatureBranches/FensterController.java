@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
@@ -29,6 +32,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import jfxtras.scene.control.agenda.Agenda.AppointmentGroupImpl;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import jfxtras.scene.control.gauge.linear.AbstractLinearGauge;
 import jfxtras.scene.layout.VBox;
@@ -84,37 +89,41 @@ import javafx.scene.control.MenuItem;
        private AnchorPane 	grundPane;
        private AnchorPane 	grundPane2;
        //Handelt Untermenüs und füllt bei Start AL und CB
+  
        @FXML
        public void initialize()
        {
+    	  constructAppointmentGroups();
+
     	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalender);
     	  vbAgenda.getChildren().clear();
     	  vbAgenda.getChildren().addAll(skin,agKalender);
     	  agKalender.setEditAppointmentCallback( (appointment) -> {
   			PopupController.setAppointment(appointment);
   		       PopupController.setAgkalender(agKalender);
- 		       try
-  			   {
-  		    	  Stage bühne = new Stage();	
-  			       FXMLLoader lLoader = new FXMLLoader();
-  		    	  	   lLoader.setLocation(getClass().getResource("popupnew1.fxml"));
-  		    	  	   grundPane = lLoader.load();
-  		    	  	   Scene lScene = new Scene(grundPane);
-  				       bühne.setScene(lScene);
-  				       bühne.show();  
-  			   }
-  			   catch (IOException e)
-  			   {
-  				  // TODO Automatisch generierter Erfassungsblock
-  				  e.printStackTrace();
-  			   }
+  		     try
+			   {
+		    	  Stage bühne = new Stage();	
+			       FXMLLoader lLoader = new FXMLLoader();
+		    	  	   lLoader.setLocation(getClass().getResource("popupnew1.fxml"));
+		    	  	   grundPane = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane);
+				       bühne.setScene(lScene);
+				       bühne.show();  		       
+			   }
+			   catch (IOException e)
+			   {
+				  // TODO Automatisch generierter Erfassungsblock
+				  e.printStackTrace();
+			   }
   	        return null;
   	    });
+    	  
     	  Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal()
                    .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
                    .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
                    .withDescription("It's time")
-                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")) // you should use a map of AppointmentGroups
            ;
        agKalender.appointments().addAll(lAppointment);
     	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
@@ -223,6 +232,21 @@ import javafx.scene.control.MenuItem;
 	  {
 	     return personenAL;
 	  }
+	  public ObservableList<AppointmentGroup> appointmentGroups() { return appointmentGroups; }
+		final private ObservableList<AppointmentGroup> appointmentGroups =  javafx.collections.FXCollections.observableArrayList();
+		private void constructAppointmentGroups() {
+			// setup appointment groups as predefined in the CSS
+	        final Map<String, Agenda.AppointmentGroup> lAppointmentGroupMap = new TreeMap<String, Agenda.AppointmentGroup>();
+	        for (int i = 0; i < 24; i++) {
+	        	lAppointmentGroupMap.put("group" + (i < 10 ? "0" : "") + i, new Agenda.AppointmentGroupImpl().withStyleClass("group" + i));
+	        }
+	        for (String lId : lAppointmentGroupMap.keySet())
+	        {
+	            Agenda.AppointmentGroup lAppointmentGroup = lAppointmentGroupMap.get(lId);
+	            lAppointmentGroup.setDescription(lId);
+	            appointmentGroups().add(lAppointmentGroup);
+	        }
+	}
 	  public void filtern()
 	  {
 		 cbGruppen.getItems().clear();
