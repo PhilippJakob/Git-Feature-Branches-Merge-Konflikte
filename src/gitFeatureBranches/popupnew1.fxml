@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import jfxtras.internal.scene.control.skin.agenda.icalendar.base24hour.CategorySelectionGridPane?>
+<?import jfxtras.scene.control.LocalDateTimeTextField?>
+<?import jfxtras.scene.layout.GridPane?>
+
+<AnchorPane prefHeight="509.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.PopupController">
+   <children>
+      <GridPane layoutX="18.0" prefHeight="175.0" prefWidth="339.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="2.0" prefWidth="106.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="337.0" minWidth="10.0" prefWidth="233.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="97.0" minHeight="0.0" prefHeight="35.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="152.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <CategorySelectionGridPane prefHeight="76.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <columnConstraints>
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+               <children>
+                  <LocalDateTimeTextField fx:id="bistimedate" prefHeight="30.0" prefWidth="183.0" text="#" />
+               </children>
+            </CategorySelectionGridPane>
+            <Label text="Uhrzeit: " />
+            <Label text="Ab: " GridPane.rowIndex="1" />
+            <Label text="Bis:" GridPane.rowIndex="2" />
+            <CategorySelectionGridPane prefHeight="35.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <LocalDateTimeTextField fx:id="abtimedate" prefHeight="25.0" prefWidth="183.0" text="#" />
+               </children>
+            </CategorySelectionGridPane>
+            <Button fx:id="termindelete" mnemonicParsing="false" onAction="#Terminlöschen" text="Termin Löschen" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <Button fx:id="bänderungenspeichern" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Änderungen Speichern" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <ColorPicker fx:id="Tcolorpicker" layoutX="18.0" layoutY="176.0" />
+      <CheckBox fx:id="ganztagcheck" layoutX="178.0" layoutY="180.0" mnemonicParsing="false" text="ganztägigen termin" />
+      <Label layoutX="12.0" layoutY="269.0" prefHeight="17.0" prefWidth="112.0" text="Termin Notiz / Info" />
+      <TextArea fx:id="taNotiz" layoutX="12.0" layoutY="286.0" prefHeight="209.0" prefWidth="313.0" />
+      <Label layoutX="18.0" layoutY="231.0" text="Raum: " />
+      <TextField fx:id="TFraum" layoutX="68.0" layoutY="227.0" />
+   </children>
+</AnchorPane>

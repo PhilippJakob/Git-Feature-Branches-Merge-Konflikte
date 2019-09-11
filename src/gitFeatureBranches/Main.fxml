@@ -63,7 +63,7 @@
          <center>
             <VBox fx:id="vbAgenda" BorderPane.alignment="CENTER">
                <children>
-                  <Agenda fx:id="agKalendar" />
+                  <Agenda fx:id="agKalender" />
                </children></VBox>
          </center>
       </BorderPane>

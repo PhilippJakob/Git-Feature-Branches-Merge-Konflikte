@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
@@ -53,7 +54,7 @@ import javafx.scene.control.MenuItem;
        @FXML
        public ChoiceBox<String> cbPersonauswahl;
        @FXML
-       private Agenda agKalendar;
+       private Agenda agKalender;
        @FXML
        private Label Lrang4;
 
@@ -86,10 +87,36 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
-    	  
-    	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalendar);
+    	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalender);
     	  vbAgenda.getChildren().clear();
-    	  vbAgenda.getChildren().addAll(skin,agKalendar);
+    	  vbAgenda.getChildren().addAll(skin,agKalender);
+    	  agKalender.setEditAppointmentCallback( (appointment) -> {
+  			PopupController.setAppointment(appointment);
+  		       PopupController.setAgkalender(agKalender);
+ 		       try
+  			   {
+  		    	  Stage bühne = new Stage();	
+  			       FXMLLoader lLoader = new FXMLLoader();
+  		    	  	   lLoader.setLocation(getClass().getResource("popupnew1.fxml"));
+  		    	  	   grundPane = lLoader.load();
+  		    	  	   Scene lScene = new Scene(grundPane);
+  				       bühne.setScene(lScene);
+  				       bühne.show();  
+  			   }
+  			   catch (IOException e)
+  			   {
+  				  // TODO Automatisch generierter Erfassungsblock
+  				  e.printStackTrace();
+  			   }
+  	        return null;
+  	    });
+    	  Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal()
+                   .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
+                   .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
+                   .withDescription("It's time")
+                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+           ;
+       agKalender.appointments().addAll(lAppointment);
     	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
     	  {
     		return;
