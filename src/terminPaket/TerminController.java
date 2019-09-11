@@ -21,10 +21,8 @@ import javafx.stage.WindowEvent;
 
 
 public class TerminController {
-   private static String Beschreibung;
-   private static LocalDate Datum;
-   private static LocalTime UhrzeitVon;
-   private static LocalTime UhrzeitBis;
+   Termin termin = new Termin();
+  
 
     @FXML
     private TextArea tfBeschreibung;
@@ -52,123 +50,49 @@ public class TerminController {
     @FXML
     void erstellenTermin(ActionEvent event) 
     {
-       setBeschreibung(getTfBeschreibung().getText());
-       setDatum(getDpDatum().getValue());
-       setUhrzeitVon(LocalTime.parse(getTfUhrzeitVon().getText()));
-       setUhrzeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
-
+       if(getTfBeschreibung().getText().isEmpty()||getTfUhrzeitBis().getText().isEmpty()||getTfUhrzeitVon().getText().isEmpty())
+       {
+    	  System.out.print("Fehler");
+       }
+       else
+       {
+       termin.setBeschreibung(getTfBeschreibung().getText());
+       termin.setTerminDatum(getDpDatum().getValue());
+       termin.setTerminZeit(LocalTime.parse(getTfUhrzeitVon().getText()));
+       termin.setTerminZeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+       
        if (btBestätigen.onActionProperty() != null)
 		{
-		   übergebenInDB(DBVerbindung.holenConnection());
+		   termin.übergebenInDB(Datenbankverbindung.getConnection());
+		   schließen();
+		   
 		}
-      
-       Platform.exit();
+       }
     }
-    @FXML
-    public void übergebenInDB(Connection connection)
-    {
- 
-      int size = ermittelnReihen(connection);
-   	
-		 try
-		 {
-			{
-			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?,?)";
-//			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
-			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setLong(1, size);
-			preparedStatement.setString(2, getDatum().toString());
-			preparedStatement.setString(3, getUhrzeitVon().toString());
-			preparedStatement.setString(4, getUhrzeitBis().toString());
-			preparedStatement.setString(5, getBeschreibung());
-			preparedStatement.setString(6, "1");
-			preparedStatement.executeUpdate();
-			}
-		 }
-		 catch (SQLException e)
-		 {
-			// TODO Automatisch generierter Erfassungsblock
-			System.out.print("Fehler");
-			e.printStackTrace();
-		 }
-		
-		 
-    }
-    
-   
-   
-   public int ermittelnReihen(Connection connection)
-    {
-       int size = 0;
-      	
-		 try
-		 {
-			{ 
-			Statement stmt = connection.createStatement();
-			String query = "SELECT * FROM termin";
-		    ResultSet rs = stmt.executeQuery(query);
-		    rs.last();
-		    size = rs.getRow();
-		    rs.beforeFirst();
-		    System.out.print(size+1);
-			}
-		  }
-		    catch (SQLException e)
-			 {
-				// TODO Automatisch generierter Erfassungsblock
-				System.out.print("Fehler");
-				e.printStackTrace();
-			 }
-		 return size+1;
-		 
-    }
+
     @FXML
     void zurück(ActionEvent event) 
     {
        Stage stage = (Stage) btzurück.getScene().getWindow();
     	stage.close();  
     }
+    @FXML
+    void schließen()
+    {
+       Stage stage = (Stage) btBestätigen.getScene().getWindow();
 
-   public static String getBeschreibung()
-   {
-      return Beschreibung;
-   }
 
-   public static void setBeschreibung(String beschreibung)
-   {
-      Beschreibung = beschreibung;
-   }
-
-   public static LocalDate getDatum()
-   {
-      return Datum;
-   }
-
-   public static void setDatum(LocalDate datum)
-   {
-      Datum = datum;
-   }
-
-   public static LocalTime getUhrzeitVon()
-   {
-      return UhrzeitVon;
-   }
-
-   public static void setUhrzeitVon(LocalTime uhrzeitVon)
-   {
-      UhrzeitVon = uhrzeitVon;
-   }
-
-   public static LocalTime getUhrzeitBis()
-   {
-      return UhrzeitBis;
-   }
-
-   public static void setUhrzeitBis(LocalTime uhrzeitBis)
-   {
-      UhrzeitBis = uhrzeitBis;
-   }
-
+       
+       btBestätigen.setOnAction(event ->
+               stage.fireEvent(
+                       new WindowEvent(
+                               stage,
+                               WindowEvent.WINDOW_CLOSE_REQUEST
+                       )
+               )
+       );
+    }
+  
    public TextArea getTfBeschreibung()
    {
       return tfBeschreibung;

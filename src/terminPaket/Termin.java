@@ -1,10 +1,5 @@
 package terminPaket;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -16,16 +11,17 @@ import java.sql.*;
 public class Termin
 {
    
-	  private int terminID;
-	  private int terminPersonID;
-	  private LocalDate terminDatum;
-	  private LocalTime terminZeit;
-	  private LocalTime terminZeitBis;
-	  private int terminRaum;
-	  private String terminInfo;
-	  private int terminPrivat;
-	  private String terminPrivatInfo;
-	  private String terminFarbe;
+	  private static int terminID;
+	  private static int terminPersonID;
+	  private static LocalDate terminDatum;
+	  private static LocalTime terminZeit;
+	  private static LocalTime terminZeitBis;
+	  private static int terminRaum;
+	  private static String terminInfo;
+	  private static int terminPrivat;
+	  private static String terminPrivatInfo;
+	  private static String terminFarbe;
+	  private static String beschreibung;
 	  
    
    
@@ -77,6 +73,62 @@ public class Termin
 	     }
 
 	     return lTerminAL;
+   }
+   public void übergebenInDB(Connection connection)
+   {
+	 
+     int size = ermittelnReihen(connection);
+  	
+		 try
+		 {
+			{
+			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?,?)";
+//			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
+			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement.setLong(1, size);
+			preparedStatement.setString(2, getTerminDatum().toString());
+			preparedStatement.setString(3, getTerminZeit().toString());
+			preparedStatement.setString(4, getTerminZeitBis().toString());
+			preparedStatement.setString(5, getBeschreibung());
+			preparedStatement.setString(6, "1");
+			preparedStatement.executeUpdate();
+			}
+		 }
+		 catch (SQLException e)
+		 {
+			// TODO Automatisch generierter Erfassungsblock
+			System.out.print("Fehler");
+			e.printStackTrace();
+		 }
+		
+		 
+   }
+   
+   
+   public int ermittelnReihen(Connection connection)
+   {
+      int size = 0;
+     	
+		 try
+		 {
+			{ 
+			Statement stmt = connection.createStatement();
+			String query = "SELECT * FROM termin";
+		    ResultSet rs = stmt.executeQuery(query);
+		    rs.last();
+		    size = rs.getRow();
+		    rs.beforeFirst();
+		    System.out.print(size+1);
+			}
+		  }
+		    catch (SQLException e)
+			 {
+				// TODO Automatisch generierter Erfassungsblock
+				System.out.print("Fehler");
+				e.printStackTrace();
+			 }
+		 return size+1;
+		 
    }
 
 
@@ -197,6 +249,14 @@ public class Termin
    public void setTerminZeitBis(LocalTime terminZeitBis)
    {
       this.terminZeitBis = terminZeitBis;
+   }
+   public String getBeschreibung()
+   {
+      return beschreibung;
+   }
+   public void setBeschreibung(String beschreibung)
+   {
+      this.beschreibung = beschreibung;
    }
 
    

@@ -48,7 +48,7 @@ import sun.security.action.GetBooleanAction;
 	   
 	  Stage bühne = new Stage();	
 
-	  private static DBVerbindung dbVerbindung = new DBVerbindung();
+	  private static Datenbankverbindung dbVerbindung = new Datenbankverbindung();
 
 	  @FXML
 	  private Button btZusatzinformationen;
@@ -73,7 +73,7 @@ import sun.security.action.GetBooleanAction;
 		
 		 bühne.setOnCloseRequest(event -> {Termin();});
      
-		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
+		 if(!dbVerbindung.verbinden())
 		 {
 			return;
 		 }
@@ -151,29 +151,31 @@ import sun.security.action.GetBooleanAction;
 
 
 	
-	  @SuppressWarnings("static-access")
 	  @FXML
 	  public void Termin()
 	  {
-		 TerminController terminController = new TerminController();
-		 LocalTime lStartpunkt = terminController.getUhrzeitVon();
-		 LocalTime lEndpunkt = terminController.getUhrzeitBis();
-		 LocalDate lTag = terminController.getDatum();
-		 String lBeschreibung = terminController.getBeschreibung();
+		 
+		 Termin termin = new Termin();
+		 LocalTime lStartpunkt = termin.getTerminZeit();
+		 LocalTime lEndpunkt = termin.getTerminZeitBis();
+		 LocalDate lTag = termin.getTerminDatum();
+		 String lBeschreibung = termin.getBeschreibung();
+		 if(lStartpunkt==null||lEndpunkt==null||lTag==null||lBeschreibung==null)
+		 {
+			bühne.close();
+		 }
+		 else
+		 {
 		 agKalender.appointments().addAll(
 	               new Agenda.AppointmentImplLocal()
 	                   .withStartLocalDateTime(lTag.atTime(lStartpunkt))
 	                   .withEndLocalDateTime(lTag.atTime(lEndpunkt))
 	                   .withDescription(lBeschreibung)
 	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
-
+		 }
 	  }
 	  
-	  @FXML	
-	  public void updateDB()
-	  {
-		 
-	  }
+	  
 
 	  public Agenda getAgKalender()
 	  {

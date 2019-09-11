@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 public class ZusatzinfosController 
 {
 
-   private static DBVerbindung dbVerbindung = new DBVerbindung();
+   private static Datenbankverbindung dbVerbindung = new Datenbankverbindung();
     @FXML
     private Label lbZusatzinfos;
 
@@ -33,12 +33,12 @@ public class ZusatzinfosController
     @FXML
     public void initialize()
     {
-       cbTermine.getItems().addAll(auslesenDB(dbVerbindung.holenConnection()));
+       cbTermine.getItems().addAll(auslesenDB(Datenbankverbindung.getConnection()));
        btÜbernehmen.setOnAction(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event)
 		    {
-		       erstellenZusatzinfos(dbVerbindung.holenConnection());	       
+		       erstellenZusatzinfos(Datenbankverbindung.getConnection());	       
 		    }
     });
     }
