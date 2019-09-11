@@ -32,7 +32,7 @@ package terminPaket;
 	  @FXML  
        public void initialize()
        {
-     
+      
 		 if(!dbVerbindung.verbinden("dbserver","dbpr_termin","dblkuser","lkbenutzer"))
 		 {
 			return;
