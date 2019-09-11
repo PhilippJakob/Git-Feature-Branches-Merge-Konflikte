@@ -26,6 +26,7 @@ public class Termin
 	  private int terminPrivat;
 	  private String terminPrivatInfo;
 	  private String terminFarbe;
+	  private LocalDate terminEnde;
 	  
    
    
@@ -60,6 +61,7 @@ public class Termin
    	             lTermin.setTerminPrivat(lErgebnis.getInt(8));
    	             lTermin.setTerminPrivatInfo(lErgebnis.getString(9));
    	             lTermin.setTerminFarbe(lErgebnis.getString(11));
+   	             lTermin.setTerminEnde(lErgebnis.getDate(12).toLocalDate());
    	             lTerminAL.add(lTermin);
    	             lErgebnis.next();
    	             
@@ -197,6 +199,18 @@ public class Termin
    public void setTerminZeitBis(LocalTime terminZeitBis)
    {
       this.terminZeitBis = terminZeitBis;
+   }
+
+
+   public LocalDate getTerminEnde()
+   {
+      return terminEnde;
+   }
+
+
+   public void setTerminEnde(LocalDate terminEnde)
+   {
+      this.terminEnde = terminEnde;
    }
 
    

@@ -64,7 +64,7 @@ import sun.security.action.GetBooleanAction;
                     			
                     			//LocalDate.of(lTerminListe.get(0).getTerminDatum()).atTime(lTerminListe.get(0).getTerminZeit()))
                        .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatum().getYear(),lTerminListe.get(0).getTerminDatum().getMonth(),lTerminListe.get(0).getTerminDatum().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
-                       .withDescription("It's time")
+                       .withDescription(lTerminListe.get(0).getTerminInfo())
                        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
                );
     	  
