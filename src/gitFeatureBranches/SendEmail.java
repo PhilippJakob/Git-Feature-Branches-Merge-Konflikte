@@ -11,10 +11,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
  
-/**
- * @author Crunchify.com
- * 
- */
  
 public class SendEmail {
  
@@ -23,11 +19,11 @@ public class SendEmail {
 	static MimeMessage generateMailMessage;
  
 	public static void main(String args[]) throws AddressException, MessagingException {
-		generateAndSendEmail();
-		System.out.println("\n\n ===> Deine Email wurde erfolgreich verschickt.");
+	//	generateAndSendEmail();
+	//	System.out.println("\n\n ===> Deine Email wurde erfolgreich verschickt.");
 	}
  
-	public static void generateAndSendEmail() throws AddressException, MessagingException {
+	public static void generateAndSendEmail(String Betreff, String Sender, String Empfänger,String Text) throws AddressException, MessagingException {
  
 		// Step1
 		System.out.println("\n 1st ===> Mailserver-Eigenschaften einrichten.");
@@ -43,8 +39,8 @@ public class SendEmail {
 		generateMailMessage = new MimeMessage(getMailSession);
 		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("freexplays01@gmail.com"));
 //		generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("freexplays01@gmail.com"));
-		generateMailMessage.setSubject("Betreff");
-		String emailBody = "BeispielText Inhalt " + "<br><br> von <br>Patrick";
+		generateMailMessage.setSubject(Betreff);
+		String emailBody = Text;
 		generateMailMessage.setContent(emailBody, "text/html");
 		System.out.println("Mail Session wurde erfolgreich erstellt.");
  

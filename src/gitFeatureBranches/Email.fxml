@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gitFeatureBranches.EmailController">
    <children>
-      <TextField fx:id="tfEmpfänger"layoutX="60.0" layoutY="42.0" prefHeight="25.0" prefWidth="502.0" promptText="An" />
+      <TextField fx:id="tfEmpfänger" layoutX="60.0" layoutY="42.0" prefHeight="25.0" prefWidth="502.0" promptText="An" />
       <TextField fx:id="tfBetreff" layoutX="60.0" layoutY="77.0" prefHeight="25.0" prefWidth="502.0" promptText="Betreff" />
       <TextField fx:id="tfVersender" layoutX="60.0" layoutY="14.0" prefHeight="25.0" prefWidth="502.0" promptText="Von" />
-      <TextArea layoutX="60.0" layoutY="125.0" prefHeight="256.0" prefWidth="502.0" />
-      <Button layoutX="60.0" layoutY="401.0" mnemonicParsing="false" text="Versenden" />
+      <TextArea fx:id="taText" layoutX="60.0" layoutY="125.0" prefHeight="256.0" prefWidth="502.0" />
+      <Button fx:id="btVersenden" layoutX="60.0" layoutY="401.0" mnemonicParsing="false" onAction="#Versenden" text="Versenden" />
    </children>
 </AnchorPane>
