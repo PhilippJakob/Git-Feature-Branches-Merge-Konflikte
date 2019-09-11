@@ -26,7 +26,7 @@ public class Organisationseinheit
 
      try {
      lBefehl 	= pConnection.createStatement();
-     lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME FROM organisationseinheit o;");
+     lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME,OEÜBER FROM organisationseinheit;");
      lErgebnis.first(); 
 
      while(!lErgebnis.isAfterLast())   
