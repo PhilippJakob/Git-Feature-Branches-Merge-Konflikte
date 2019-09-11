@@ -17,7 +17,7 @@ public class EmailController
    private TextField tfBetreff;
 
    @FXML
-   private TextField tfVersender;
+   private TextField tfAbsender;
 
    @FXML
    private Button btVersenden;
@@ -32,7 +32,7 @@ public class EmailController
    {
 	  try
 	  {
-		 SendEmail.generateAndSendEmail(tfBetreff.getText(), tfVersender.getText(), tfEmpfänger.getText(), taText.getText());
+		 SendEmail.generateAndSendEmail(tfBetreff.getText(), tfAbsender.getText(), tfEmpfänger.getText(), taText.getText());
 	  }
 	  catch (MessagingException e)
 	  {
