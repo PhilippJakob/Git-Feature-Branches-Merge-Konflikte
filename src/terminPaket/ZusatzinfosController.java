@@ -81,7 +81,7 @@ public class ZusatzinfosController
 			if(btÜbernehmen.onActionProperty() != null)
 			{
 			lBefehl = connection.createStatement();
-			lBefehl.executeUpdate("update termin set InfoTermin = '"+tfZusatzinfos.getText()+"' Where IDTermin = '"+cbTermine.getValue()+"'");
+			lBefehl.executeUpdate("update termin set Zusatzinfos = '"+tfZusatzinfos.getText()+"' Where IDTermin = '"+cbTermine.getValue()+"'");
 			}
 		 }
 		 catch (SQLException e)
