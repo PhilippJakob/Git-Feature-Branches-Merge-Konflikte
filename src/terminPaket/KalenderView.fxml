@@ -20,7 +20,7 @@
       <Button fx:id="btTermin" mnemonicParsing="false" text="Termin erstellen" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <Button fx:id="bterstellen" mnemonicParsing="false" onAction="#Termin" text="Erstellen" BorderPane.alignment="CENTER" />
+      <Button fx:id="bterstellen" mnemonicParsing="false" onAction="#Termin" text="Button" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>
 

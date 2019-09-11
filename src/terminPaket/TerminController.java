@@ -13,11 +13,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import jfxtras.scene.control.CalendarTextField;
+import jfxtras.scene.control.CalendarTimeTextField;
 
 
 public class TerminController {
@@ -41,6 +44,14 @@ public class TerminController {
 
     @FXML
     private Button btBestätigen;
+    
+    @FXML
+    private TextField tfRaumnummer;
+    
+    @FXML
+    private CheckBox ckPrivat;
+
+
 
     @FXML
     void initialize()
@@ -56,10 +67,21 @@ public class TerminController {
        }
        else
        {
-       termin.setBeschreibung(getTfBeschreibung().getText());
+    	  
+       termin.setTerminInfo(getTfBeschreibung().getText());
        termin.setTerminDatum(getDpDatum().getValue());
        termin.setTerminZeit(LocalTime.parse(getTfUhrzeitVon().getText()));
        termin.setTerminZeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+       termin.setTerminRaum(Integer.parseInt(getTfRaumnummer().getText()));
+       if(getCkPrivat().isSelected())
+       {
+    	  termin.setTerminPrivat(1);
+       }
+       else
+       {
+    	  termin.setTerminPrivat(0);
+       }
+       
        
        if (btBestätigen.onActionProperty() != null)
 		{
@@ -152,6 +174,24 @@ public class TerminController {
    {
       this.btBestätigen = btBestätigen;
    }
+   public TextField getTfRaumnummer()
+   {
+      return tfRaumnummer;
+   }
+   public void setTfRaumnummer(TextField tfRaumnummer)
+   {
+      this.tfRaumnummer = tfRaumnummer;
+   }
+   public CheckBox getCkPrivat()
+   {
+      return ckPrivat;
+   }
+   public void setCkPrivat(CheckBox ckPrivat)
+   {
+      this.ckPrivat = ckPrivat;
+   }
 
-}
+   }
+
+
 

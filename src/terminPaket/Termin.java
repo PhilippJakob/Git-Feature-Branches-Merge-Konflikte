@@ -21,7 +21,7 @@ public class Termin
 	  private static int terminPrivat;
 	  private static String terminPrivatInfo;
 	  private static String terminFarbe;
-	  private static String beschreibung;
+	 
 	  
    
    
@@ -82,15 +82,17 @@ public class Termin
 		 try
 		 {
 			{
-			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID) values (?,?,?,?,?,?)";
-//			lBefehl.executeQuery("Insert into termin(Datum, UhrzeitVon, UhrzeitBis, InfoTermin) values ('"+dpDatum.getValue()+"','"+ tfUhrzeitVon.getText()+"','"+tfUhrzeitBis.getText()+"','"+ tfBeschreibung.getText());
+			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID,EndDatum,Raum,Privat) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setLong(1, size);
 			preparedStatement.setString(2, getTerminDatum().toString());
 			preparedStatement.setString(3, getTerminZeit().toString());
 			preparedStatement.setString(4, getTerminZeitBis().toString());
-			preparedStatement.setString(5, getBeschreibung());
+			preparedStatement.setString(5, getTerminInfo());
 			preparedStatement.setString(6, "1");
+			preparedStatement.setString(7, getTerminDatum().toString());
+			preparedStatement.setInt(8, getTerminRaum());
+			preparedStatement.setInt(9, getTerminPrivat());
 			preparedStatement.executeUpdate();
 			}
 		 }
@@ -250,14 +252,7 @@ public class Termin
    {
       this.terminZeitBis = terminZeitBis;
    }
-   public String getBeschreibung()
-   {
-      return beschreibung;
-   }
-   public void setBeschreibung(String beschreibung)
-   {
-      this.beschreibung = beschreibung;
-   }
+
 
    
 }

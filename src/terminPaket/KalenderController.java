@@ -159,7 +159,8 @@ import sun.security.action.GetBooleanAction;
 		 LocalTime lStartpunkt = termin.getTerminZeit();
 		 LocalTime lEndpunkt = termin.getTerminZeitBis();
 		 LocalDate lTag = termin.getTerminDatum();
-		 String lBeschreibung = termin.getBeschreibung();
+		 String lBeschreibung = termin.getTerminInfo();
+		 String lRaum = Integer.toString(termin.getTerminRaum());
 		 if(lStartpunkt==null||lEndpunkt==null||lTag==null||lBeschreibung==null)
 		 {
 			bühne.close();
@@ -171,6 +172,7 @@ import sun.security.action.GetBooleanAction;
 	                   .withStartLocalDateTime(lTag.atTime(lStartpunkt))
 	                   .withEndLocalDateTime(lTag.atTime(lEndpunkt))
 	                   .withDescription(lBeschreibung)
+	                   .withLocation(lRaum)
 	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
 		 }
 	  }
