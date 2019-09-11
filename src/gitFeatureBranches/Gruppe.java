@@ -46,12 +46,12 @@ public class Gruppe
 	  lGruppeAL = FensterController.getGruppenAL();
 	  for(int i = 0; i<lGruppeAL.size();i++)
 	  {
-		 String lGruppename = new String();
-		 lGruppename = lGruppeAL.get(i).getBezeichnung();
+		 String lGruppennamen = " ";
+		 lGruppennamen = lGruppeAL.get(i).getBezeichnung();
 		 String lGruppenID = "";
 		 lGruppenID = Integer.toString(lGruppeAL.get(i).getID());
-		 lGruppename = lGruppename.concat(" " +lGruppenID);
-		 lGruppe.add(lGruppename);
+		 lGruppennamen = lGruppennamen.concat(" " +lGruppenID);
+		 lGruppe.add(lGruppennamen);
 	  }
 	  return(lGruppe);
    }

@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
+import jfxtras.scene.control.gauge.linear.AbstractLinearGauge;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -30,7 +31,6 @@ public class Main extends Application {
        grundPane = lLoader.load();
 
        Scene lScene = new Scene(grundPane);
-   
        bühne.setScene(lScene);
        bühne.show();
    }

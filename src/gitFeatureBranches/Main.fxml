@@ -53,6 +53,11 @@
                 <MenuItem fx:id="mPersonenlöschen" mnemonicParsing="false" text="Action 1" />
               </items>
             </Menu>
+            <Menu fx:id="mEmail" mnemonicParsing="false" text="Email">
+              <items>
+                  <MenuItem fx:id="mEmailOB" mnemonicParsing="false" text="Oberfläche" />
+              </items>
+            </Menu>
          </menus></MenuBar>
       <BorderPane fx:id="bpAgenda" layoutX="250.0" layoutY="250.0" prefHeight="500.0" prefWidth="500.0">
          <center>
@@ -62,7 +67,12 @@
                </children></VBox>
          </center>
       </BorderPane>
-      <ChoiceBox fx:id="cbOE" layoutX="23.0" layoutY="146.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="cbGruppen" layoutX="33.0" layoutY="206.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="cbOE" layoutX="24.0" layoutY="236.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="cbGruppen" layoutX="23.0" layoutY="146.0" prefWidth="150.0" />
+      <Label layoutX="23.0" layoutY="186.0" text="OE Einheiten:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

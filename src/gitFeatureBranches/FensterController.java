@@ -23,24 +23,27 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
    import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
+import jfxtras.scene.control.gauge.linear.AbstractLinearGauge;
 import jfxtras.scene.layout.VBox;
 import javafx.scene.control.MenuBar;
 
 import javafx.scene.control.MenuItem;
    public class FensterController {
 	  
-
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  private static ArrayList<Gruppe> gruppenAL = new ArrayList<Gruppe>();
 	  private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
+	   @FXML
+	   private Menu mEmail;
+	   @FXML
+	   private MenuItem mEmailOB;
 	  @FXML
 	  private Menu mPersonen;
 	  @FXML
@@ -83,6 +86,7 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
+    	  
     	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalendar);
     	  vbAgenda.getChildren().clear();
     	  vbAgenda.getChildren().addAll(skin,agKalendar);
@@ -109,6 +113,7 @@ import javafx.scene.control.MenuItem;
 		    	  	   lLoader.setLocation(getClass().getResource("PersonenloeschenView.fxml"));
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
+		    	  	
 				       bühnePersonenlöschen.setScene(lScene);
 				       bühnePersonenlöschen.show();     
 			   }
@@ -119,6 +124,29 @@ import javafx.scene.control.MenuItem;
 			   }
 		    }
 		 });
+    	  mEmailOB.setOnAction(new EventHandler<ActionEvent>() {
+    		 
+ 		    @Override
+ 		    public void handle(ActionEvent event)
+ 		    { 
+ 		     
+ 		       FXMLLoader lLoader = new FXMLLoader();
+     		       try
+ 			   {
+ 		    	  	   lLoader.setLocation(getClass().getResource("Email.fxml"));
+ 		    	  	   grundPane = lLoader.load();
+ 		    	  	   Scene lScene = new Scene(grundPane);
+ 		    	  	
+ 				       bühnePersonenlöschen.setScene(lScene);
+ 				       bühnePersonenlöschen.show();     
+ 			   }
+ 			   catch (IOException e)
+ 			   {
+ 				  // TODO Automatisch generierter Erfassungsblock
+ 				  e.printStackTrace();
+ 			   }
+ 		    }
+ 		 });
     	  mPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>(){
     		    @Override
     		    public void handle(ActionEvent event)
