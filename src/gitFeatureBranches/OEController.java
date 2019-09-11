@@ -28,13 +28,7 @@ public class OEController
    public void initialize()
    {
 
-	 btZuweisen.setOnAction(new EventHandler<ActionEvent>() {
-		@Override
-	    public void handle(ActionEvent event)
-	    { 
-		   hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
-	    }
-   } );
+	 
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
@@ -58,5 +52,17 @@ public class OEController
 		 // TODO Automatisch generierter Erfassungsblock
 		e.printStackTrace();
 	  }
+   }
+   public void zuweisen()
+   {
+   btZuweisen.setOnAction(new EventHandler<ActionEvent>()
+			{
+	 
+		@Override
+	    public void handle(ActionEvent event)
+	    { 
+		   hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
+	    }
+   } );
    }
 }

@@ -11,20 +11,22 @@ public class Organisationseinheit
    String Name;
    int ID;
    int Über;
+   String Stelle;
    
-   
-   public Organisationseinheit(String name, int iD,int über)
+   public Organisationseinheit(String name, int iD,int über,String stelle)
    {
 	  super();
 	  Name = name;
 	  ID = iD;
 	  Über = über;
+	  Stelle = stelle;
    }
    //Liest DB aus und füllt AL
    public static ArrayList<Organisationseinheit> auslesenDB(Connection pConnection)
 	    {
 	  Organisationseinheit lOrganisationseinheit;
 	      ArrayList<Organisationseinheit> lOrganisationseinheitAL = new ArrayList<Organisationseinheit>();
+	      
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
 
@@ -35,7 +37,7 @@ public class Organisationseinheit
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3));
+	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3),lErgebnis.getString(4));
 			   lOrganisationseinheitAL.add(lOrganisationseinheit);
 	           lErgebnis.next();
 	         }
@@ -71,11 +73,26 @@ public class Organisationseinheit
 	  lOrganisationseinheit = lOrganisationseinheitenAL.get(lOrganisationseinheitenAL.size()-1);
 	  return(lOrganisationseinheit);
    }
+ 
    
    
    
-   
-   
+   public int getÜber()
+   {
+      return Über;
+   }
+   public void setÜber(int über)
+   {
+      Über = über;
+   }
+   public String getStelle()
+   {
+      return Stelle;
+   }
+   public void setStelle(String stelle)
+   {
+      Stelle = stelle;
+   }
    public String getName()
    {
       return Name;
