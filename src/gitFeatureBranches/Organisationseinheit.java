@@ -8,90 +8,88 @@ import java.util.ArrayList;
 
 public class Organisationseinheit
 {
-   int ID;
    String Name;
-   public Organisationseinheit( String name, int iD)
+   int ID;
+   int Über;
+   
+   
+   public Organisationseinheit(String name, int iD,int über)
    {
 	  super();
-	  ID = iD;
 	  Name = name;
+	  ID = iD;
+	  Über = über;
    }
-
+   //Liest DB aus und füllt AL
    public static ArrayList<Organisationseinheit> auslesenDB(Connection pConnection)
-   {
-     Organisationseinheit lOrganisationseinheit;
-     ArrayList<Organisationseinheit> lOrganisationsAL = new ArrayList<Organisationseinheit>();
-     Statement lBefehl;
-     ResultSet lErgebnis;
+	    {
+	  Organisationseinheit lOrganisationseinheit;
+	      ArrayList<Organisationseinheit> lOrganisationseinheitAL = new ArrayList<Organisationseinheit>();
+	      Statement lBefehl;
+	      ResultSet lErgebnis;
 
-     try {
-     lBefehl 	= pConnection.createStatement();
-     lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME,OEÜBER FROM organisationseinheit;");
-     lErgebnis.first(); 
+	      try {
+	      lBefehl 	= pConnection.createStatement();
+	      lErgebnis = lBefehl.executeQuery("SELECT OENAME,OEID,OEÜBER FROM organisationseinheit o;");
+	      lErgebnis.first(); 
 
-     while(!lErgebnis.isAfterLast())   
-        {
-    	lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(2),lErgebnis.getInt(1));
-    	lOrganisationsAL.add(lOrganisationseinheit);
-          lErgebnis.next();
-        }
-        } catch (Exception ex)
-             {
-               System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
-             }
-     return lOrganisationsAL ;
-}
-  
-
+	      while(!lErgebnis.isAfterLast())   
+	         {
+	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3));
+			   lOrganisationseinheitAL.add(lOrganisationseinheit);
+	           lErgebnis.next();
+	         }
+	         } catch (Exception ex)
+	              {
+	                System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
+	              }
+	      return lOrganisationseinheitAL ;
+	 }
+   //Wandelt AL<Personen> in AL<String> um
    public static ArrayList<String> getOrganisationseinheiten()
    {
-	  ArrayList<String> lOrganisationseinheit = new ArrayList<String>();
+	  ArrayList<String> lOrganisationseinheiten = new ArrayList<String>();
 	  ArrayList<Organisationseinheit> lOrganisationseinheitenAL = new ArrayList<Organisationseinheit>();
+	  lOrganisationseinheitenAL = FensterController.getOrganisationseinheitAL();
 	  for(int i = 0; i<lOrganisationseinheitenAL.size();i++)
 	  {
-		 String lOEName = new String();
-		 lOEName = lOrganisationseinheitenAL.get(i).getName();
-		 String lOEID = "";
-		 lOEID = Integer.toString(lOrganisationseinheitenAL.get(i).getID());
-		 lOEName = lOEName.concat(" " +lOEID);
-		 lOrganisationseinheit.add(lOEName);
+		 String lName = new String();
+		 lName = lOrganisationseinheitenAL.get(i).getName();
+		 String lOrganisationseinheitenID = "";
+		 lOrganisationseinheitenID = Integer.toString(lOrganisationseinheitenAL.get(i).getID());
+		 lName = lName.concat(" " +lOrganisationseinheitenID);
+		 lOrganisationseinheiten.add(lName);
 	  }
+	  return(lOrganisationseinheiten);
+   }
+   //Holt höchste ID
+   public static String getLetzteOrganisationseinheit()
+   {
+	  String lOrganisationseinheit = new String();
+	  ArrayList<String> lOrganisationseinheitenAL = new ArrayList<String>();
+	  lOrganisationseinheitenAL = getOrganisationseinheiten();
+	  lOrganisationseinheit = lOrganisationseinheitenAL.get(lOrganisationseinheitenAL.size()-1);
 	  return(lOrganisationseinheit);
    }
-
-   public int getID()
-   {
-      return ID;
-   }
-
-   public void setID(int iD)
-   {
-      ID = iD;
-   }
-
+   
+   
+   
+   
+   
    public String getName()
    {
       return Name;
    }
-
    public void setName(String name)
    {
       Name = name;
    }
-   public Organisationseinheit(int iD, String name)
+   public int getID()
    {
-	  super();
-	  ID = iD;
-	  Name = name;
+      return ID;
    }
-
-   public static String getLetzteOrganisationseinheit()
+   public void setID(int iD)
    {
-	  // TODO Automatisch generierter Methodenstub
-	  return null;
+      ID = iD;
    }
-
- 
-   
-   
 }

@@ -142,7 +142,12 @@ import javafx.scene.control.MenuItem;
     	  });
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
-      //Aktualisiert Choiceboxen
+      private void setOrganisationseinheitAL(ArrayList<Organisationseinheit> auslesenDB)
+	  {
+		 // TODO Automatisch generierter Methodenstub
+		
+	  }
+	  //Aktualisiert Choiceboxen
       public void aktualisieren()
       {
     	 cbPersonauswahl.getItems().clear();
@@ -165,11 +170,9 @@ import javafx.scene.control.MenuItem;
 	  {
 	     return organisationseinheitAL;
 	  }
-	  public static void setOrganisationseinheitAL(ArrayList<Organisationseinheit> organisationseinheitAL)
-	  {
-	     FensterController.organisationseinheitAL = organisationseinheitAL;
-	  }
-       
+	  
+	  
+	
 
    }
 
