@@ -42,12 +42,12 @@ import jfxtras.scene.control.agenda.Agenda;
 		 agKalender.setEditAppointmentCallback( (appointment) -> {
 			PopupController.setAppointment(appointment);
 		       PopupController.setAgkalender(agKalender);
-		       appointment.setLocation("A1110");
-		       appointment.setDescription("hallo meine freunde der sonne");
+//		       appointment.setLocation("A1110");
+//		       appointment.setDescription("hallo meine freunde der sonne");
 		       //agKaleder.appointments().remove(appointment);
 //		       PopupController.setGanztag(appointment.setWholeDay());
 		      
-			System.out.println("KalenderController");
+//			System.out.println("KalenderController");
 			
 		       try
 			   {
@@ -98,6 +98,7 @@ import jfxtras.scene.control.agenda.Agenda;
 		    { 
 		       Stage bühne = new Stage();	
 		       FXMLLoader lLoader = new FXMLLoader();
+//		       PopupController.stage = bühne;
    		       try
 			   {
 		    	  	   lLoader.setLocation(getClass().getResource("Zusatzinfos.fxml"));
