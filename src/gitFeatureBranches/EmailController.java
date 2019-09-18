@@ -19,10 +19,7 @@ public class EmailController {
 
     @FXML
     private Button btVersenden;
-
-    @FXML
-    private ChoiceBox<String> cbAbsender;
-
+    
     @FXML
     private Label lbAbsender;
 
@@ -30,18 +27,38 @@ public class EmailController {
     private Label lbEmpfänger;
 
     @FXML
+    private ChoiceBox<String> cbAbsender;
+    
+    @FXML
     private ChoiceBox<String> cbEmpfänger;
+
+    @FXML
+    private Label lbGruppen;
+
+    @FXML
+    private Label lbEinheiten;
+    
+    @FXML
+    private ChoiceBox<String> cbGruppen;
+
+    @FXML
+    private ChoiceBox<String> cbEinheiten;
+
+   
     @FXML
     public void initialize()
     {
        cbAbsender.getItems().addAll(Person.getPersonen()); 
        cbEmpfänger.getItems().addAll(Person.getPersonen());
+ 	  cbEinheiten.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+ 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
+
     }
     public void Versenden()
     {
 	  try
 	  {
-		 SendEmail.generateAndSendEmail(tfBetreff.getText(), cbAbsender.getId(),cbEmpfänger.getId(), taText.getText());
+		 SendEmail.generateAndSendEmail(tfBetreff.getText(), cbAbsender.getId(),cbEmpfänger.getId(), taText.getText(), cbGruppen.getId(),cbEinheiten.getId());
 	  }
 	  catch (MessagingException e)
 	  {
