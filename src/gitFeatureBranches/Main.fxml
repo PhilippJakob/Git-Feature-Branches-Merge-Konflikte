@@ -58,6 +58,12 @@
                   <MenuItem fx:id="mEmailOB" mnemonicParsing="false" text="Oberfläche" />
               </items>
             </Menu>
+            <Menu fx:id="mTermin" mnemonicParsing="false" text="Termin">
+              <items>
+                  <MenuItem fx:id="mTerminErstellen" mnemonicParsing="false" text="Termin erstellen" />
+                <MenuItem fx:id="mZusatzinfos" mnemonicParsing="false" text="Zusatzinformationen" />
+              </items>
+            </Menu>
          </menus></MenuBar>
       <BorderPane fx:id="bpAgenda" layoutX="250.0" layoutY="250.0" prefHeight="500.0" prefWidth="500.0">
          <center>

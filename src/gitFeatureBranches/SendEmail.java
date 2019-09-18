@@ -23,7 +23,7 @@ public class SendEmail {
 	//	System.out.println("\n\n ===> Deine Email wurde erfolgreich verschickt.");
 	}
  
-	public static void generateAndSendEmail(String Betreff, String Sender, String Empfänger,String Text) throws AddressException, MessagingException {
+	public static void generateAndSendEmail(String Betreff, String Sender, String Empfänger,String Text, String Gruppen, String Einheiten) throws AddressException, MessagingException {
  
 		// Step1
 		System.out.println("\n 1st ===> Mailserver-Eigenschaften einrichten.");

@@ -1,44 +1,35 @@
 package gitFeatureBranches;
 
-
-
-
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
    import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
-import jfxtras.scene.control.agenda.Agenda.AppointmentGroupImpl;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
-import jfxtras.scene.control.gauge.linear.AbstractLinearGauge;
 import jfxtras.scene.layout.VBox;
 import javafx.scene.control.MenuBar;
-
 import javafx.scene.control.MenuItem;
    public class FensterController {
 	  
@@ -65,7 +56,12 @@ import javafx.scene.control.MenuItem;
 
        @FXML
        private Label Lrang5;
-
+       @FXML
+       private Menu mTermin;
+       @FXML
+       private MenuItem mTerminErstellen;
+       @FXML
+       private MenuItem mZusatzinfos;
        @FXML
        private Label Lrang1;
 
@@ -80,21 +76,69 @@ import javafx.scene.control.MenuItem;
        private Label Lrang3;
        @FXML
        private VBox vbAgenda;
+       Stage bühne = new Stage(); 
        @FXML
        private ChoiceBox<String> cbOE;
        @FXML
        private BorderPane bpAgenda;
        private Stage 		bühnePersonenlöschen = new Stage();	
        private Stage 		bühnePersonenhinzufügen = new Stage();	
-       private AnchorPane 	grundPane;
+       private AnchorPane 	grundPane3;
        private AnchorPane 	grundPane2;
+       private AnchorPane 	grundPane;
        //Handelt Untermenüs und füllt bei Start AL und CB
   
        @FXML
        public void initialize()
        {
-    	  constructAppointmentGroups();
+    	  mZusatzinfos.setOnAction(new EventHandler<ActionEvent>(){
+ 		    @Override
+ 		    public void handle(ActionEvent event)
+ 		    { 
+ 		       Stage bühne = new Stage();	
+ 		       FXMLLoader lLoader = new FXMLLoader();
+    		       try
+ 			   {
+    		    	  	   bühne.setTitle("Zusatzinformationen");
+ 		    	  	   lLoader.setLocation(getClass().getResource("Zusatzinfos.fxml"));
+ 		    	  	   grundPane = lLoader.load();
+ 		    	  	   Scene lScene = new Scene(grundPane);
+ 				       bühne.setScene(lScene);
+ 				       bühne.show();     
+ 			   }
+ 			   catch (IOException e)
+ 			   {
+ 				  // TODO Automatisch generierter Erfassungsblock
+ 				  e.printStackTrace();
+ 			   }
+ 		    }	    
+ 		 });
+        	mTerminErstellen.setOnAction(new EventHandler<ActionEvent>(){
+        	 @Override
+ 		    public void handle(ActionEvent event)
+ 		    { 
+ 		       
+ 		       FXMLLoader lLoader = new FXMLLoader();
+ 		       try
+ 			   {
+ 		    	       bühne.setTitle("Termin erstellen");
+ 		    	  	   lLoader.setLocation(getClass().getResource("TerminView.fxml"));
+ 		    	  	   grundPane = lLoader.load();
+ 		    	  	   Scene lScene = new Scene(grundPane);
+ 				       bühne.setScene(lScene);
+ 				       bühne.show();     
+ 			   }
+ 			   catch (IOException e)
+ 			   {
+ 				  // TODO Automatisch generierter Erfassungsblock
+ 				  e.printStackTrace();
+ 			   }
+ 		    }
+        	 
+        	}
+        	);;
 
+    	  bühne.setOnCloseRequest(event -> {Termin();});
     	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalender);
     	  vbAgenda.getChildren().clear();
     	  vbAgenda.getChildren().addAll(skin,agKalender);
@@ -106,8 +150,8 @@ import javafx.scene.control.MenuItem;
 		    	  Stage bühne = new Stage();	
 			       FXMLLoader lLoader = new FXMLLoader();
 		    	  	   lLoader.setLocation(getClass().getResource("popupnew1.fxml"));
-		    	  	   grundPane = lLoader.load();
-		    	  	   Scene lScene = new Scene(grundPane);
+		    	  	   grundPane3 = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane3);
 				       bühne.setScene(lScene);
 				       bühne.show();  		       
 			   }
@@ -123,7 +167,7 @@ import javafx.scene.control.MenuItem;
                    .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
                    .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
                    .withDescription("It's time")
-                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")) // you should use a map of AppointmentGroups
+                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
            ;
        agKalender.appointments().addAll(lAppointment);
     	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
@@ -147,11 +191,16 @@ import javafx.scene.control.MenuItem;
     		       try
 			   {
 		    	  	   lLoader.setLocation(getClass().getResource("PersonenloeschenView.fxml"));
-		    	  	   grundPane = lLoader.load();
-		    	  	   Scene lScene = new Scene(grundPane);
+		    	  	   grundPane3 = lLoader.load();
+		    	  	   Scene lScene = new Scene(grundPane3);
 		    	  	
 				       bühnePersonenlöschen.setScene(lScene);
 				       bühnePersonenlöschen.show();     
+				       System.out.println(lAppointment.getAppointmentGroup().getStyleClass());
+				       lAppointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5"));
+				       System.out.println(lAppointment.getAppointmentGroup().getStyleClass());
+				       agKalender.refresh();
+			            
 			   }
 			   catch (IOException e)
 			   {
@@ -170,8 +219,8 @@ import javafx.scene.control.MenuItem;
      		       try
  			   {
  		    	  	   lLoader.setLocation(getClass().getResource("Email.fxml"));
- 		    	  	   grundPane = lLoader.load();
- 		    	  	   Scene lScene = new Scene(grundPane);
+ 		    	  	   grundPane3 = lLoader.load();
+ 		    	  	   Scene lScene = new Scene(grundPane3);
  		    	  	
  				       bühnePersonenlöschen.setScene(lScene);
  				       bühnePersonenlöschen.show();     
@@ -232,28 +281,13 @@ import javafx.scene.control.MenuItem;
 	  {
 	     return personenAL;
 	  }
-	  public ObservableList<AppointmentGroup> appointmentGroups() { return appointmentGroups; }
-		final private ObservableList<AppointmentGroup> appointmentGroups =  javafx.collections.FXCollections.observableArrayList();
-		private void constructAppointmentGroups() {
-			// setup appointment groups as predefined in the CSS
-	        final Map<String, Agenda.AppointmentGroup> lAppointmentGroupMap = new TreeMap<String, Agenda.AppointmentGroup>();
-	        for (int i = 0; i < 24; i++) {
-	        	lAppointmentGroupMap.put("group" + (i < 10 ? "0" : "") + i, new Agenda.AppointmentGroupImpl().withStyleClass("group" + i));
-	        }
-	        for (String lId : lAppointmentGroupMap.keySet())
-	        {
-	            Agenda.AppointmentGroup lAppointmentGroup = lAppointmentGroupMap.get(lId);
-	            lAppointmentGroup.setDescription(lId);
-	            appointmentGroups().add(lAppointmentGroup);
-	        }
-	}
+	
 	  public void filtern()
 	  {
 		 cbGruppen.getItems().clear();
 		 setGruppenAL(Gruppenzugehörigkeit.auslesenDB(dbVerbindung.holenConnection(),cbPersonauswahl.getValue()));
 		 cbGruppen.getItems().addAll(Gruppe.getGruppen());
 	  }
-
 
 	  public void setPersonenAL(ArrayList<Person> personenAL)
 	  {
@@ -275,8 +309,92 @@ import javafx.scene.control.MenuItem;
 	  {
 	     FensterController.gruppenAL = gruppenAL;
 	  }
-       
 
-   }
+		
+	  @FXML
+	  public void Termin()
+	  {
+		 
+		 Termin termin = new Termin();
+		 LocalDateTime lTagVon = termin.getTerminDatumVon();
+		 LocalDateTime lTagBis = termin.getTerminDatumBis();
+		 String lBeschreibung = termin.getTerminInfo();
+		 String lRaum = Integer.toString(termin.getTerminRaum());
+		 if(lTagVon==null||lBeschreibung==null)
+		 {
+			bühne.close();
+		 }
+		 else
+		 {
+		 agKalender.appointments().addAll(
+	               new Agenda.AppointmentImplLocal()
+	                   .withStartLocalDateTime(lTagVon)
+	                   .withEndLocalDateTime(lTagBis)
+	                   .withDescription(lBeschreibung)
+	                   .withLocation(lRaum)
+	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
+		 }
+}
+	   @FXML
+       public void auslesenTermine()
+       {
+        
+        
+//        KalenderController lTermin = new KalenderController();
+        ArrayList<Termin> lTerminListe = Termin.auslesenTermine(DBVerbindung.holenConnection(), 1);
+        
+        for(Termin lTermin:lTerminListe)
+        {
+         int lSYear = lTermin.getTerminDatumVon().getYear();
+         int lSMonth =lTermin.getTerminDatumVon().getMonthValue();
+         int lSDay = lTermin.getTerminDatumVon().getDayOfMonth();
+         int lSHour = lTermin.getTerminZeit().getHour();
+         int lSMinute = lTermin.getTerminZeit().getMinute();
+         
+         int lEYear = lTermin.getTerminDatumBis().getYear();
+         int lEMonth = lTermin.getTerminDatumBis().getMonthValue();
+         int lEDay = lTermin.getTerminDatumBis().getDayOfMonth();
+         int lEHour = lTermin.getTerminZeitBis().getHour();
+         int lEMinute = lTermin.getTerminZeitBis().getMinute();
+         //asdsda
+         String lTerminInfo = lTerminListe.get(0).getTerminInfo();
+        agKalender.appointments().addAll(
+                   new Agenda.AppointmentImplLocal()
+                       .withStartLocalDateTime(LocalDateTime.of(lSYear, lSMonth, lSDay, lSHour, lSMinute))
+                       .withEndLocalDateTime(LocalDateTime.of(lEYear, lEMonth,lEDay, lEHour, lEMinute))
+                       .withDescription(lTerminInfo)
+                       .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+        );
+        }
+
+	  public Agenda getAgKalender()
+	  {
+	     return agKalender;
+	  }
+
+
+	  public void setAgKalender(Agenda agKalender)
+	  {
+	     this.agKalender = agKalender;
+	  }
+
+
+	  public Stage getBühne()
+	  {
+	     return bühne;
+	  }
+
+
+	  public void setBühne(Stage bühne)
+	  {
+	     this.bühne = bühne;
+	  }
+
+
+       
+     
+    	  
+}
+   
 
 

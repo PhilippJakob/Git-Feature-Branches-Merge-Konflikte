@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import jfxtras.internal.scene.control.skin.agenda.icalendar.base24hour.CategorySelectionGridPane?>
 <?import jfxtras.scene.control.LocalDateTimeTextField?>
@@ -48,7 +47,7 @@
                </children>
             </CategorySelectionGridPane>
             <Button fx:id="termindelete" mnemonicParsing="false" onAction="#Terminlöschen" text="Termin Löschen" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <Button fx:id="bänderungenspeichern" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Änderungen Speichern" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="bänderungenspeichern" mnemonicParsing="false" onAction="#änderungspeichern" prefHeight="25.0" prefWidth="148.0" text="Änderungen Speichern" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <ColorPicker fx:id="Tcolorpicker" layoutX="18.0" layoutY="176.0" />
