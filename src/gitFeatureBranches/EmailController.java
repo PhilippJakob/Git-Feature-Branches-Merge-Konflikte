@@ -14,8 +14,10 @@ import javafx.scene.control.TextField;
 public class EmailController {
 
    
-   private static ArrayList<Person> personenOEAL = new ArrayList<Person>();
+   private static ArrayList<Person> personenOEAL	= new ArrayList<Person>();
+   private static ArrayList<Person> personenGAL		= new ArrayList<Person>();
    
+     
     @FXML
     private TextField tfBetreff;
 
@@ -76,15 +78,12 @@ public class EmailController {
 
     }
     
-    public void ermittelnPersonen()
+    public void ermittelnPersonenausGruppe()
     {
        
     }
     
     
-    
-    
-
 
 
    public static ArrayList<Person> getPersonenOEAL()
@@ -97,5 +96,19 @@ public class EmailController {
    public static void setPersonenOEAL(ArrayList<Person> personenOEAL)
    {
 	  EmailController.personenOEAL = personenOEAL;
+   }
+
+
+
+   public static ArrayList<Person> getPersonenGAL()
+   {
+	  return personenGAL;
+   }
+
+
+
+   public static void setPersonenGAL(ArrayList<Person> personenGAL)
+   {
+	  EmailController.personenGAL = personenGAL;
    }
 }
