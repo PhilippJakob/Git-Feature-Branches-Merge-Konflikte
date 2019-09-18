@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import jfxtras.scene.control.CalendarTextField;
 import jfxtras.scene.control.CalendarTimeTextField;
+import jfxtras.scene.control.LocalDateTextField;
+import jfxtras.scene.control.LocalDateTimeTextField;
 
 
 public class TerminController {
@@ -31,17 +34,14 @@ public class TerminController {
     private TextArea tfBeschreibung;
 
     @FXML
-    private TextField tfUhrzeitVon;
+    private LocalDateTimeTextField ldttfVon;
 
+    @FXML
+    private LocalDateTimeTextField ldttfBis;
+    
     @FXML
     private Button btzurück;
-
-    @FXML
-    private DatePicker dpDatum;
-
-    @FXML
-    private TextField tfUhrzeitBis;
-
+    
     @FXML
     private Button btBestätigen;
     
@@ -56,12 +56,14 @@ public class TerminController {
     @FXML
     void initialize()
     {
-     
+       
     }
-    @FXML
+    @SuppressWarnings("static-access")
+   @FXML
     void erstellenTermin(ActionEvent event) 
     {
-       if(getTfBeschreibung().getText().isEmpty()||getTfUhrzeitBis().getText().isEmpty()||getTfUhrzeitVon().getText().isEmpty())
+       if(getTfBeschreibung().getText().isEmpty())
+    	
        {
     	  System.out.print("Fehler");
        }
@@ -69,9 +71,8 @@ public class TerminController {
        {
     	  
        termin.setTerminInfo(getTfBeschreibung().getText());
-       termin.setTerminDatum(getDpDatum().getValue());
-       termin.setTerminZeit(LocalTime.parse(getTfUhrzeitVon().getText()));
-       termin.setTerminZeitBis(LocalTime.parse(getTfUhrzeitBis().getText()));
+       termin.setTerminDatumVon(getLdttfVon().getLocalDateTime());
+       termin.setTerminDatumBis(getLdttfBis().getLocalDateTime());
        termin.setTerminRaum(Integer.parseInt(getTfRaumnummer().getText()));
        if(getCkPrivat().isSelected())
        {
@@ -125,16 +126,6 @@ public class TerminController {
       this.tfBeschreibung = tfBeschreibung;
    }
 
-   public TextField getTfUhrzeitVon()
-   {
-      return tfUhrzeitVon;
-   }
-
-   public void setTfUhrzeitVon(TextField tfUhrzeitVon)
-   {
-      this.tfUhrzeitVon = tfUhrzeitVon;
-   }
-
    public Button getBtzurück()
    {
       return btzurück;
@@ -145,25 +136,7 @@ public class TerminController {
       this.btzurück = btzurück;
    }
 
-   public DatePicker getDpDatum()
-   {
-      return dpDatum;
-   }
 
-   public void setDpDatum(DatePicker dpDatum)
-   {
-      this.dpDatum = dpDatum;
-   }
-
-   public TextField getTfUhrzeitBis()
-   {
-      return tfUhrzeitBis;
-   }
-
-   public void setTfUhrzeitBis(TextField tfUhrzeitBis)
-   {
-      this.tfUhrzeitBis = tfUhrzeitBis;
-   }
 
    public Button getBtBestätigen()
    {
@@ -190,7 +163,23 @@ public class TerminController {
    {
       this.ckPrivat = ckPrivat;
    }
-
+   public LocalDateTimeTextField getLdttfVon()
+   {
+      return ldttfVon;
+   }
+   public void setLdttfVon(LocalDateTimeTextField ldttfVon)
+   {
+      this.ldttfVon = ldttfVon;
+   }
+   public LocalDateTimeTextField getLdttfBis()
+   {
+      return ldttfBis;
+   }
+   public void setLdttfBis(LocalDateTimeTextField ldttfBis)
+   {
+      this.ldttfBis = ldttfBis;
+   }
+   
    }
 
 

@@ -1,6 +1,7 @@
 package terminPaket;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -13,9 +14,10 @@ public class Termin
    
 	  private static int terminID;
 	  private static int terminPersonID;
-	  private static LocalDate terminDatum;
-	  private static LocalTime terminZeit;
-	  private static LocalTime terminZeitBis;
+	  private static LocalDateTime terminDatumVon;
+	  private static LocalDateTime terminDatumBis;
+	  private static LocalDateTime terminZeit;
+	  private static LocalDateTime terminZeitBis;
 	  private static int terminRaum;
 	  private static String terminInfo;
 	  private static int terminPrivat;
@@ -44,13 +46,13 @@ public class Termin
 	        lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin WHERE IDPerson=" + pIdPerson);
 	        lErgebnis.first();
 	        
-	        while(! lErgebnis.isAfterLast())
+	        while(!lErgebnis.isAfterLast())
 	        {
    	             lTermin.setTerminID(lErgebnis.getInt(1));
    	             lTermin.setTerminPersonID(pIdPerson);
-   	             lTermin.setTerminDatum((lErgebnis.getDate(3).toLocalDate()));
-   	             lTermin.setTerminZeit((lErgebnis.getTime(4)).toLocalTime());
-   	             lTermin.setTerminZeitBis((lErgebnis.getTime(5)).toLocalTime());
+   	           //  lTermin.setTerminDatumVon((lErgebnis.getDate(3).toLocalDate()));
+   	          // lTermin.setTerminZeit((lErgebnis.getTime(4)).toLocalTime());
+   	          // lTermin.setTerminZeitBis((lErgebnis.getTime(5)).toLocalTime());
    	             lTermin.setTerminRaum(lErgebnis.getInt(6));
    	             lTermin.setTerminInfo(lErgebnis.getString(7));
    	             lTermin.setTerminPrivat(lErgebnis.getInt(8));
@@ -82,15 +84,17 @@ public class Termin
 		 try
 		 {
 			{
-			String insertSQL = "Insert into termin(IDTermin,Datum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID,EndDatum,Raum,Privat) values (?,?,?,?,?,?,?,?,?)";
+			   
+			 
+			String insertSQL = "Insert into termin(IDTermin, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID,Raum,Privat) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setLong(1, size);
-			preparedStatement.setString(2, getTerminDatum().toString());
-			preparedStatement.setString(3, getTerminZeit().toString());
-			preparedStatement.setString(4, getTerminZeitBis().toString());
-			preparedStatement.setString(5, getTerminInfo());
-			preparedStatement.setString(6, "1");
-			preparedStatement.setString(7, getTerminDatum().toString());
+			preparedStatement.setDate(2, Date.valueOf(terminDatumVon.toLocalDate()));
+			preparedStatement.setDate(3, Date.valueOf(terminDatumBis.toLocalDate()));
+			preparedStatement.setTime(4, Time.valueOf(terminDatumVon.toLocalTime()));
+			preparedStatement.setTime(5,  Time.valueOf(terminDatumBis.toLocalTime()));
+			preparedStatement.setString(6, getTerminInfo());
+			preparedStatement.setString(7, "1");
 			preparedStatement.setInt(8, getTerminRaum());
 			preparedStatement.setInt(9, getTerminPrivat());
 			preparedStatement.executeUpdate();
@@ -109,7 +113,7 @@ public class Termin
    
    public int ermittelnReihen(Connection connection)
    {
-      int size = 0;
+      int PersonenID = 0;
      	
 		 try
 		 {
@@ -118,9 +122,8 @@ public class Termin
 			String query = "SELECT * FROM termin";
 		    ResultSet rs = stmt.executeQuery(query);
 		    rs.last();
-		    size = rs.getRow();
+		    PersonenID = rs.getRow();
 		    rs.beforeFirst();
-		    System.out.print(size+1);
 			}
 		  }
 		    catch (SQLException e)
@@ -129,7 +132,7 @@ public class Termin
 				System.out.print("Fehler");
 				e.printStackTrace();
 			 }
-		 return size+1;
+		 return PersonenID+1;
 		 
    }
 
@@ -157,29 +160,7 @@ public class Termin
       this.terminPersonID = terminPersonID;
    }
 
-
-   public LocalDate getTerminDatum()
-   {
-      return terminDatum;
-   }
-
-
-   public void setTerminDatum(LocalDate terminDatum)
-   {
-      this.terminDatum = terminDatum;
-   }
-
-
-   public LocalTime getTerminZeit()
-   {
-      return terminZeit;
-   }
-
-
-   public void setTerminZeit(LocalTime terminZeit)
-   {
-      this.terminZeit = terminZeit;
-   }
+   
 
 
    public int getTerminRaum()
@@ -242,17 +223,51 @@ public class Termin
    }
 
 
-   public LocalTime getTerminZeitBis()
+  
+   
+   public static ArrayList<Termin> getlTerminAL()
+   {
+      return lTerminAL;
+   }
+   public static void setlTerminAL(ArrayList<Termin> lTerminAL)
+   {
+      Termin.lTerminAL = lTerminAL;
+   }
+   public static LocalDateTime getTerminDatumVon()
+   {
+      return terminDatumVon;
+   }
+   public static void setTerminDatumVon(LocalDateTime terminDatumVon)
+   {
+      Termin.terminDatumVon = terminDatumVon;
+   }
+   public static LocalDateTime getTerminDatumBis()
+   {
+      return terminDatumBis;
+   }
+   public static void setTerminDatumBis(LocalDateTime terminDatumBis)
+   {
+      Termin.terminDatumBis = terminDatumBis;
+   }
+   public static LocalDateTime getTerminZeit()
+   {
+      return terminZeit;
+   }
+   public static void setTerminZeit(LocalDateTime terminZeit)
+   {
+      Termin.terminZeit = terminZeit;
+   }
+   public static LocalDateTime getTerminZeitBis()
    {
       return terminZeitBis;
    }
-
-
-   public void setTerminZeitBis(LocalTime terminZeitBis)
+   public static void setTerminZeitBis(LocalDateTime terminZeitBis)
    {
-      this.terminZeitBis = terminZeitBis;
+      Termin.terminZeitBis = terminZeitBis;
+   }
+  
    }
 
 
    
-}
+

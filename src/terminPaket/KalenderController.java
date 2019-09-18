@@ -69,8 +69,9 @@ import sun.security.action.GetBooleanAction;
 	  @FXML  
        public void initialize()
        {
+		 
 
-		
+             
 		 bühne.setOnCloseRequest(event -> {Termin();});
      
 		 if(!dbVerbindung.verbinden())
@@ -87,6 +88,7 @@ import sun.security.action.GetBooleanAction;
 		       FXMLLoader lLoader = new FXMLLoader();
    		       try
 			   {
+   		    	  	   bühne.setTitle("Zusatzinformationen");
 		    	  	   lLoader.setLocation(getClass().getResource("Zusatzinfos.fxml"));
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
@@ -108,6 +110,7 @@ import sun.security.action.GetBooleanAction;
 		       FXMLLoader lLoader = new FXMLLoader();
 		       try
 			   {
+		    	       bühne.setTitle("Termin erstellen");
 		    	  	   lLoader.setLocation(getClass().getResource("TerminView.fxml"));
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
@@ -124,17 +127,9 @@ import sun.security.action.GetBooleanAction;
        	}
        	);;
 
-       	   // create Agenda
-       	//agKalender = new Agenda();
 
-           // add an appointment
-       	agKalender.appointments().addAll(
-               new Agenda.AppointmentImplLocal()
-                   .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
-                   .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
-                   .withDescription("It's time")
-                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
-           );
+
+           
        	Datenbankverbindung dbVerbindung = new Datenbankverbindung();
        	dbVerbindung.verbinden();
        	
@@ -156,12 +151,11 @@ import sun.security.action.GetBooleanAction;
 	  {
 		 
 		 Termin termin = new Termin();
-		 LocalTime lStartpunkt = termin.getTerminZeit();
-		 LocalTime lEndpunkt = termin.getTerminZeitBis();
-		 LocalDate lTag = termin.getTerminDatum();
+		 LocalDateTime lTagVon = termin.getTerminDatumVon();
+		 LocalDateTime lTagBis = termin.getTerminDatumBis();
 		 String lBeschreibung = termin.getTerminInfo();
 		 String lRaum = Integer.toString(termin.getTerminRaum());
-		 if(lStartpunkt==null||lEndpunkt==null||lTag==null||lBeschreibung==null)
+		 if(lTagVon==null||lBeschreibung==null)
 		 {
 			bühne.close();
 		 }
@@ -169,8 +163,8 @@ import sun.security.action.GetBooleanAction;
 		 {
 		 agKalender.appointments().addAll(
 	               new Agenda.AppointmentImplLocal()
-	                   .withStartLocalDateTime(lTag.atTime(lStartpunkt))
-	                   .withEndLocalDateTime(lTag.atTime(lEndpunkt))
+	                   .withStartLocalDateTime(lTagVon)
+	                   .withEndLocalDateTime(lTagBis)
 	                   .withDescription(lBeschreibung)
 	                   .withLocation(lRaum)
 	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
@@ -213,10 +207,10 @@ import sun.security.action.GetBooleanAction;
     	  ArrayList<Termin> lTerminListe = Termin.auslesenTermine(Datenbankverbindung.getConnection(), 2);
     	  agKalender.appointments().addAll(
                    new Agenda.AppointmentImplLocal()
-                       .withStartLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatum().getYear(),lTerminListe.get(0).getTerminDatum().getMonth(),lTerminListe.get(0).getTerminDatum().getDayOfMonth(),lTerminListe.get(0).getTerminZeit().getHour(),lTerminListe.get(0).getTerminZeit().getMinute(),lTerminListe.get(0).getTerminZeit().getSecond()))
+                       .withStartLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumVon().getYear(),lTerminListe.get(0).getTerminDatumVon().getMonth(),lTerminListe.get(0).getTerminDatumVon().getDayOfMonth(),lTerminListe.get(0).getTerminZeit().getHour(),lTerminListe.get(0).getTerminZeit().getMinute(),lTerminListe.get(0).getTerminZeit().getSecond()))
                     			
                     			//LocalDate.of(lTerminListe.get(0).getTerminDatum()).atTime(lTerminListe.get(0).getTerminZeit()))
-                       .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatum().getYear(),lTerminListe.get(0).getTerminDatum().getMonth(),lTerminListe.get(0).getTerminDatum().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
+                       .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumBis().getYear(),lTerminListe.get(0).getTerminDatumBis().getMonth(),lTerminListe.get(0).getTerminDatumBis().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
                        .withDescription("It's time")
                        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
                );

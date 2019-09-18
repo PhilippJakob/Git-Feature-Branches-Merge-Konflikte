@@ -1,5 +1,7 @@
 package terminPaket;
 	
+import org.jfree.chart.title.Title;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -13,6 +15,7 @@ public class TerminAufgabe extends Application {
 		try {
 			//BorderPane root = new BorderPane();
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("KalenderView.fxml"));
+			primaryStage.setTitle("Kalender");
 
 			Scene scene = new Scene(root,700,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
