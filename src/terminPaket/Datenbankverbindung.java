@@ -18,6 +18,7 @@ public  class Datenbankverbindung
       String lDatenbank="dbpr_termin";
       String lBenutzer ="dblkuser";
       String lPasswort ="lkbenutzer";
+//      
 	
 	//erstellet Verbindung ind legt sie in der Instanzvariablen connection ab.
 	  try

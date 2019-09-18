@@ -27,26 +27,27 @@ import sun.security.action.GetBooleanAction;
        
        public void initialize()
        {
-       	   // create Agenda
-       	//agKalender = new Agenda();
+           // create Agenda
+        //agKalender = new Agenda();
 
            // add an appointment
-       	agKalender.appointments().addAll(
+/*        agKalender.appointments().addAll(
                new Agenda.AppointmentImplLocal()
                    .withStartLocalDateTime(LocalDate.now().atTime(4, 00))
                    .withEndLocalDateTime(LocalDate.now().atTime(15, 30))
                    .withDescription("It's time")
                    .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
            );
-       	Datenbankverbindung dbVerbindung = new Datenbankverbindung();
-       	dbVerbindung.verbinden();
-       	
+           */
+        Datenbankverbindung dbVerbindung = new Datenbankverbindung();
+        dbVerbindung.verbinden();
+        
 
 
    /*        // setup appointment groups
            final Map<String, Agenda.AppointmentGroup> lAppointmentGroupMap = new TreeMap<String, Agenda.AppointmentGroup>();
            Agenda lAgenda;
-   		for (Agenda.AppointmentGroup lAppointmentGroup : lAgenda.appointmentGroups()) {
+      for (Agenda.AppointmentGroup lAppointmentGroup : lAgenda.appointmentGroups()) {
              lAppointmentGroupMap.put(lAppointmentGroup.getDescription(), lAppointmentGroup);
            } */
        }
@@ -54,20 +55,35 @@ import sun.security.action.GetBooleanAction;
        @FXML
        public void auslesenTermine()
        {
-    	  
-    	  
-//    	  KalenderController lTermin = new KalenderController();
-    	  ArrayList<Termin> lTerminListe = Termin.auslesenTermine(Datenbankverbindung.getConnection(), 2);
-    	  agKalender.appointments().addAll(
+        
+        
+//        KalenderController lTermin = new KalenderController();
+        ArrayList<Termin> lTerminListe = Termin.auslesenTermine(Datenbankverbindung.getConnection(), 1);
+        
+        for(Termin lTermin:lTerminListe)
+        {
+         int lSYear = lTermin.getTerminDatum().getYear();
+         int lSMonth =lTermin.getTerminDatum().getMonthValue();
+         int lSDay = lTermin.getTerminDatum().getDayOfMonth();
+         int lSHour = lTermin.getTerminZeit().getHour();
+         int lSMinute = lTermin.getTerminZeit().getMinute();
+         
+         int lEYear = lTermin.getTerminDatum().getYear();
+         int lEMonth = lTermin.getTerminDatum().getMonthValue();
+         int lEDay = lTermin.getTerminDatum().getDayOfMonth();
+         int lEHour = lTermin.getTerminZeitBis().getHour();
+         int lEMinute = lTermin.getTerminZeitBis().getMinute();
+         //asdsda
+         String lTerminInfo = lTerminListe.get(0).getTerminInfo();
+        agKalender.appointments().addAll(
                    new Agenda.AppointmentImplLocal()
-                       .withStartLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatum().getYear(),lTerminListe.get(0).getTerminDatum().getMonth(),lTerminListe.get(0).getTerminDatum().getDayOfMonth(),lTerminListe.get(0).getTerminZeit().getHour(),lTerminListe.get(0).getTerminZeit().getMinute(),lTerminListe.get(0).getTerminZeit().getSecond()))
-                    			
-                    			//LocalDate.of(lTerminListe.get(0).getTerminDatum()).atTime(lTerminListe.get(0).getTerminZeit()))
-                       .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatum().getYear(),lTerminListe.get(0).getTerminDatum().getMonth(),lTerminListe.get(0).getTerminDatum().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
-                       .withDescription(lTerminListe.get(0).getTerminInfo())
+                       .withStartLocalDateTime(LocalDateTime.of(lSYear, lSMonth, lSDay, lSHour, lSMinute))
+                       .withEndLocalDateTime(LocalDateTime.of(lEYear, lEMonth,lEDay, lEHour, lEMinute))
+                       .withDescription(lTerminInfo)
                        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
                );
-    	  
-    	  
+        }
+        
+        
        }
    }

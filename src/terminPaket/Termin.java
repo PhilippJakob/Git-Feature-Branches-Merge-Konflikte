@@ -16,69 +16,71 @@ import java.sql.*;
 public class Termin
 {
    
-	  private int terminID;
-	  private int terminPersonID;
-	  private LocalDate terminDatum;
-	  private LocalTime terminZeit;
-	  private LocalTime terminZeitBis;
-	  private int terminRaum;
-	  private String terminInfo;
-	  private int terminPrivat;
-	  private String terminPrivatInfo;
-	  private String terminFarbe;
-	  private LocalDate terminEnde;
-	  
+    private int terminID;
+    private int terminPersonID;
+    private LocalDate terminDatum;
+    private LocalTime terminZeit;
+    private LocalTime terminZeitBis;
+    private int terminRaum;
+    private String terminInfo;
+    private int terminPrivat;
+    private String terminPrivatInfo;
+    private String terminFarbe;
+    private LocalDate terminEnde;
+    
    
    
    
    private static final Datenbankverbindung dbVerbindung = new Datenbankverbindung();
-	  int lIdPerson;
-	  static ArrayList<Termin> lTerminAL = new ArrayList<Termin>();
+    int lIdPerson;
+    static ArrayList<Termin> terminAL = new ArrayList<Termin>();
    
-	
+  
    public static ArrayList <Termin> auslesenTermine(Connection pConnection, int pIdPerson)
     {
-	  int lIdPerson = pIdPerson;
-	  Termin lTermin = new Termin();
-	  Statement lBefehl;
-	  ResultSet lErgebnis;
-	  try
-	  
-	     {
-	    	lBefehl=pConnection.createStatement();
-	        lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin WHERE IDPerson=" + pIdPerson);
-	        lErgebnis.first();
-	        
-	        while(! lErgebnis.isAfterLast())
-	        {
-   	             lTermin.setTerminID(lErgebnis.getInt(1));
-   	             lTermin.setTerminPersonID(pIdPerson);
-   	             lTermin.setTerminDatum((lErgebnis.getDate(3).toLocalDate()));
-   	             lTermin.setTerminZeit((lErgebnis.getTime(4)).toLocalTime());
-   	             lTermin.setTerminZeitBis((lErgebnis.getTime(5)).toLocalTime());
-   	             lTermin.setTerminRaum(lErgebnis.getInt(6));
-   	             lTermin.setTerminInfo(lErgebnis.getString(7));
-   	             lTermin.setTerminPrivat(lErgebnis.getInt(8));
-   	             lTermin.setTerminPrivatInfo(lErgebnis.getString(9));
-   	             lTermin.setTerminFarbe(lErgebnis.getString(11));
-   	             lTermin.setTerminEnde(lErgebnis.getDate(12).toLocalDate());
-   	             lTerminAL.add(lTermin);
-   	             lErgebnis.next();
-   	             
-   	             
-	        }
-		
-	      
-	     }
+    int lIdPerson = pIdPerson;
+    Statement lBefehl;
+    ResultSet lErgebnis;
+    ArrayList<Termin> lTerminAL = new ArrayList<Termin>();
+    try
+    
+       {
+        lBefehl=pConnection.createStatement();
+          lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin WHERE IDPerson=" + pIdPerson);
+          lErgebnis.first();
+          
+          while(! lErgebnis.isAfterLast())
+          {
+               Termin lTermin = new Termin();
+               lTermin.setTerminID(lErgebnis.getInt(1));
+                 lTermin.setTerminPersonID(pIdPerson);
+                 lTermin.setTerminDatum((lErgebnis.getDate(3).toLocalDate()));
+                 lTermin.setTerminEnde(lErgebnis.getDate(4).toLocalDate());
+                 lTermin.setTerminZeit((lErgebnis.getTime(5)).toLocalTime());
+                 lTermin.setTerminZeitBis((lErgebnis.getTime(6)).toLocalTime());
+                 lTermin.setTerminRaum(lErgebnis.getInt(7));
+                 lTermin.setTerminInfo(lErgebnis.getString(8));
+                 lTermin.setTerminPrivat(lErgebnis.getInt(9));
+                 lTermin.setTerminPrivatInfo(lErgebnis.getString(10));
+                 lTermin.setTerminFarbe(lErgebnis.getString(12));
+                 lTerminAL.add(lTermin);
+                 lErgebnis.next();
+//                 sa
+                 
+                 
+          }
+    
+        
+       }
 
-	     catch (SQLException e)
-	     {
-		   
-		     e.printStackTrace();
-	    
-	     }
+       catch (SQLException e)
+       {
+       
+         e.printStackTrace();
+      
+       }
 
-	     return lTerminAL;
+       return lTerminAL;
    }
 
 
