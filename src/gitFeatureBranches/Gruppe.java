@@ -7,74 +7,69 @@ import java.util.ArrayList;
 
 public class Gruppe
 {
-   String Bezeichnung;
-   String ID_Gruppe;
-   public Gruppe(String id_Gruppe, String bezeichnung)
+   String Name;
+   int ID;
+   public Person(String name, int iD)
    {
 	  super();
-	  ID_Gruppe = id_Gruppe;
-	  Bezeichnung = bezeichnung;
+	  Name = name;
+	  ID = iD;
    }
 
-   public static ArrayList<Gruppe> auslesenDB(Connection pConnection)
+   public static ArrayList<Person> auslesenDB(Connection pConnection)
 	    {
-	      Gruppe lGruppen;
-	      ArrayList<Gruppe> lGruppenAL = new ArrayList<Gruppe>();
+	      Person lPerson;
+	      ArrayList<Person> lPersonenAL = new ArrayList<Person>();
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
 
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g;");
+	      lErgebnis = lBefehl.executeQuery("SELECT Name,IDPerson FROM person p;");
 	      lErgebnis.first(); 
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lGruppen = new Gruppe(lErgebnis.getString(1),lErgebnis.getString(2));
-	           lGruppenAL.add(lGruppen);
+	          lPerson = new Person(lErgebnis.getString(1),lErgebnis.getInt(2));
+	           lPersonenAL.add(lPerson);
 	           lErgebnis.next();
 	         }
 	         } catch (Exception ex)
 	              {
 	                System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
 	              }
-	      return lGruppenAL ;
+	      return lPersonenAL ;
 	 }
-   public static ArrayList<String> getGruppe()
+   public static ArrayList<String> getPersonen()
    {
-	  ArrayList<String> lGruppe = new ArrayList<String>();
-	  ArrayList<Gruppe> lGruppenAL = new ArrayList<Gruppe>();
-	  lGruppenAL = FensterController.getGruppenAL();
-	  for(int i = 0; i<lGruppenAL.size();i++)
+	  ArrayList<String> lPersonen = new ArrayList<String>();
+	  ArrayList<Person> lPersonenAL = new ArrayList<Person>();
+	  lPersonenAL = FensterController.getPersonenAL();
+	  for(int i = 0; i<lPersonenAL.size();i++)
 	  {
-		 String lBezeichnung = new String();
-		 lBezeichnung = lGruppenAL.get(i).getID_Gruppe();
-		 String lGruppeID = "";
-		 lGruppeID = lGruppenAL.get(i).getBezeichnung();
-		 lBezeichnung = lBezeichnung.concat(" " +lGruppeID);
-		 lGruppe.add(lBezeichnung);
+		 String lName = new String();
+		 lName = lPersonenAL.get(i).getName();
+		 String lPersonenID = "";
+		 lPersonenID = Integer.toString(lPersonenAL.get(i).getID());
+		 lName = lName.concat(" " +lPersonenID);
+		 lPersonen.add(lName);
 	  }
-	  return(lGruppe);
-
-}
-
-   public String getBezeichnung()
-   {
-      return Bezeichnung;
+	  return(lPersonen);
    }
-
-   public void setBezeichnung(String bezeichnung)
+   public String getName()
    {
-      Bezeichnung = bezeichnung;
+      return Name;
    }
-
-   public String getID_Gruppe()
+   public void setName(String name)
    {
-      return ID_Gruppe;
+      Name = name;
    }
-
-   public void setID_Gruppe(String iD_Gruppe)
+   public int getID()
    {
-      ID_Gruppe = iD_Gruppe;
+      return ID;
+   }
+   public void setID(int iD)
+   {
+      ID = iD;
    }
 }

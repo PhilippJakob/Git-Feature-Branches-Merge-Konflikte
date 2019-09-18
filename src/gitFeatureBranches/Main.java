@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
@@ -18,10 +19,11 @@ public class Main extends Application {
    @Override
    public void start(Stage pPrimaryStage) throws IOException
    {
+
        this.bühne = pPrimaryStage;
        FXMLLoader lLoader = new FXMLLoader();
 
-       lLoader.setLocation(Main.class.getResource("GruppenlöschenView.fxml"));
+       lLoader.setLocation(Main.class.getResource("Main.fxml"));
        grundPane = lLoader.load();
 
        Scene lScene = new Scene(grundPane);
@@ -36,4 +38,3 @@ public class Main extends Application {
 		
 	}
 }
-

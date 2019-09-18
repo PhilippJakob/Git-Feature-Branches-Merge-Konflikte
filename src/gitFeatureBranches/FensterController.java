@@ -1,15 +1,27 @@
 package gitFeatureBranches;
 
+
+
+
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+   import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -17,18 +29,36 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
    public class FensterController {
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
-	  private static ArrayList<Gruppe> gruppenAL = new ArrayList<Gruppe>();
+	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  @FXML
-	  private Menu mGruppe;
-      @FXML
-      private MenuBar mbBar;
+	  private Menu mPersonen;
 	  @FXML
-	  private MenuItem mGruppelöschen;
+	  private MenuItem mPersonenlöschen;
 	  @FXML 
-	  private MenuItem mGruppehinzufügen;
+	  private MenuItem mPersonhinzufügen;
        @FXML
-       private ChoiceBox<String> cbGruppenauswahl;
+       private ChoiceBox<String> cbPersonauswahl;
+
        @FXML
+       private Label Lrang4;
+
+       @FXML
+       private Label Lrang5;
+
+       @FXML
+       private Label Lrang1;
+
+       @FXML
+       private MenuBar mbBar;
+       
+       @FXML
+       private Label Lrang2;
+
+       @FXML
+       private Label Lrang3;
+       
+     
+
        private AnchorPane 	grundPane;
        @FXML
        public void initialize()
@@ -37,10 +67,10 @@ import javafx.scene.control.MenuItem;
     	  {
     		return;
     	  }
-    	  setGruppenAL(Gruppe.auslesenDB(DBVerbindung.holenConnection()));
-    	  cbGruppenauswahl.getItems().addAll(Gruppe.getGruppe());
-    	  mGruppelöschen.setText("Gruppe löschen");
-    	  mGruppelöschen.setOnAction(new EventHandler<ActionEvent>() {
+    	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
+    	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+    	  mPersonenlöschen.setText("Person löschen");
+    	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {
     		 
 		    @Override
 		    public void handle(ActionEvent event)
@@ -49,7 +79,7 @@ import javafx.scene.control.MenuItem;
 		       FXMLLoader lLoader = new FXMLLoader();
     		       try
 			   {
-		    	  	   lLoader.setLocation(getClass().getResource("GruppeloeschenView.fxml"));
+		    	  	   lLoader.setLocation(getClass().getResource("PersonenloeschenView.fxml"));
 		    	  	   grundPane = lLoader.load();
 		    	  	   Scene lScene = new Scene(grundPane);
 				       bühne.setScene(lScene);
@@ -62,7 +92,7 @@ import javafx.scene.control.MenuItem;
 			   }
 		    }
 		 });
-    	  mGruppehinzufügen.setOnAction(new EventHandler<ActionEvent>(){
+    	  mPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>(){
     		    @Override
     		    public void handle(ActionEvent event)
     		    { 
@@ -70,7 +100,7 @@ import javafx.scene.control.MenuItem;
     		       FXMLLoader lLoader = new FXMLLoader();
         		       try
     			   {
-    		    	  	   lLoader.setLocation(getClass().getResource("GruppehinzufügenView.fxml"));
+    		    	  	   lLoader.setLocation(getClass().getResource("PersonenhinzufügenView.fxml"));
     		    	  	   grundPane = lLoader.load();
     		    	  	   Scene lScene = new Scene(grundPane);
     				       bühne.setScene(lScene);
@@ -84,20 +114,24 @@ import javafx.scene.control.MenuItem;
     		    }
     		 });
     	 
-    	  cbGruppenauswahl.setTooltip(new Tooltip("Wähle die Gruppe aus"));
+    	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
        }
+
+  
+
+	  public static ArrayList<Person> getPersonenAL()
+	  {
+	     return personenAL;
+	  }
+
+
+
+	  public void setPersonenAL(ArrayList<Person> personenAL)
+	  {
+	     this.personenAL = personenAL;
+	  }
        
-	  public static ArrayList<Gruppe> getGruppenAL()
-	  {
-	     return gruppenAL;
-	  }
-	  public static void setGruppenAL(ArrayList<Gruppe> gruppenAL)
-	  {
-	     FensterController.gruppenAL = gruppenAL;
-	  }
-
-
-
-
 
    }
+
+

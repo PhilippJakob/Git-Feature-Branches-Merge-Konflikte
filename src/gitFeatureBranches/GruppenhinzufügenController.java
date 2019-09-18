@@ -16,31 +16,31 @@ public class GruppenhinzufügenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
    @FXML
-   private Button btGruppenhinzufügen;
+   private Button btPersonhinzufügen;
    @FXML
-   private ChoiceBox<String> cbGruppe;
+   private ChoiceBox<String> cbPersonen;
    @FXML
    private TextField tfName;
    @FXML
    public void initialize()
    {
-	 cbGruppe.getItems().addAll(Gruppe.getGruppe()); 
-	 btGruppenhinzufügen.setOnAction(new EventHandler<ActionEvent>() {
+	 cbPersonen.getItems().addAll(Person.getPersonen()); 
+	 btPersonhinzufügen.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   hinzufügenGruppe(cbGruppe.getValue(), dbVerbindung.holenConnection());
+		   hinzufügenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
 	    }
    } );
    }
-   void hinzufügenGruppe(String pGruppe, Connection connection)
+   void hinzufügenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  
 	  try
 	  {
 		 lBefehl	= connection.createStatement();
-		 lBefehl.executeUpdate("INSERT INTO person where IDPerson ='"+pGruppe.substring(pGruppe.length() - 1) +"';");
+		 lBefehl.executeUpdate("INSERT INTO person where IDPerson ='"+pPerson.substring(pPerson.length() - 1) +"';");
 	  }
 	  catch (SQLException e)
 	  {

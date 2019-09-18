@@ -1,5 +1,6 @@
 package gitFeatureBranches;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
@@ -15,25 +16,25 @@ public class GruppenlöschenController
 {
    private static DBVerbindung dbVerbindung = new DBVerbindung();
    @FXML
-   private ChoiceBox<String> cbGruppe;
+   private ChoiceBox<String> cbPersonen;
    
    @FXML
-   private Button btGruppelöschen;
+   private Button btPersonlöschen;
    
    @FXML
    public void initialize()
    {
 	  
-	 cbGruppe.getItems().addAll(Gruppe.getGruppe());
-	 btGruppelöschen.setOnAction(new EventHandler<ActionEvent>() {
+	 cbPersonen.getItems().addAll(Person.getPersonen()); 
+	 btPersonlöschen.setOnAction(new EventHandler<ActionEvent>() {
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   löschenGruppe(cbGruppe.getValue(), DBVerbindung.holenConnection());
+		   löschenPerson(cbPersonen.getValue(), dbVerbindung.holenConnection());
 	    }
    } );
    }
-   public void löschenGruppe(String pGruppe, Connection connection)
+   public void löschenPerson(String pPerson, Connection connection)
    {
 	  Statement lBefehl;
 	  Statement lBefehl2;
@@ -42,7 +43,7 @@ public class GruppenlöschenController
 		 lBefehl 	= connection.createStatement();
 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2	= connection.createStatement();
-		 lBefehl2.executeUpdate("DELETE FROM gruppe where IDGruppe ='"+pGruppe.substring(pGruppe.length() - 1) +"';");
+		 lBefehl2.executeUpdate("DELETE FROM person where IDPerson ='"+pPerson.substring(pPerson.length() - 1) +"';");
 	  }
 	  catch (SQLException e)
 	  {
@@ -51,13 +52,3 @@ public class GruppenlöschenController
 	  }
 	 
    }
-   public static DBVerbindung getDbVerbindung()
-   {
-	  return dbVerbindung;
-   }
-   public static void setDbVerbindung(DBVerbindung dbVerbindung)
-   {
-	  GruppenlöschenController.dbVerbindung = dbVerbindung;
-   }
-}
-
