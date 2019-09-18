@@ -1,5 +1,7 @@
 package gitFeatureBranches;
 
+import java.util.ArrayList;
+
 import javax.mail.MessagingException;
 
 import javafx.fxml.FXML;
@@ -11,6 +13,9 @@ import javafx.scene.control.TextField;
 
 public class EmailController {
 
+   
+   private static ArrayList<Person> personenOEAL = new ArrayList<Person>();
+   
     @FXML
     private TextField tfBetreff;
 
@@ -54,6 +59,9 @@ public class EmailController {
  	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
 
     }
+    
+    
+    
     public void Versenden()
     {
 	  try
@@ -67,4 +75,27 @@ public class EmailController {
 	  }
 
     }
+    
+    public void ermittelnPersonen()
+    {
+       
+    }
+    
+    
+    
+    
+
+
+
+   public static ArrayList<Person> getPersonenOEAL()
+   {
+	  return personenOEAL;
+   }
+
+
+
+   public static void setPersonenOEAL(ArrayList<Person> personenOEAL)
+   {
+	  EmailController.personenOEAL = personenOEAL;
+   }
 }
