@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -50,7 +49,7 @@
             <Menu fx:id="mPersonen" mnemonicParsing="false" text="Personen">
               <items>
                   <MenuItem fx:id="mPersonhinzufügen" mnemonicParsing="false" text="Person hinzufügen" />
-                <MenuItem fx:id="mPersonenlöschen" mnemonicParsing="false" text="Action 1" />
+                <MenuItem fx:id="mPersonenlöschen" mnemonicParsing="false" text="Person löschen" />
               </items>
             </Menu>
             <Menu fx:id="mEmail" mnemonicParsing="false" text="Email">

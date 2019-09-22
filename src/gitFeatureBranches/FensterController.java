@@ -14,11 +14,11 @@ import java.util.Locale;
 
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -26,13 +26,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import jfxtras.scene.layout.VBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
    public class FensterController {
-	  
+	  static Termin Termin = new Termin();
+
+
+
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  private static ArrayList<Gruppe> gruppenAL = new ArrayList<Gruppe>();
@@ -91,6 +95,12 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
+    	  if (dbVerbindung.verbinden("127.0.0.1", "dbpr_termin", "root", "localhost")== false)
+    	  {
+    		 System.out.println("1");
+    		return;
+    	  }
+    	  auslesenTermine();
     	  mZusatzinfos.setOnAction(new EventHandler<ActionEvent>(){
  		    @Override
  		    public void handle(ActionEvent event)
@@ -170,10 +180,7 @@ import javafx.scene.control.MenuItem;
                    .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
            ;
        agKalender.appointments().addAll(lAppointment);
-    	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
-    	  {
-    		return;
-    	  }
+
     	  setGruppenAL(Gruppe.auslesenDB(dbVerbindung.holenConnection()));
     	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(dbVerbindung.holenConnection()));
     	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
@@ -196,12 +203,7 @@ import javafx.scene.control.MenuItem;
 		    	  	
 				       bühnePersonenlöschen.setScene(lScene);
 				       bühnePersonenlöschen.show();     
-				       System.out.println(lAppointment.getAppointmentGroup().getStyleClass());
-				       lAppointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5"));
-				       System.out.println(lAppointment.getAppointmentGroup().getStyleClass());
-				       agKalender.refresh();
-			            
-			   }
+		       }
 			   catch (IOException e)
 			   {
 				  // TODO Automatisch generierter Erfassungsblock
@@ -314,12 +316,12 @@ import javafx.scene.control.MenuItem;
 	  @FXML
 	  public void Termin()
 	  {
-		 
-		 Termin termin = new Termin();
-		 LocalDateTime lTagVon = termin.getTerminDatumVon();
-		 LocalDateTime lTagBis = termin.getTerminDatumBis();
+		 Termin termin = getTermin();
+		 LocalDateTime lTagVon = LocalDateTime.of(termin.getTerminDatumVon(), termin.getTerminZeit());
+		 LocalDateTime lTagBis = LocalDateTime.of(termin.getTerminDatumBis(), termin.getTerminZeitBis());
 		 String lBeschreibung = termin.getTerminInfo();
 		 String lRaum = Integer.toString(termin.getTerminRaum());
+		  
 		 if(lTagVon==null||lBeschreibung==null)
 		 {
 			bühne.close();
@@ -332,7 +334,8 @@ import javafx.scene.control.MenuItem;
 	                   .withEndLocalDateTime(lTagBis)
 	                   .withDescription(lBeschreibung)
 	                   .withLocation(lRaum)
-	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")));
+	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")));
+		 	termin.übergebenInDB(DBVerbindung.holenConnection());
 		 }
 }
 	   @FXML
@@ -343,8 +346,10 @@ import javafx.scene.control.MenuItem;
 //        KalenderController lTermin = new KalenderController();
         ArrayList<Termin> lTerminListe = Termin.auslesenTermine(DBVerbindung.holenConnection(), 1);
         
-        for(Termin lTermin:lTerminListe)
+        for(int i = 0; i<lTerminListe.size();i++)
         {
+           Termin lTermin = lTerminListe.get(i);
+           System.out.println(lTerminListe.get(i).getTerminDatumVon());
          int lSYear = lTermin.getTerminDatumVon().getYear();
          int lSMonth =lTermin.getTerminDatumVon().getMonthValue();
          int lSDay = lTermin.getTerminDatumVon().getDayOfMonth();
@@ -356,16 +361,17 @@ import javafx.scene.control.MenuItem;
          int lEDay = lTermin.getTerminDatumBis().getDayOfMonth();
          int lEHour = lTermin.getTerminZeitBis().getHour();
          int lEMinute = lTermin.getTerminZeitBis().getMinute();
-         //asdsda
-         String lTerminInfo = lTerminListe.get(0).getTerminInfo();
+         String lTerminInfo = lTerminListe.get(i).getTerminInfo();
         agKalender.appointments().addAll(
                    new Agenda.AppointmentImplLocal()
                        .withStartLocalDateTime(LocalDateTime.of(lSYear, lSMonth, lSDay, lSHour, lSMinute))
                        .withEndLocalDateTime(LocalDateTime.of(lEYear, lEMonth,lEDay, lEHour, lEMinute))
                        .withDescription(lTerminInfo)
                        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+                   
         );
         }
+       }
 
 	  public Agenda getAgKalender()
 	  {
@@ -389,7 +395,14 @@ import javafx.scene.control.MenuItem;
 	  {
 	     this.bühne = bühne;
 	  }
-
+	  public Termin getTermin()
+	  {
+	     return Termin;
+	  }
+	  public static void setTermin(Termin termin)
+	  {
+	     Termin = termin;
+	  }
 
        
      

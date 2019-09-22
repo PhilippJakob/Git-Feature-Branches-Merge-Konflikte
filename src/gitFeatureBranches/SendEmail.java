@@ -19,8 +19,8 @@ public class SendEmail {
 	static MimeMessage generateMailMessage;
  
 	public static void main(String args[]) throws AddressException, MessagingException {
-	//	generateAndSendEmail();
-	//	System.out.println("\n\n ===> Deine Email wurde erfolgreich verschickt.");
+	   	generateAndSendEmail("A","a","a","a","a","a");
+		
 	}
  
 	public static void generateAndSendEmail(String Betreff, String Sender, String Empfänger,String Text, String Gruppen, String Einheiten) throws AddressException, MessagingException {
@@ -37,7 +37,7 @@ public class SendEmail {
 		System.out.println("\n\n 2nd ===> Mail-Sitzung erhalten.");
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
-		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("freexplays01@gmail.com"));
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("lollo2599@gmail.com"));
 //		generateMailMessage.addRecipient(Message.RecipientType.CC, new InternetAddress("freexplays01@gmail.com"));
 		generateMailMessage.setSubject(Betreff);
 		String emailBody = Text;
@@ -50,8 +50,9 @@ public class SendEmail {
  
 		// Enter your correct gmail UserID and Password
 		// if you have 2FA enabled then provide App Specific Password
-		transport.connect("smtp.gmail.com", "musterversan@gmail.com", "MaxMuster_1");
+		transport.connect("smtp.gmail.com", "lollo25782@gmail.com", "");
 		transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
 		transport.close();
+		System.out.println("\n\n ===> Deine Email wurde erfolgreich verschickt.");
 	}
 }

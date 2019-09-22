@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -52,13 +51,24 @@ public class TerminController {
     private CheckBox ckPrivat;
 
 
-
+    Stage stage;
     @FXML
     void initialize()
     {
-       
+    
+       btBestätigen.setOnAction(event ->
+       {
+    	  erstellenTermin(event);
+    	  stage = (Stage) btBestätigen.getScene().getWindow();
+    	  FensterController.setTermin(termin);
+               stage.fireEvent(
+                       new WindowEvent(
+                               stage,
+                               WindowEvent.WINDOW_CLOSE_REQUEST
+                       )
+               );
+       } );
     }
-    @SuppressWarnings("static-access")
    @FXML
     void erstellenTermin(ActionEvent event) 
     {
@@ -69,11 +79,12 @@ public class TerminController {
        }
        else
        {
-    	  
-       termin.setTerminInfo(getTfBeschreibung().getText());
-       termin.setTerminDatumVon(getLdttfVon().getLocalDateTime());
-       termin.setTerminDatumBis(getLdttfBis().getLocalDateTime());
-       termin.setTerminRaum(Integer.parseInt(getTfRaumnummer().getText()));
+    	  termin.setTerminInfo(getTfBeschreibung().getText());
+    	  termin.setTerminDatumVon(getLdttfVon().getLocalDateTime().toLocalDate());
+    	  termin.setTerminDatumBis(getLdttfBis().getLocalDateTime().toLocalDate());
+    	  termin.setTerminZeit(getLdttfVon().getLocalDateTime().toLocalTime());
+    	  termin.setTerminZeitBis(getLdttfBis().getLocalDateTime().toLocalTime());
+    	  termin.setTerminRaum(Integer.parseInt(getTfRaumnummer().getText()));
        if(getCkPrivat().isSelected())
        {
     	  termin.setTerminPrivat(1);
@@ -82,14 +93,6 @@ public class TerminController {
        {
     	  termin.setTerminPrivat(0);
        }
-       
-       
-       if (btBestätigen.onActionProperty() != null)
-		{
-		   termin.übergebenInDB(DBVerbindung.holenConnection());
-		   schließen();
-		   
-		}
        }
     }
 
@@ -98,22 +101,6 @@ public class TerminController {
     {
        Stage stage = (Stage) btzurück.getScene().getWindow();
     	stage.close();  
-    }
-    @FXML
-    void schließen()
-    {
-       Stage stage = (Stage) btBestätigen.getScene().getWindow();
-
-
-       
-       btBestätigen.setOnAction(event ->
-               stage.fireEvent(
-                       new WindowEvent(
-                               stage,
-                               WindowEvent.WINDOW_CLOSE_REQUEST
-                       )
-               )
-       );
     }
   
    public TextArea getTfBeschreibung()

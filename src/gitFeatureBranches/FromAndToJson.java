@@ -48,10 +48,10 @@ public class FromAndToJson
 	{LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		termine.setTerminID(1);
 		termine.setTerminPersonID(1);
-//		termine.setTerminStartDatum(LocalDate.parse("2019-11-12" ));
-//		termine.setTerminEndeDatum(LocalDate.parse("2019-11-11"));
-//	termine.setTerminZeit(LocalTime.parse("10:10:10"));
-//		termine.setTerminZeitBis(LocalTime.parse("10:10:10"));
+		termine.setTerminDatumVon(LocalDate.parse("2019-11-12" ));
+		termine.setTerminDatumBis(LocalDate.parse("2019-11-11"));
+		termine.setTerminZeit(LocalTime.parse("10:10:10"));
+		termine.setTerminZeitBis(LocalTime.parse("10:10:10"));
 		termine.setTerminRaum(3);
 		termine.setTerminInfo("BeispielInfo");
 		termine.setTerminPrivat(0);
@@ -65,7 +65,7 @@ public class FromAndToJson
         String terminJson = jsonStr;
     	Gson gson = new Gson();
     	Termin termin =	gson.fromJson(terminJson, Termin.class);
-        System.out.println(termin);
+        System.out.println(termin.getTerminDatumVon());
     	return termin;
     }
  

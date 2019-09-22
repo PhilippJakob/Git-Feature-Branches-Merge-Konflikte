@@ -1,6 +1,9 @@
 
 package gitFeatureBranches;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,8 +29,7 @@ public class PopupController {
    private static Appointment appointment;
    private static Agenda agkalender;
 //   public static Stage stage;
-   
-   
+  
 
    @FXML
     private LocalDateTimeTextField bistimedate;
@@ -58,8 +60,8 @@ public class PopupController {
     @FXML
     public void Terminlöschen(ActionEvent event) {
 
-      getAgkalender().appointments().remove(getAppointment());
-       
+       getAgkalender().appointments().remove(getAppointment());
+       löschenAusDB(DBVerbindung.holenConnection());
     }
     @FXML
     public void änderungspeichern(ActionEvent event) {
@@ -177,7 +179,25 @@ public class PopupController {
        
       
     }
-    
+    public void löschenAusDB(Connection connection)
+    {
+ 	  Statement lBefehl;
+ 	  Appointment lAppointment = getAppointment();
+ 	  Statement lBefehl2;
+ 	  try
+ 	  {
+ 		 lBefehl 	= connection.createStatement();
+ 		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
+ 		 lBefehl2	= connection.createStatement();
+ 		 lBefehl2.executeUpdate("DELETE FROM termin where InfoTermin ='"+ getAppointment().getDescription() +"' AND  StartDatum= '"+getAppointment().getStartLocalDateTime().toLocalDate()+"' AND EndDatum= '"+getAppointment().getEndLocalDateTime().toLocalDate()+"';");
+ 	  }
+ 	  catch (SQLException e)
+ 	  {
+ 		 // TODO Automatisch generierter Erfassungsblock
+ 		e.printStackTrace();
+ 	  }
+ 	 
+    }
     
     @FXML  
     public void initialize()

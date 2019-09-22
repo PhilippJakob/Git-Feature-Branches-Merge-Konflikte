@@ -11,56 +11,63 @@ import java.sql.*;
 public class Termin
 {
    
-	  private static int terminID;
-	  private static int terminPersonID;
-	  private static LocalDateTime terminDatumVon;
-	  private static LocalDateTime terminDatumBis;
-	  private static LocalDateTime terminZeit;
-	  private static LocalDateTime terminZeitBis;
-	  private static int terminRaum;
-	  private static String terminInfo;
-	  private static int terminPrivat;
-	  private static String terminPrivatInfo;
-	  private static String terminFarbe;
-	 
-	  
-   
-   
-   
-   private static final DBVerbindung dbVerbindung = new DBVerbindung();
+	  public Termin(int terminID, LocalDate terminDatumVon, LocalDate terminDatumBis,
+			LocalTime terminZeit, LocalTime terminZeitBis, int terminRaum, String terminInfo, int terminPrivat,
+			String terminPrivatInfo, String terminFarbe)
+   {
+	  super();
+	  this.terminID = terminID;
+	  this.terminDatumVon = terminDatumVon;
+	  this.terminDatumBis = terminDatumBis;
+	  this.terminZeit = terminZeit;
+	  this.terminZeitBis = terminZeitBis;
+	  this.terminRaum = terminRaum;
+	  this.terminInfo = terminInfo;
+	  this.terminPrivat = terminPrivat;
+	  this.terminPrivatInfo = terminPrivatInfo;
+	  this.terminFarbe = terminFarbe;
+   }
+	  public Termin()
+	   {
+		
+	   }
+	  private  int terminID;
+	  private  int terminPersonID;
+	  private  LocalDate terminDatumVon;
+	  private  LocalDate terminDatumBis;
+	  private  LocalTime terminZeit;
+	  private  LocalTime terminZeitBis;
+	  private  int terminRaum;
+	  private  String terminInfo;
+	  private  int terminPrivat;
+	  private  String terminPrivatInfo;
+	  private  String terminFarbe;
+	  static final DBVerbindung dbVerbindung = new DBVerbindung();
 	  int lIdPerson;
-	  static ArrayList<Termin> lTerminAL = new ArrayList<Termin>();
-   
-	
    public static ArrayList <Termin> auslesenTermine(Connection pConnection, int pIdPerson)
     {
+	  ArrayList<Termin> lTerminAL = new ArrayList<Termin>();
 	  int lIdPerson = pIdPerson;
-	  Termin lTermin = new Termin();
+	  
 	  Statement lBefehl;
 	  ResultSet lErgebnis;
 	  try
 	  
 	     {
 	    	lBefehl=pConnection.createStatement();
-	        lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin WHERE IDPerson=" + pIdPerson);
+	        lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin");
 	        lErgebnis.first();
-	        
+
 	        while(!lErgebnis.isAfterLast())
 	        {
+	           Termin lTermin = new Termin(lErgebnis.getInt(1),lErgebnis.getDate(2).toLocalDate(),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getTime(4).toLocalTime(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getInt(8),lErgebnis.getString(6),lErgebnis.getInt(9),lErgebnis.getString(10),lErgebnis.getString(11));
    	             lTermin.setTerminID(lErgebnis.getInt(1));
-   	             lTermin.setTerminPersonID(pIdPerson);
-   	           //  lTermin.setTerminDatumVon((lErgebnis.getDate(3).toLocalDate()));
-   	          // lTermin.setTerminZeit((lErgebnis.getTime(4)).toLocalTime());
-   	          // lTermin.setTerminZeitBis((lErgebnis.getTime(5)).toLocalTime());
-   	             lTermin.setTerminRaum(lErgebnis.getInt(6));
-   	             lTermin.setTerminInfo(lErgebnis.getString(7));
-   	             lTermin.setTerminPrivat(lErgebnis.getInt(8));
-   	             lTermin.setTerminPrivatInfo(lErgebnis.getString(9));
-   	             lTermin.setTerminFarbe(lErgebnis.getString(11));
+   	    //         lTermin.setTerminPersonID(pIdPerson);
+   	     //        lTermin.setTerminPrivatInfo();
+   	             	//      lTermin.setTerminFarbe();
    	             lTerminAL.add(lTermin);
-   	             lErgebnis.next();
-   	             
-   	             
+   	        
+   	             lErgebnis.next();   	             
 	        }
 		
 	      
@@ -72,30 +79,29 @@ public class Termin
 		     e.printStackTrace();
 	    
 	     }
-
 	     return lTerminAL;
    }
    public void übergebenInDB(Connection connection)
    {
 	 
      int size = ermittelnReihen(connection);
-  	
+  		System.out.println(getTerminDatumVon());
+  		System.out.println(Date.valueOf(getTerminDatumVon()));
 		 try
 		 {
 			{
-			   
-			 
 			String insertSQL = "Insert into termin(IDTermin, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID,Raum,Privat) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setLong(1, size);
-			preparedStatement.setDate(2, Date.valueOf(terminDatumVon.toLocalDate()));
-			preparedStatement.setDate(3, Date.valueOf(terminDatumBis.toLocalDate()));
-			preparedStatement.setTime(4, Time.valueOf(terminDatumVon.toLocalTime()));
-			preparedStatement.setTime(5,  Time.valueOf(terminDatumBis.toLocalTime()));
+			preparedStatement.setDate(2, Date.valueOf(getTerminDatumVon().plusDays(1)));
+			preparedStatement.setDate(3, Date.valueOf(getTerminDatumBis().plusDays(1)));
+			preparedStatement.setTime(4, Time.valueOf(getTerminZeit()));
+			preparedStatement.setTime(5,  Time.valueOf(getTerminZeitBis()));
 			preparedStatement.setString(6, getTerminInfo());
 			preparedStatement.setString(7, "1");
 			preparedStatement.setInt(8, getTerminRaum());
 			preparedStatement.setInt(9, getTerminPrivat());
+			
 			preparedStatement.executeUpdate();
 			}
 		 }
@@ -142,7 +148,7 @@ public class Termin
    }
 
 
-   public void setTerminID(int terminID)
+   public  void setTerminID(int terminID)
    {
       this.terminID = terminID;
    }
@@ -224,45 +230,37 @@ public class Termin
 
   
    
-   public static ArrayList<Termin> getlTerminAL()
-   {
-      return lTerminAL;
-   }
-   public static void setlTerminAL(ArrayList<Termin> lTerminAL)
-   {
-      Termin.lTerminAL = lTerminAL;
-   }
-   public static LocalDateTime getTerminDatumVon()
+   public  LocalDate getTerminDatumVon()
    {
       return terminDatumVon;
    }
-   public static void setTerminDatumVon(LocalDateTime terminDatumVon)
+   public  void setTerminDatumVon(LocalDate localDate)
    {
-      Termin.terminDatumVon = terminDatumVon;
+      terminDatumVon = localDate;
    }
-   public static LocalDateTime getTerminDatumBis()
+   public  LocalDate getTerminDatumBis()
    {
       return terminDatumBis;
    }
-   public static void setTerminDatumBis(LocalDateTime terminDatumBis)
+   public  void setTerminDatumBis(LocalDate TerminDatumBis)
    {
-      Termin.terminDatumBis = terminDatumBis;
+      terminDatumBis = TerminDatumBis;
    }
-   public static LocalDateTime getTerminZeit()
+   public  LocalTime getTerminZeit()
    {
       return terminZeit;
    }
-   public static void setTerminZeit(LocalDateTime terminZeit)
+   public  void setTerminZeit(LocalTime TerminZeit)
    {
-      Termin.terminZeit = terminZeit;
+      terminZeit = TerminZeit;
    }
-   public static LocalDateTime getTerminZeitBis()
+   public  LocalTime getTerminZeitBis()
    {
       return terminZeitBis;
    }
-   public static void setTerminZeitBis(LocalDateTime terminZeitBis)
+   public  void setTerminZeitBis(LocalTime TerminZeitBis)
    {
-      Termin.terminZeitBis = terminZeitBis;
+      terminZeitBis = TerminZeitBis;
    }
   
    }

@@ -1,8 +1,6 @@
 package gitFeatureBranches;
 	
 import java.io.IOException;
-
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -29,7 +27,6 @@ public class Main extends Application {
 
        lLoader.setLocation(Main.class.getResource("Main.fxml"));
        grundPane = lLoader.load();
-
        Scene lScene = new Scene(grundPane);
        bühne.setScene(lScene);
        bühne.show();
