@@ -11,15 +11,15 @@ public class Organisationseinheit
    String Name;
    int ID;
    int Über;
-   String Stelle;
+   ArrayList Stellen;
    
-   public Organisationseinheit(String name, int iD,int über,String stelle)
+   public Organisationseinheit(String name, int iD,int über,ArrayList stellen)
    {
 	  super();
 	  Name = name;
 	  ID = iD;
 	  Über = über;
-	  Stelle = stelle;
+	  Stellen = stellen;
    }
    //Liest DB aus und füllt AL
    public static ArrayList<Organisationseinheit> auslesenDB(Connection pConnection)
@@ -37,7 +37,7 @@ public class Organisationseinheit
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3),lErgebnis.getString(4));
+	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3),(ArrayList) lErgebnis.getArray(4));
 			   lOrganisationseinheitAL.add(lOrganisationseinheit);
 	           lErgebnis.next();
 	         }
@@ -64,6 +64,7 @@ public class Organisationseinheit
 	  }
 	  return(lOrganisationseinheiten);
    }
+  
    //Holt höchste ID
    public static String getLetzteOrganisationseinheit()
    {
@@ -73,7 +74,16 @@ public class Organisationseinheit
 	  lOrganisationseinheit = lOrganisationseinheitenAL.get(lOrganisationseinheitenAL.size()-1);
 	  return(lOrganisationseinheit);
    }
- 
+ public static ArrayList<Stelle> getStellen()
+ {
+	
+   ArrayList<Stelle> lStellen = new ArrayList<Stelle>();
+   ArrayList<Stelle> lStelleAL = new ArrayList<Stelle>();
+   lStelleAL = getStellen();
+   Stelle lStelle = lStelleAL.get(lStelleAL.size()-1);
+   return (lStellen);
+	
+ }
    
    
    
@@ -85,14 +95,7 @@ public class Organisationseinheit
    {
       Über = über;
    }
-   public String getStelle()
-   {
-      return Stelle;
-   }
-   public void setStelle(String stelle)
-   {
-      Stelle = stelle;
-   }
+  
    public String getName()
    {
       return Name;
@@ -108,5 +111,9 @@ public class Organisationseinheit
    public void setID(int iD)
    {
       ID = iD;
+   }
+   public void setStellen(ArrayList stellen)
+   {
+      Stellen = stellen;
    }
 }
