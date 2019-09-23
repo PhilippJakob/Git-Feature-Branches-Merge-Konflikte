@@ -95,7 +95,7 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
-    	  if (dbVerbindung.verbinden("127.0.0.1", "dbpr_termin", "root", "localhost")== false)
+    	  if (dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer")== false)
     	  {
     		 System.out.println("1");
     		return;
@@ -349,7 +349,6 @@ import javafx.scene.control.MenuItem;
         for(int i = 0; i<lTerminListe.size();i++)
         {
            Termin lTermin = lTerminListe.get(i);
-           System.out.println(lTerminListe.get(i).getTerminDatumVon());
          int lSYear = lTermin.getTerminDatumVon().getYear();
          int lSMonth =lTermin.getTerminDatumVon().getMonthValue();
          int lSDay = lTermin.getTerminDatumVon().getDayOfMonth();

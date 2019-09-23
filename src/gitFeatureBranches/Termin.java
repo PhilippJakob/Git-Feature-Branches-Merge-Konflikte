@@ -60,7 +60,7 @@ public class Termin
 
 	        while(!lErgebnis.isAfterLast())
 	        {
-	           Termin lTermin = new Termin(lErgebnis.getInt(1),lErgebnis.getDate(2).toLocalDate(),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getTime(4).toLocalTime(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getInt(8),lErgebnis.getString(6),lErgebnis.getInt(9),lErgebnis.getString(10),lErgebnis.getString(11));
+	           Termin lTermin = new Termin(lErgebnis.getInt(1),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getDate(4).toLocalDate(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getTime(6).toLocalTime(),lErgebnis.getInt(7),lErgebnis.getString(8),lErgebnis.getInt(10),lErgebnis.getString(11),lErgebnis.getString(13));
    	             lTermin.setTerminID(lErgebnis.getInt(1));
    	    //         lTermin.setTerminPersonID(pIdPerson);
    	     //        lTermin.setTerminPrivatInfo();
@@ -93,8 +93,8 @@ public class Termin
 			String insertSQL = "Insert into termin(IDTermin, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, InfoTermin,OEID,Raum,Privat) values (?,?,?,?,?,?,?,?,?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
 			preparedStatement.setLong(1, size);
-			preparedStatement.setDate(2, Date.valueOf(getTerminDatumVon().plusDays(1)));
-			preparedStatement.setDate(3, Date.valueOf(getTerminDatumBis().plusDays(1)));
+			preparedStatement.setDate(2, Date.valueOf(getTerminDatumVon()));
+			preparedStatement.setDate(3, Date.valueOf(getTerminDatumBis()));
 			preparedStatement.setTime(4, Time.valueOf(getTerminZeit()));
 			preparedStatement.setTime(5,  Time.valueOf(getTerminZeitBis()));
 			preparedStatement.setString(6, getTerminInfo());
