@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="497.0" prefWidth="348.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminPaket.TerminController">
+   <children>
+      <Text layoutX="86.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Termin erstellen">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="dpDatum" layoutX="160.0" layoutY="85.0" />
+      <TextField fx:id="tfUhrzeitVon" layoutX="160.0" layoutY="142.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField fx:id="tfUhrzeitBis" layoutX="160.0" layoutY="199.0" prefHeight="25.0" prefWidth="174.0" />
+      <Text layoutX="14.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" />
+      <Text layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uhrzeit von:" />
+      <Text layoutX="16.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Uhrzeit bis:" />
+      <Text layoutX="16.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Beschreibung:" />
+      <Button fx:id="btBestätigen" layoutX="75.0" layoutY="423.0" mnemonicParsing="false" onAction="#erstellenTermin" text="Bestätigen" />
+      <Button fx:id="btzurück" layoutX="224.0" layoutY="423.0" mnemonicParsing="false" onAction="#zurück" text="Zurück" />
+      <TextArea fx:id="tfBeschreibung" layoutX="160.0" layoutY="255.0" prefHeight="125.0" prefWidth="174.0" />
+   </children>
+</AnchorPane>

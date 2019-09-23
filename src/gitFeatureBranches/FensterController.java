@@ -8,7 +8,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
+
+import com.sun.xml.internal.bind.v2.model.core.Element;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,15 +32,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 import jfxtras.scene.layout.VBox;
+import terminPaket.Termin;
 import javafx.scene.control.MenuBar;
 
 import javafx.scene.control.MenuItem;
    public class FensterController {
 	  
-
+	 
 	  private static DBVerbindung dbVerbindung = new DBVerbindung();
+	  private static ArrayList<Termin> termineAL = new ArrayList<Termin>();
 	  private static ArrayList<Person> personenAL = new ArrayList<Person>();
 	  private static ArrayList<Gruppe> gruppenAL = new ArrayList<Gruppe>();
 	  private static ArrayList<Organisationseinheit> organisationseinheitAL = new ArrayList<Organisationseinheit>();
@@ -81,6 +89,7 @@ import javafx.scene.control.MenuItem;
        @FXML
        public void initialize()
        {
+    	
     	 AgendaSkinSwitcher skin = new AgendaSkinSwitcher(agKalendar);
     	  vbAgenda.getChildren().clear();
     	  vbAgenda.getChildren().addAll(skin,agKalendar);
@@ -138,7 +147,7 @@ import javafx.scene.control.MenuItem;
     				  e.printStackTrace();
     			   }
     		    }
-    		 });
+    		});
     	  bühnePersonenhinzufügen.setOnCloseRequest(event->{
     		 aktualisieren();
     	  });
@@ -150,11 +159,21 @@ import javafx.scene.control.MenuItem;
 			@Override
 			public void handle(ActionEvent event)
 			{
-			   filtern();
+			  
 			}
     		 
     	  });
     	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
+    	  cbGruppen.setOnAction(new  EventHandler<ActionEvent>(){
+
+ 			@Override
+ 			public void handle(ActionEvent event)
+ 			{
+ 			  filternTerminGruppen();
+ 			}
+     		 
+     	  });
+    	  
        }
       //Aktualisiert Choiceboxen
       public void aktualisieren()
@@ -163,14 +182,57 @@ import javafx.scene.control.MenuItem;
     	 setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
     	 cbPersonauswahl.getItems().addAll(Person.getPersonen());
       }
+      
+      public void filternTerminGruppen()
+      {
+    	String lNameNummer=cbGruppen.getValue();
+    	String[] tokens;
+    	tokens = lNameNummer.split(" ");
+    	int lGruppenID = Integer.parseInt(tokens[tokens.length-1]);
+    	
+    	Gruppe lGruppe = new Gruppe(lGruppenID, null);
+ 
+    	
+    	setTermineAL(lGruppe.sortierenTermin(dbVerbindung.holenConnection()));
+    	agKalendar.appointments().removeAll(agKalendar.appointments());
+    	for (int i = 0; i <= getTermineAL().size()-1; i++)
+	  {
+    	   
+    	   Termin lTermin = new Termin();
+    	   lTermin = getTermineAL().get(i);
+    	   LocalDateTime lStartpunkt= lTermin.getTerminDatum();
+    	   LocalDateTime lEndpunkt= lTermin.getTerminDatumEnde();
+    	   String lBeschreibung = lTermin.getTerminInfo();
+    	   agKalendar.appointments().addAll(
+ 	               new Agenda.AppointmentImplLocal() 
+ 	                   .withStartLocalDateTime(lStartpunkt)
+ 	                   .withEndLocalDateTime(lEndpunkt)
+ 	                   .withDescription(lBeschreibung)
+	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")));
+    	   
+
+
+	  }
+    	
+    	
+    	
+      }
 
 	  public static ArrayList<Person> getPersonenAL()
 	  {
 	     return personenAL;
 	  }
-
-
-
+	  
+	  
+	  
+	  public static ArrayList<Termin> getTermineAL()
+	  {
+	     return termineAL;
+	  }
+	  public static void setTermineAL(ArrayList<Termin> termineAL)
+	  {
+	     FensterController.termineAL = termineAL;
+	  }
 	  public void setPersonenAL(ArrayList<Person> personenAL)
 	  {
 	     this.personenAL = personenAL;

@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 public class Gruppenzugehörigkeit
 {
-   int IDGruppe;
+   String Bezeichnung;
+   int ID;
    public Gruppenzugehörigkeit(int iDGruppe)
    {
 	  super();
-	  IDGruppe = iDGruppe;
+	  ID = iDGruppe;
    }
    public static ArrayList<Gruppe> auslesenDB(Connection pConnection,String pPerson)
    {
@@ -23,7 +24,8 @@ public class Gruppenzugehörigkeit
      tokens = pPerson.split(" ");
      try {
      lBefehl 	= pConnection.createStatement();
-     lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g where IDGruppe = ANY(SELECT IDGruppe from gruppenzugehörigkeit where IDPerson = " + + ";");
+     int PersonenID =Integer.parseInt(tokens[tokens.length-1]);
+     lErgebnis = lBefehl.executeQuery("SELECT IDGruppe,Bezeichnung FROM gruppe g where IDGruppe = ANY(SELECT IDGruppe from gruppenzugehörigkeit where IDPerson = " +PersonenID+ ";");
      lErgebnis.first(); 
 
      while(!lErgebnis.isAfterLast())   
