@@ -1,6 +1,6 @@
 package terminPaket;
 	
-import org.jfree.chart.title.Title;
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

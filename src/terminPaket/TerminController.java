@@ -58,8 +58,7 @@ public class TerminController {
     {
        
     }
-    @SuppressWarnings("static-access")
-   @FXML
+    @FXML
     void erstellenTermin(ActionEvent event) 
     {
        if(getTfBeschreibung().getText().isEmpty())

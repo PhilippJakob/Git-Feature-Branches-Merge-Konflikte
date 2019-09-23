@@ -207,12 +207,12 @@ import sun.security.action.GetBooleanAction;
     	  ArrayList<Termin> lTerminListe = Termin.auslesenTermine(Datenbankverbindung.getConnection(), 2);
     	  agKalender.appointments().addAll(
                    new Agenda.AppointmentImplLocal()
-                       .withStartLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumVon().getYear(),lTerminListe.get(0).getTerminDatumVon().getMonth(),lTerminListe.get(0).getTerminDatumVon().getDayOfMonth(),lTerminListe.get(0).getTerminZeit().getHour(),lTerminListe.get(0).getTerminZeit().getMinute(),lTerminListe.get(0).getTerminZeit().getSecond()))
+             //          .withStartLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumVon().getYear(),lTerminListe.get(0).getTerminDatumVon().getMonth(),lTerminListe.get(0).getTerminDatumVon().getDayOfMonth(),lTerminListe.get(0).getTerminZeit().getHour(),lTerminListe.get(0).getTerminZeit().getMinute(),lTerminListe.get(0).getTerminZeit().getSecond()))
                     			
                     			//LocalDate.of(lTerminListe.get(0).getTerminDatum()).atTime(lTerminListe.get(0).getTerminZeit()))
-                       .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumBis().getYear(),lTerminListe.get(0).getTerminDatumBis().getMonth(),lTerminListe.get(0).getTerminDatumBis().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
-                       .withDescription("It's time")
-                       .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
+             //          .withEndLocalDateTime(LocalDateTime.of(lTerminListe.get(0).getTerminDatumBis().getYear(),lTerminListe.get(0).getTerminDatumBis().getMonth(),lTerminListe.get(0).getTerminDatumBis().getDayOfMonth(),lTerminListe.get(0).getTerminZeitBis().getHour(),lTerminListe.get(0).getTerminZeitBis().getMinute(),lTerminListe.get(0).getTerminZeitBis().getSecond()))  //LocalDate.now().atTime(15, 30))
+              //         .withDescription("It's time")
+               //        .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you should use a map of AppointmentGroups
                );
     	  
     	  

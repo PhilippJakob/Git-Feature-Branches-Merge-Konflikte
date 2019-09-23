@@ -12,17 +12,15 @@ import java.sql.*;
 public class Termin
 {
    
-	  private static int terminID;
-	  private static int terminPersonID;
-	  private static LocalDateTime terminDatumVon;
-	  private static LocalDateTime terminDatumBis;
-	  private static LocalDateTime terminZeit;
-	  private static LocalDateTime terminZeitBis;
-	  private static int terminRaum;
-	  private static String terminInfo;
-	  private static int terminPrivat;
-	  private static String terminPrivatInfo;
-	  private static String terminFarbe;
+	  private  int terminID;
+	  private  int terminPersonID;
+	  private  LocalDateTime terminDatumVon;
+	  private  LocalDateTime terminDatumBis;
+	  private  int terminRaum;
+	  private  String terminInfo;
+	  private  int terminPrivat;
+	  private  String terminPrivatInfo;
+	  private  String terminFarbe;
 	 
 	  
    
@@ -33,6 +31,7 @@ public class Termin
 	  static ArrayList<Termin> lTerminAL = new ArrayList<Termin>();
    
 	
+
    public static ArrayList <Termin> auslesenTermine(Connection pConnection, int pIdPerson)
     {
 	  int lIdPerson = pIdPerson;
@@ -50,9 +49,8 @@ public class Termin
 	        {
    	             lTermin.setTerminID(lErgebnis.getInt(1));
    	             lTermin.setTerminPersonID(pIdPerson);
-   	           //  lTermin.setTerminDatumVon((lErgebnis.getDate(3).toLocalDate()));
-   	          // lTermin.setTerminZeit((lErgebnis.getTime(4)).toLocalTime());
-   	          // lTermin.setTerminZeitBis((lErgebnis.getTime(5)).toLocalTime());
+   	             lTermin.setTerminDatumVon(LocalDateTime.of(lErgebnis.getDate(3).toLocalDate(),lErgebnis.getTime(5).toLocalTime()));
+   	             lTermin.setTerminDatumBis(LocalDateTime.of(lErgebnis.getDate(4).toLocalDate(),lErgebnis.getTime(6).toLocalTime()));
    	             lTermin.setTerminRaum(lErgebnis.getInt(6));
    	             lTermin.setTerminInfo(lErgebnis.getString(7));
    	             lTermin.setTerminPrivat(lErgebnis.getInt(8));
@@ -233,39 +231,23 @@ public class Termin
    {
       Termin.lTerminAL = lTerminAL;
    }
-   public static LocalDateTime getTerminDatumVon()
+   public LocalDateTime getTerminDatumVon()
    {
       return terminDatumVon;
    }
-   public static void setTerminDatumVon(LocalDateTime terminDatumVon)
+   public void setTerminDatumVon(LocalDateTime terminDatumVon)
    {
-      Termin.terminDatumVon = terminDatumVon;
+      this.terminDatumVon = terminDatumVon;
    }
-   public static LocalDateTime getTerminDatumBis()
+   public LocalDateTime getTerminDatumBis()
    {
       return terminDatumBis;
    }
-   public static void setTerminDatumBis(LocalDateTime terminDatumBis)
+   public void setTerminDatumBis(LocalDateTime terminDatumBis)
    {
-      Termin.terminDatumBis = terminDatumBis;
+      this.terminDatumBis = terminDatumBis;
    }
-   public static LocalDateTime getTerminZeit()
-   {
-      return terminZeit;
-   }
-   public static void setTerminZeit(LocalDateTime terminZeit)
-   {
-      Termin.terminZeit = terminZeit;
-   }
-   public static LocalDateTime getTerminZeitBis()
-   {
-      return terminZeitBis;
-   }
-   public static void setTerminZeitBis(LocalDateTime terminZeitBis)
-   {
-      Termin.terminZeitBis = terminZeitBis;
-   }
-  
+ 
    }
 
 
