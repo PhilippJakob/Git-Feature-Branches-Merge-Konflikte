@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import jfxtras.scene.control.agenda.AgendaSkinSwitcher;
 
 public class OEController
 {
@@ -23,12 +24,17 @@ public class OEController
 
    @FXML
    private TextField tfName;
+   
+   @FXML
+   private ChoiceBox<String> cbÜber;
+   
+   @FXML
+   private ChoiceBox<String> cbStelle;
    //Füllt CB und Handelt Knopfdruck
    @FXML
    public void initialize()
    {
-
-	 
+	  
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
