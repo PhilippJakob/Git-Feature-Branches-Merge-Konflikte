@@ -8,18 +8,20 @@ import java.util.ArrayList;
 
 public class Organisationseinheit
 {
+   private static DBVerbindung dbVerbindung = new DBVerbindung();
+   
    String Name;
    int ID;
    int Über;
-   ArrayList Stellen;
+  
    
-   public Organisationseinheit(String name, int iD,int über,ArrayList stellen)
+   public Organisationseinheit(String name, int iD,int über)
    {
 	  super();
 	  Name = name;
 	  ID = iD;
 	  Über = über;
-	  Stellen = stellen;
+	 
    }
    //Liest DB aus und füllt AL
    public static ArrayList<Organisationseinheit> auslesenDB(Connection pConnection)
@@ -29,17 +31,20 @@ public class Organisationseinheit
 	      
 	      Statement lBefehl;
 	      ResultSet lErgebnis;
-
+	      
+	      
 	      try {
 	      lBefehl 	= pConnection.createStatement();
-	      lErgebnis = lBefehl.executeQuery("SELECT OENAME,OEID,OEÜBER FROM organisationseinheit o;");
+	      lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME,OEÜBER FROM organisationseinheit o");
+	      
 	      lErgebnis.first(); 
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3),(ArrayList) lErgebnis.getArray(4));
+	          lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(2),lErgebnis.getInt(1),lErgebnis.getInt(3));
 			   lOrganisationseinheitAL.add(lOrganisationseinheit);
 	           lErgebnis.next();
+	           
 	         }
 	         } catch (Exception ex)
 	              {
@@ -47,12 +52,18 @@ public class Organisationseinheit
 	              }
 	      return lOrganisationseinheitAL ;
 	 }
+   
+  
    //Wandelt AL<Personen> in AL<String> um
    public static ArrayList<String> getOrganisationseinheiten()
    {
 	  ArrayList<String> lOrganisationseinheiten = new ArrayList<String>();
 	  ArrayList<Organisationseinheit> lOrganisationseinheitenAL = new ArrayList<Organisationseinheit>();
-	  lOrganisationseinheitenAL = FensterController.getOrganisationseinheitAL();
+	  if(dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer") == false) {
+		 System.out.println("keine DB connection");
+		 return lOrganisationseinheiten;
+	  }
+	  lOrganisationseinheitenAL = auslesenDB(dbVerbindung.holenConnection());
 	  for(int i = 0; i<lOrganisationseinheitenAL.size();i++)
 	  {
 		 String lName = new String();
@@ -74,16 +85,7 @@ public class Organisationseinheit
 	  lOrganisationseinheit = lOrganisationseinheitenAL.get(lOrganisationseinheitenAL.size()-1);
 	  return(lOrganisationseinheit);
    }
- public static ArrayList<Stelle> getStellen()
- {
-	
-   ArrayList<Stelle> lStellen = new ArrayList<Stelle>();
-   ArrayList<Stelle> lStelleAL = new ArrayList<Stelle>();
-   lStelleAL = getStellen();
-   Stelle lStelle = lStelleAL.get(lStelleAL.size()-1);
-   return (lStellen);
-	
- }
+ 
    
    
    
@@ -112,8 +114,5 @@ public class Organisationseinheit
    {
       ID = iD;
    }
-   public void setStellen(ArrayList stellen)
-   {
-      Stellen = stellen;
-   }
+   
 }

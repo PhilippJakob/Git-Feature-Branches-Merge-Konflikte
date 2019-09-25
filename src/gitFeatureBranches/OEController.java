@@ -1,8 +1,10 @@
 package gitFeatureBranches;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,7 +28,7 @@ public class OEController
    private TextField tfName;
    
    @FXML
-   private ChoiceBox<String> cbÜber;
+   private ChoiceBox<String> cbUeber;
    
    @FXML
    private ChoiceBox<String> cbStelle;
@@ -34,7 +36,9 @@ public class OEController
    @FXML
    public void initialize()
    {
-	  
+	 
+	  cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+	  cbStelle.getItems().addAll(Stelle.getStellen());
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
@@ -51,7 +55,8 @@ public class OEController
 	  try
 	  {
 		 lBefehl= connection.createStatement();
-		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME) VALUES('"+ID+"','"+pOrganisationseinheit+"',NULL);");
+		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME,OEÜBER) VALUES('"+ID+"','"+pOrganisationseinheit+"','"+ getcbÜberID()+"');");
+		 System.out.println("Test323s");
 	  }
 	  catch (SQLException e)
 	  {
@@ -59,16 +64,26 @@ public class OEController
 		e.printStackTrace();
 	  }
    }
+   public int getcbÜberID()
+   {
+	  
+	  String ID;
+	  String[] tokens;
+	   String lcbtext = cbUeber.getValue();
+	   System.out.println(lcbtext);
+	  tokens = lcbtext.split(" ");
+	  ID = tokens[1];
+	  
+	  Integer ID2 = Integer.valueOf(ID);
+	 
+	  
+	  return ID2;
+	 
+   }
+   @FXML
    public void zuweisen()
    {
-   btZuweisen.setOnAction(new EventHandler<ActionEvent>()
-			{
 	 
-		@Override
-	    public void handle(ActionEvent event)
-	    { 
-		   hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
-	    }
-   } );
+	  hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
    }
 }

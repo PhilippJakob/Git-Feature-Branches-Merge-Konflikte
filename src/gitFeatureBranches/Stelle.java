@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class Stelle
 {
+   
+   private static DBVerbindung dbVerbindung = new DBVerbindung();
+   
    String Name;
    int ID;
    int OE;
@@ -34,7 +37,7 @@ public class Stelle
 
 	      while(!lErgebnis.isAfterLast())   
 	         {
-	          lStelle = new Stelle(lErgebnis.getString(1),lErgebnis.getInt(2),lErgebnis.getInt(3));
+	          lStelle = new Stelle(lErgebnis.getString(2),lErgebnis.getInt(1),lErgebnis.getInt(3));
 			   lStelleAL.add(lStelle);
 	           lErgebnis.next();
 	         }
@@ -49,7 +52,10 @@ public class Stelle
    {
 	  ArrayList<String> lStellen = new ArrayList<String>();
 	  ArrayList<Stelle> lStellenAL = new ArrayList<Stelle>();
-	  
+	  if(dbVerbindung.verbinden("dbserver", "dbpr_termin", "dblkuser", "lkbenutzer") == false) {
+		 return lStellen;
+	  }
+	  lStellenAL = auslesenDB(dbVerbindung.holenConnection());
 	  for(int i = 0; i<lStellenAL.size();i++)
 	  {
 		 String lName = new String();
