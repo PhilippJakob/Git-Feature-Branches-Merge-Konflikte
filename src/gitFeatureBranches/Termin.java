@@ -11,12 +11,18 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 //import com.mysql.jdbc.Connection;
 
 public class Termin
 {
-
-   public Termin(int terminID, LocalDate terminDatumVon, LocalDate terminDatumBis, LocalTime terminZeit,
+  
+   public Termin(int terminID,int terminPersonID, LocalDate terminDatumVon, LocalDate terminDatumBis, LocalTime terminZeit,
 			LocalTime terminZeitBis, int terminRaum, String terminInfo, int terminPrivat, String terminPrivatInfo,
 			String terminFarbe)
    {
@@ -40,9 +46,17 @@ public class Termin
 
    private int				 terminID;
    private int				 terminPersonID;
+   @JsonDeserialize(using = LocalDateDeserializer.class)
+   @JsonSerialize(using = LocalDateSerializer.class)
    private LocalDate		 terminDatumVon;
+   @JsonDeserialize(using = LocalDateDeserializer.class)
+   @JsonSerialize(using = LocalDateSerializer.class)
    private LocalDate		 terminDatumBis;
+   @JsonDeserialize(using = LocalTimeDeserializer.class)
+   @JsonSerialize(using = LocalTimeSerializer.class)
    private LocalTime		 terminZeit;
+   @JsonDeserialize(using = LocalTimeDeserializer.class)
+   @JsonSerialize(using = LocalTimeSerializer.class)
    private LocalTime		 terminZeitBis;
    private int				 terminRaum;
    private String			 terminInfo;
@@ -68,7 +82,7 @@ public class Termin
 		 while (!lErgebnis.isAfterLast())
 		 {
 			Termin lTermin = new Termin(
-					 lErgebnis.getInt(1), lErgebnis.getDate(3).toLocalDate(), lErgebnis.getDate(4).toLocalDate(), lErgebnis.getTime(5).toLocalTime(), lErgebnis.getTime(6).toLocalTime(), lErgebnis.getInt(7), lErgebnis.getString(8), lErgebnis.getInt(10), lErgebnis.getString(11), lErgebnis.getString(13)
+					 lErgebnis.getInt(1),lErgebnis.getInt(2), lErgebnis.getDate(3).toLocalDate(), lErgebnis.getDate(4).toLocalDate(), lErgebnis.getTime(5).toLocalTime(), lErgebnis.getTime(6).toLocalTime(), lErgebnis.getInt(7), lErgebnis.getString(8), lErgebnis.getInt(10), lErgebnis.getString(11), lErgebnis.getString(13)
 			);
 			lTermin.setTerminID(lErgebnis.getInt(1));
 			// lTermin.setTerminPersonID(pIdPerson);

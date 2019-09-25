@@ -6,15 +6,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import com.google.gson.Gson;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 public class FromAndToJson
 {
-
    static String jsonStr;
 
    public static void main(String[] a)
@@ -29,7 +33,10 @@ public class FromAndToJson
 	  Termin termin = new Termin();
 	  termin = getObjectData(termin);
 	  ObjectMapper Obj = new ObjectMapper();
-	  Obj.registerModule(new JavaTimeModule());
+	  JavaTimeModule javaTimeModule = new JavaTimeModule();
+	  javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyyMMdd")));
+	  javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyyMMdd")));
+	  Obj.registerModule(javaTimeModule);
 	  Obj.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	  try
 	  {
@@ -43,26 +50,14 @@ public class FromAndToJson
 	  {
 		 e.printStackTrace();
 	  }
-	  System.out.println(jsonStr);
 	  return jsonStr;
    }
 
    public static Termin getObjectData(Termin termine)
    {
 	  LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-	  termine = new Termin(1,LocalDate.parse("2019-11-12"),LocalDate.parse("2019-11-11"),LocalTime.parse("10:10:10"),LocalTime.parse("10:10:10"),3,"BeispielInfo",0,"BeispielPrivatInfo","grün");
-//	  termine.setTerminID(1);
-//	  termine.setTerminPersonID(1);
-	//  termine.setTerminDatumVon(LocalDate.parse("2019-11-12"));
-	//  termine.setTerminZeit(LocalTime.parse("10:10:10"));
-//	  termine.setTerminZeitBis(LocalTime.parse("10:10:10"));
-//	  termine.setTerminRaum(3);
-//	  termine.setTerminInfo("BeispielInfo");
-//	  termine.setTerminPrivat(0);
-//	  termine.setTerminPrivatInfo("BeispielPrivatInfo");
-//	  termine.setTerminFarbe("Grün");
-	  
-	  return termine;
+	  termine = new Termin(1,1,LocalDate.parse("2019-11-12"),LocalDate.parse("2019-11-11"),LocalTime.parse("10:10:10"),LocalTime.parse("10:10:10"),3,"BeispielInfo",0,"BeispielPrivatInfo","grün");
+ 	  return termine;
    }
 
    public static Termin toJava()
@@ -90,7 +85,7 @@ public class FromAndToJson
 		e.printStackTrace();
 	  }
 
-	  System.out.println(termin.getTerminDatumVon());
+	  System.out.println(termin.getTerminZeit());
 	  return termin;
    }
 
