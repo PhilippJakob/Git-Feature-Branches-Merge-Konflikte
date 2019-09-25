@@ -9,7 +9,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 public class PersonenhinzufügenController
@@ -32,7 +31,7 @@ public class PersonenhinzufügenController
 		@Override
 	    public void handle(ActionEvent event)
 	    { 
-		   hinzufügenPerson(tfName.getText(), dbVerbindung.holenConnection());
+		   hinzufügenPerson(tfName.getText(), DBVerbindung.holenConnection());
 	    }
    } );
    }

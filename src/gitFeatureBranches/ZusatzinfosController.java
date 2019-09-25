@@ -14,48 +14,48 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class ZusatzinfosController 
+public class ZusatzinfosController
 {
 
-   private static DBVerbindung dbVerbindung = new DBVerbindung();
-    @FXML
-    private Label lbZusatzinfos;
+   private static DBVerbindung dbVerbindung	= new DBVerbindung();
+   @FXML
+   private Label			   lbZusatzinfos;
 
-    @FXML
-    private ChoiceBox<Integer> cbTermine;
-    
-    @FXML
-    private Button btÜbernehmen;
+   @FXML
+   private ChoiceBox<Integer>  cbTermine;
 
-    @FXML
-    private TextField tfZusatzinfos;
+   @FXML
+   private Button			   btÜbernehmen;
 
-    @FXML
-    public void initialize()
-    {
-       cbTermine.getItems().addAll(auslesenDB(dbVerbindung.holenConnection()));
-       btÜbernehmen.setOnAction(new EventHandler<ActionEvent>(){
-		    @Override
-		    public void handle(ActionEvent event)
-		    {
-		       erstellenZusatzinfos(dbVerbindung.holenConnection());	       
-		    }
-    });
-    }
-    
-    public static ArrayList<Integer> auslesenDB(Connection connection)
-    {
-       int IDTermin;
-       ArrayList<Integer> IDTerminAL = new ArrayList<Integer>();
-       Statement lBefehl;
-       ResultSet lErgebnis;
-       try
+   @FXML
+   private TextField		   tfZusatzinfos;
+
+   @FXML
+   public void initialize()
+   {
+	  cbTermine.getItems().addAll(auslesenDB(DBVerbindung.holenConnection()));
+	  btÜbernehmen.setOnAction(new EventHandler<ActionEvent>() {
+		 @Override
+		 public void handle(ActionEvent event)
+		 {
+			erstellenZusatzinfos(DBVerbindung.holenConnection());
+		 }
+	  });
+   }
+
+   public static ArrayList<Integer> auslesenDB(Connection connection)
+   {
+	  int IDTermin;
+	  ArrayList<Integer> IDTerminAL = new ArrayList<Integer>();
+	  Statement lBefehl;
+	  ResultSet lErgebnis;
+	  try
 	  {
 		 lBefehl = connection.createStatement();
 		 lErgebnis = lBefehl.executeQuery("SELECT IDTermin FROM termin t");
 		 lErgebnis.first();
-		 
-		 while(!lErgebnis.isAfterLast())
+
+		 while (!lErgebnis.isAfterLast())
 		 {
 			IDTermin = lErgebnis.getInt(1);
 			IDTerminAL.add(IDTermin);
@@ -65,37 +65,33 @@ public class ZusatzinfosController
 	  catch (SQLException e)
 	  {
 		 // TODO Automatisch generierter Erfassungsblock
-		e.printStackTrace();
+		 e.printStackTrace();
 	  }
-       return IDTerminAL;
-    }
-     
-     @FXML
-     public void erstellenZusatzinfos(Connection connection)
-     {
-    	Statement lBefehl;
-    	
+	  return IDTerminAL;
+   }
 
-		 try
+   @FXML
+   public void erstellenZusatzinfos(Connection connection)
+   {
+	  Statement lBefehl;
+
+	  try
+	  {
+		 if (btÜbernehmen.onActionProperty() != null)
 		 {
-			if(btÜbernehmen.onActionProperty() != null)
-			{
 			lBefehl = connection.createStatement();
-			lBefehl.executeUpdate("update termin set InfoTermin = '"+tfZusatzinfos.getText()+"' Where IDTermin = '"+cbTermine.getValue()+"'");
-			}
+			lBefehl.executeUpdate(
+					 "update termin set InfoTermin = '" + tfZusatzinfos.getText() + "' Where IDTermin = '"
+							  + cbTermine.getValue() + "'"
+			);
 		 }
-		 catch (SQLException e)
-		 {
-			// TODO Automatisch generierter Erfassungsblock
-			e.printStackTrace();
-		 }
-		
-		 
-     }
-     
-     
-     
-     
-     
-    
-} 
+	  }
+	  catch (SQLException e)
+	  {
+		 // TODO Automatisch generierter Erfassungsblock
+		 e.printStackTrace();
+	  }
+
+   }
+
+}

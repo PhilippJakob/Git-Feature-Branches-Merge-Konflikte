@@ -7,9 +7,10 @@ import java.util.ArrayList;
 
 public class Organisationseinheit
 {
-   int ID;
+   int	  ID;
    String Name;
-   public Organisationseinheit( String name, int iD)
+
+   public Organisationseinheit(String name, int iD)
    {
 	  super();
 	  ID = iD;
@@ -18,62 +19,65 @@ public class Organisationseinheit
 
    public static ArrayList<Organisationseinheit> auslesenDB(Connection pConnection)
    {
-     Organisationseinheit lOrganisationseinheit;
-     ArrayList<Organisationseinheit> lOrganisationsAL = new ArrayList<Organisationseinheit>();
-     Statement lBefehl;
-     ResultSet lErgebnis;
+	  Organisationseinheit lOrganisationseinheit;
+	  ArrayList<Organisationseinheit> lOrganisationsAL = new ArrayList<Organisationseinheit>();
+	  Statement lBefehl;
+	  ResultSet lErgebnis;
 
-     try {
-     lBefehl 	= pConnection.createStatement();
-     lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME FROM organisationseinheit o;");
-     lErgebnis.first(); 
+	  try
+	  {
+		 lBefehl = pConnection.createStatement();
+		 lErgebnis = lBefehl.executeQuery("SELECT OEID,OENAME FROM organisationseinheit o;");
+		 lErgebnis.first();
 
-     while(!lErgebnis.isAfterLast())   
-        {
-    	lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(2),lErgebnis.getInt(1));
-    	lOrganisationsAL.add(lOrganisationseinheit);
-          lErgebnis.next();
-        }
-        } catch (Exception ex)
-             {
-               System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
-             }
-     return lOrganisationsAL ;
-}
+		 while (!lErgebnis.isAfterLast())
+		 {
+			lOrganisationseinheit = new Organisationseinheit(lErgebnis.getString(2), lErgebnis.getInt(1));
+			lOrganisationsAL.add(lOrganisationseinheit);
+			lErgebnis.next();
+		 }
+	  }
+	  catch (Exception ex)
+	  {
+		 System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
+	  }
+	  return lOrganisationsAL;
+   }
+
    public static ArrayList<String> getOrganisationseinheiten()
    {
 	  ArrayList<String> lOrganisationseinheit = new ArrayList<String>();
 	  ArrayList<Organisationseinheit> lOrganisationseinheitenAL = new ArrayList<Organisationseinheit>();
 	  lOrganisationseinheitenAL = FensterController.getOrganisationseinheitAL();
-	  for(int i = 0; i<lOrganisationseinheitenAL.size();i++)
+	  for (int i = 0; i < lOrganisationseinheitenAL.size(); i++)
 	  {
 		 String lOEName = new String();
 		 lOEName = lOrganisationseinheitenAL.get(i).getName();
 		 String lOEID = "";
 		 lOEID = Integer.toString(lOrganisationseinheitenAL.get(i).getID());
-		 lOEName = lOEName.concat(" " +lOEID);
+		 lOEName = lOEName.concat(" " + lOEID);
 		 lOrganisationseinheit.add(lOEName);
 	  }
-	  return(lOrganisationseinheit);
+	  return (lOrganisationseinheit);
    }
 
    public int getID()
    {
-      return ID;
+	  return ID;
    }
 
    public void setID(int iD)
    {
-      ID = iD;
+	  ID = iD;
    }
 
    public String getName()
    {
-      return Name;
+	  return Name;
    }
 
    public void setName(String name)
    {
-      Name = name;
+	  Name = name;
    }
 }

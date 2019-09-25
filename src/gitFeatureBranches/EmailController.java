@@ -11,88 +11,80 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class EmailController {
+public class EmailController
+{
 
-   
-   private static ArrayList<Person> personenOEAL = new ArrayList<Person>();
-   
-    @FXML
-    private TextField tfBetreff;
+   private static ArrayList<Person>	personenOEAL = new ArrayList<Person>();
 
-    @FXML
-    private TextArea taText;
+   @FXML
+   private TextField				tfBetreff;
 
-    @FXML
-    private Button btVersenden;
-    
-    @FXML
-    private Label lbAbsender;
+   @FXML
+   private TextArea					taText;
 
-    @FXML
-    private Label lbEmpfänger;
+   @FXML
+   private Button					btVersenden;
 
-    @FXML
-    private ChoiceBox<String> cbAbsender;
-    
-    @FXML
-    private ChoiceBox<String> cbEmpfänger;
+   @FXML
+   private Label					lbAbsender;
 
-    @FXML
-    private Label lbGruppen;
+   @FXML
+   private Label					lbEmpfänger;
 
-    @FXML
-    private Label lbEinheiten;
-    
-    @FXML
-    private ChoiceBox<String> cbGruppen;
+   @FXML
+   private ChoiceBox<String>		cbAbsender;
 
-    @FXML
-    private ChoiceBox<String> cbEinheiten;
+   @FXML
+   private ChoiceBox<String>		cbEmpfänger;
 
-   
-    @FXML
-    public void initialize()
-    {
-       cbAbsender.getItems().addAll(Person.getPersonen()); 
-       cbEmpfänger.getItems().addAll(Person.getPersonen());
- 	  cbEinheiten.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
- 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
+   @FXML
+   private Label					lbGruppen;
 
-    }
-    
-    
-    
-    public void Versenden()
-    {
+   @FXML
+   private Label					lbEinheiten;
+
+   @FXML
+   private ChoiceBox<String>		cbGruppen;
+
+   @FXML
+   private ChoiceBox<String>		cbEinheiten;
+
+   @FXML
+   public void initialize()
+   {
+	  cbAbsender.getItems().addAll(Person.getPersonen());
+	  cbEmpfänger.getItems().addAll(Person.getPersonen());
+	  cbEinheiten.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
+
+   }
+
+   public void Versenden()
+   {
 	  try
 	  {
-		 SendEmail.generateAndSendEmail(tfBetreff.getText(), cbAbsender.getId(),cbEmpfänger.getId(), taText.getText(), cbGruppen.getId(),cbEinheiten.getId());
+		 SendEmail.generateAndSendEmail(
+				  tfBetreff.getText(), cbAbsender.getId(), cbEmpfänger.getId(), taText.getText(), cbGruppen.getId(),
+				  cbEinheiten.getId()
+		 );
 	  }
 	  catch (MessagingException e)
 	  {
-	  // TODO Automatisch generierter Erfassungsblock
-	  e.printStackTrace();
+		 // TODO Automatisch generierter Erfassungsblock
+		 e.printStackTrace();
 	  }
 
-    }
-    
-    public void ermittelnPersonen()
-    {
-       
-    }
-    
-    
-    
-    
+   }
 
+   public void ermittelnPersonen()
+   {
 
+   }
 
    public static ArrayList<Person> getPersonenOEAL()
    {
 	  return personenOEAL;
    }
-
-
 
    public static void setPersonenOEAL(ArrayList<Person> personenOEAL)
    {
