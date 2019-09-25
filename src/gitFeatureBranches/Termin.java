@@ -28,6 +28,7 @@ public class Termin
    {
 	  super();
 	  this.terminID = terminID;
+	  this.terminPersonID = terminPersonID;
 	  this.terminDatumVon = terminDatumVon;
 	  this.terminDatumBis = terminDatumBis;
 	  this.terminZeit = terminZeit;

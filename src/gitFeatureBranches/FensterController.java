@@ -76,11 +76,16 @@ public class FensterController
    private ChoiceBox<String>					  cbOE;
    @FXML
    private BorderPane							  bpAgenda;
+   @FXML
+   private Menu 								  mJson;
+   @FXML
+   private MenuItem								  mBeispiel;
    private Stage								  bühnePersonenlöschen	  = new Stage();
    private Stage								  bühnePersonenhinzufügen = new Stage();
    private AnchorPane							  grundPane3;
    private AnchorPane							  grundPane2;
    private AnchorPane							  grundPane;
+   Stage bühneJson = new Stage();
    // Handelt Untermenüs und füllt bei Start AL und CB
 
    @FXML
@@ -106,6 +111,28 @@ public class FensterController
 			   Scene lScene = new Scene(grundPane);
 			   bühne.setScene(lScene);
 			   bühne.show();
+			}
+			catch (IOException e)
+			{
+			   // TODO Automatisch generierter Erfassungsblock
+			   e.printStackTrace();
+			}
+		 }
+	  });
+
+	  mBeispiel.setOnAction(new EventHandler<ActionEvent>() {
+		 @Override
+		 public void handle(ActionEvent event)
+		 {
+
+			FXMLLoader lLoader = new FXMLLoader();
+			try
+			{
+			   lLoader.setLocation(getClass().getResource("Json.fxml"));
+			   grundPane = lLoader.load();
+			   Scene lScene = new Scene(grundPane);
+			   bühneJson.setScene(lScene);
+			   bühneJson.show();
 			}
 			catch (IOException e)
 			{
@@ -273,7 +300,6 @@ public class FensterController
 		 @Override
 		 public void handle(ActionEvent event)
 		 {
-
 			filtern();
 		 }
 	  });
