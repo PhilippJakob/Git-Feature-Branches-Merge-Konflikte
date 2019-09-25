@@ -208,7 +208,7 @@ import javafx.scene.control.MenuItem;
  	                   .withStartLocalDateTime(lStartpunkt)
  	                   .withEndLocalDateTime(lEndpunkt)
  	                   .withDescription(lBeschreibung)
-	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")));
+	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group"+lGruppenID)));
     	   
 
 
