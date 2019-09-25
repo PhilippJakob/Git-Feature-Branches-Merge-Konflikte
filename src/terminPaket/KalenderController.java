@@ -155,7 +155,7 @@ import sun.security.action.GetBooleanAction;
 		 LocalDateTime lTagBis = termin.getTerminDatumBis();
 		 String lBeschreibung = termin.getTerminInfo();
 		 String lRaum = Integer.toString(termin.getTerminRaum());
-		 if(lTagVon==null||lBeschreibung==null)
+		 if(lTagVon==null||lBeschreibung==null||lTagBis==null||lRaum==null)
 		 {
 			bühne.close();
 		 }
