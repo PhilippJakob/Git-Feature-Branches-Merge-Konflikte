@@ -80,6 +80,20 @@ public class OEController
 	  return ID2;
 	 
    }
+   public int getcbStelleID()
+   {
+	  String ID;
+	  String[] tokens;
+	  String lcbtext = cbStelle.getValue();
+	  System.out.println(lcbtext);
+	  tokens = lcbtext.split(" ");
+	  ID = tokens[1];
+	  
+	  Integer ID3 = Integer.valueOf(ID);
+	  
+	  return ID3;
+   }
+   
    @FXML
    public void zuweisen()
    {
