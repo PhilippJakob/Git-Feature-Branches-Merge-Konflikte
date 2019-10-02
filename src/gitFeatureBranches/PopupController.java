@@ -195,7 +195,7 @@ public class PopupController
    public void initialize()
    {
 	  bistimedate.setLocalDateTime(getAppointment().getEndLocalDateTime());
-	  abtimedate.setLocalDateTime(getAppointment().getStartLocalDateTime());
+	  abtimedate.setLocalDateTime(getAppointment().getStartLocalDateTime());	
 	  ganztagcheck.setSelected(getAppointment().isWholeDay());
 	  taNotiz.setText(getAppointment().getDescription());
 	  TFraum.setText(getAppointment().getLocation());
