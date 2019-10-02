@@ -10,10 +10,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import jfxtras.scene.control.LocalDateTimeTextField;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -52,7 +52,10 @@ public class PopupController
 
    @FXML
    private Button					   bänderungenspeichern;
-
+   @FXML
+   private TextField				   tfTitel;
+   @FXML
+   private CheckBox 				   cbPrivat;
    @FXML
    public void Terminlöschen(ActionEvent event)
    {
@@ -79,13 +82,7 @@ public class PopupController
 		 Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal().withStartLocalDateTime(labdate)
 				  .withEndLocalDateTime(lbisdate).withDescription(lnotiz).withLocation(lraum).withWholeDay(lisganztag)
 
-				  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you
-																									// should
-																									// use
-																									// a
-																									// map
-																									// of
-																									// AppointmentGroups
+				  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) 
 		 ;
 
 		 agkalender.appointments().addAll(lAppointment);
@@ -98,13 +95,7 @@ public class PopupController
 					 labdate
 			).withEndLocalDateTime(lbisdate).withDescription(lnotiz).withLocation(lraum).withWholeDay(lisganztag)
 
-					 .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0")) // you
-																									   // should
-																									   // use
-																									   // a
-																									   // map
-																									   // of
-																									   // AppointmentGroups
+					 .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group0")) 
 			;
 
 			agkalender.appointments().addAll(lAppointment);
@@ -117,13 +108,7 @@ public class PopupController
 						labdate
 			   ).withEndLocalDateTime(lbisdate).withDescription(lnotiz).withLocation(lraum).withWholeDay(lisganztag)
 
-						.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")) // you
-																										  // should
-																										  // use
-																										  // a
-																										  // map
-																										  // of
-																										  // AppointmentGroups
+						.withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6")) 
 			   ;
 
 			   agkalender.appointments().addAll(lAppointment);
@@ -136,13 +121,7 @@ public class PopupController
 						   labdate
 				  ).withEndLocalDateTime(lbisdate).withDescription(lnotiz).withLocation(lraum).withWholeDay(lisganztag)
 
-						   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group15")) // you
-																											  // should
-																											  // use
-																											  // a
-																											  // map
-																											  // of
-																											  // AppointmentGroups
+						   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group15")) 
 				  ;
 
 				  agkalender.appointments().addAll(lAppointment);
@@ -154,13 +133,7 @@ public class PopupController
 					 Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal()
 							  .withStartLocalDateTime(labdate).withEndLocalDateTime(lbisdate).withDescription(lnotiz).withLocation(lraum).withWholeDay(lisganztag)
 
-							  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")) // you
-																												// should
-																												// use
-																												// a
-																												// map
-																												// of
-																												// AppointmentGroups
+							  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group5")) 
 					 ;
 
 					 agkalender.appointments().addAll(lAppointment);
@@ -171,13 +144,7 @@ public class PopupController
 					 Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal()
 							  .withStartLocalDateTime(labdate).withEndLocalDateTime(lbisdate).withDescription(taNotiz.getText()).withLocation(TFraum.getText()).withWholeDay(lisganztag)
 
-							  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass(lgroup)) // you
-																											  // should
-																											  // use
-																											  // a
-																											  // map
-																											  // of
-																											  // AppointmentGroups
+							  .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass(lgroup))
 					 ;
 
 					 agkalender.appointments().addAll(lAppointment);
@@ -237,7 +204,7 @@ public class PopupController
 	  Tcolorpicker.getCustomColors().add(Color.LIGHTGREEN);
 	  Tcolorpicker.getCustomColors().add(Color.CORNFLOWERBLUE);
 	  Tcolorpicker.getCustomColors().add(Color.YELLOW);
-
+	  tfTitel.setText(getAppointment().getSummary());
    }
 
    public static Appointment getAppointment()

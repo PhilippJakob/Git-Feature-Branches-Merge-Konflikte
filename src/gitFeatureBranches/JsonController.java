@@ -80,7 +80,7 @@ public class JsonController
    public static Termin getObjectData(Termin termine)
    {
 	  LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-	  termine = new Termin(1,1,LocalDate.parse("2019-11-12"),LocalDate.parse("2019-11-11"),LocalTime.parse("10:10:10"),LocalTime.parse("10:10:10"),3,"BeispielInfo",0,"BeispielPrivatInfo","grün");
+	  termine = new Termin("Titel",1,1,LocalDate.parse("2019-11-12"),LocalDate.parse("2019-11-11"),LocalTime.parse("10:10:10"),LocalTime.parse("10:10:10"),3,"BeispielInfo",0,"BeispielPrivatInfo","grün");
  	  return termine;
    }
    public static Termin toJava()

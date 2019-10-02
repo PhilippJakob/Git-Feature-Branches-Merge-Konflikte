@@ -22,11 +22,12 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 public class Termin
 {
   
-   public Termin(int terminID,int terminPersonID, LocalDate terminDatumVon, LocalDate terminDatumBis, LocalTime terminZeit,
+   public Termin(String terminTitel,int terminID,int terminPersonID, LocalDate terminDatumVon, LocalDate terminDatumBis, LocalTime terminZeit,
 			LocalTime terminZeitBis, int terminRaum, String terminInfo, int terminPrivat, String terminPrivatInfo,
 			String terminFarbe)
    {
 	  super();
+	  this.terminTitel = terminTitel;
 	  this.terminID = terminID;
 	  this.terminPersonID = terminPersonID;
 	  this.terminDatumVon = terminDatumVon;
@@ -44,7 +45,7 @@ public class Termin
    {
 
    }
-
+   private String 			 terminTitel;
    private int				 terminID;
    private int				 terminPersonID;
    @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -83,7 +84,7 @@ public class Termin
 		 while (!lErgebnis.isAfterLast())
 		 {
 			Termin lTermin = new Termin(
-					 lErgebnis.getInt(1),lErgebnis.getInt(2), lErgebnis.getDate(3).toLocalDate(), lErgebnis.getDate(4).toLocalDate(), lErgebnis.getTime(5).toLocalTime(), lErgebnis.getTime(6).toLocalTime(), lErgebnis.getInt(7), lErgebnis.getString(8), lErgebnis.getInt(10), lErgebnis.getString(11), lErgebnis.getString(13)
+					 lErgebnis.getString(7),lErgebnis.getInt(1),lErgebnis.getInt(2), lErgebnis.getDate(3).toLocalDate(), lErgebnis.getDate(4).toLocalDate(), lErgebnis.getTime(5).toLocalTime(), lErgebnis.getTime(6).toLocalTime(), lErgebnis.getInt(8), lErgebnis.getString(9), lErgebnis.getInt(10), lErgebnis.getString(11), lErgebnis.getString(13)
 			);
 			lTermin.setTerminID(lErgebnis.getInt(1));
 			// lTermin.setTerminPersonID(pIdPerson);
@@ -271,6 +272,16 @@ public class Termin
    public void setTerminZeitBis(LocalTime TerminZeitBis)
    {
 	  terminZeitBis = TerminZeitBis;
+   }
+
+   public String getTerminTitel()
+   {
+      return terminTitel;
+   }
+
+   public void setTerminTitel(String terminTitel)
+   {
+      this.terminTitel = terminTitel;
    }
 
 }

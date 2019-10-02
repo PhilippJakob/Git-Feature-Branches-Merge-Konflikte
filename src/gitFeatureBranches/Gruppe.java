@@ -33,7 +33,7 @@ public class Gruppe
 
 	     while(!lErgebnis.isAfterLast())   
 	        {
-	    	lTermin = new Termin(lErgebnis.getInt(1),lErgebnis.getInt(2),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getDate(4).toLocalDate(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getTime(6).toLocalTime(),lErgebnis.getInt(7),lErgebnis.getString(8),lErgebnis.getInt(9),lErgebnis.getString(10),lErgebnis.getString(11));
+	    	lTermin = new Termin(lErgebnis.getString(7),lErgebnis.getInt(1),lErgebnis.getInt(2),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getDate(4).toLocalDate(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getTime(6).toLocalTime(),lErgebnis.getInt(8),lErgebnis.getString(9),lErgebnis.getInt(10),lErgebnis.getString(11),lErgebnis.getString(12));
 	    	TerminAL.add(lTermin);
 	        lErgebnis.next();
 	          

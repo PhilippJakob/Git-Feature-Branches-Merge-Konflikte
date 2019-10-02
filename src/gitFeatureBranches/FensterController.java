@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
@@ -79,13 +80,15 @@ public class FensterController
    @FXML
    private Menu 								  mJson;
    @FXML
+   private MenuItem								  mPinGruppe;
+   @FXML
    private MenuItem								  mBeispiel;
    private Stage								  bühnePersonenlöschen	  = new Stage();
    private Stage								  bühnePersonenhinzufügen = new Stage();
    private AnchorPane							  grundPane3;
    private AnchorPane							  grundPane2;
    private AnchorPane							  grundPane;
-   Stage bühneJson = new Stage();
+   private Stage 								  bühneJson 			  = new Stage();
    // Handelt Untermenüs und füllt bei Start AL und CB
 
    @FXML
@@ -97,6 +100,28 @@ public class FensterController
 		 return;
 	  }
 	  auslesenTermine();
+	  mPinGruppe.setOnAction(new EventHandler<ActionEvent>() {
+		 @Override
+		 public void handle(ActionEvent event)
+		 {
+			Stage bühne = new Stage();
+			FXMLLoader lLoader = new FXMLLoader();
+			try
+			{
+			   bühne.setTitle("Gruppenzugehörigkeit ändern");
+			   lLoader.setLocation(getClass().getResource("PersonzuGruppeView.fxml"));
+			   grundPane = lLoader.load();
+			   Scene lScene = new Scene(grundPane);
+			   bühne.setScene(lScene);
+			   bühne.show();
+			}
+			catch (IOException e)
+			{
+			   // TODO Automatisch generierter Erfassungsblock
+			   e.printStackTrace();
+			}
+		 }
+	  });
 	  mZusatzinfos.setOnAction(new EventHandler<ActionEvent>() {
 		 @Override
 		 public void handle(ActionEvent event)
@@ -192,20 +217,6 @@ public class FensterController
 		 }
 		 return null;
 	  });
-
-	  Agenda.AppointmentImplLocal lAppointment = new Agenda.AppointmentImplLocal().withStartLocalDateTime(
-			   LocalDate.now().atTime(4, 00)
-	  ).withEndLocalDateTime(LocalDate.now().atTime(15, 30)).withDescription("It's time")
-			   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you
-																								 // should
-																								 // use
-																								 // a
-																								 // map
-																								 // of
-																								 // AppointmentGroups
-	  ;
-	  agKalender.appointments().addAll(lAppointment);
-
 	  setGruppenAL(Gruppe.auslesenDB(DBVerbindung.holenConnection()));
 	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(DBVerbindung.holenConnection()));
 	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
@@ -404,7 +415,7 @@ public class FensterController
    {
 
 	  // KalenderController lTermin = new KalenderController();
-	  ArrayList<Termin> lTerminListe = gitFeatureBranches.Termin.auslesenTermine(DBVerbindung.holenConnection(), 1);
+	  ArrayList<Termin> lTerminListe = Termin.auslesenTermine(DBVerbindung.holenConnection(), 1);
 
 	  for (int i = 0; i < lTerminListe.size(); i++)
 	  {
@@ -414,25 +425,22 @@ public class FensterController
 		 int lSDay = lTermin.getTerminDatumVon().getDayOfMonth();
 		 int lSHour = lTermin.getTerminZeit().getHour();
 		 int lSMinute = lTermin.getTerminZeit().getMinute();
-
+		 String lTerminTitel = lTermin.getTerminTitel();
 		 int lEYear = lTermin.getTerminDatumBis().getYear();
 		 int lEMonth = lTermin.getTerminDatumBis().getMonthValue();
 		 int lEDay = lTermin.getTerminDatumBis().getDayOfMonth();
 		 int lEHour = lTermin.getTerminZeitBis().getHour();
 		 int lEMinute = lTermin.getTerminZeitBis().getMinute();
 		 String lTerminInfo = lTerminListe.get(i).getTerminInfo();
+		 int lTerminRaum = lTerminListe.get(i).getTerminRaum();
 		 agKalender.appointments().addAll(
 				  new Agenda.AppointmentImplLocal().withStartLocalDateTime(
 						   LocalDateTime.of(lSYear, lSMonth, lSDay, lSHour, lSMinute)
 				  ).withEndLocalDateTime(LocalDateTime.of(lEYear, lEMonth, lEDay, lEHour, lEMinute)).withDescription(
 						   lTerminInfo
-				  ).withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1")) // you
-																									 // should
-																									 // use
-																									 // a
-																									 // map
-																									 // of
-																									 // AppointmentGroups
+				  ).withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1"))
+				  .withLocation(Integer.toString(lTerminRaum))
+				  .withSummary(lTerminTitel)
 
 		 );
 	  }

@@ -51,6 +51,7 @@
               <items>
                   <MenuItem fx:id="mPersonhinzufügen" mnemonicParsing="false" text="Person hinzufügen" />
                 <MenuItem fx:id="mPersonenlöschen" mnemonicParsing="false" text="Person löschen" />
+                  <MenuItem fx:id="mPinGruppe" mnemonicParsing="false" text="Gruppenzugehörigkeit ändern" />
               </items>
             </Menu>
             <Menu fx:id="mEmail" mnemonicParsing="false" text="Email">
