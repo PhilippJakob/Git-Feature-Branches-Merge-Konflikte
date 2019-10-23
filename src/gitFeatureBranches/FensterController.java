@@ -1,7 +1,10 @@
 package gitFeatureBranches;
 
 import java.io.IOException;
-
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +35,9 @@ public class FensterController
    private static ArrayList<Gruppe>				  gruppenAL				  = new ArrayList<Gruppe>();
    private static ArrayList<Organisationseinheit> organisationseinheitAL  = new ArrayList<Organisationseinheit>();
    private static ArrayList<Termin> termineAL = new ArrayList<Termin>();
+   private static ArrayList<Person>	personenOEAL = new ArrayList<Person>();
+   static ArrayList<Integer> OEIDAL = new ArrayList<Integer>();
+   static ArrayList<Person> Personenliste = new ArrayList<Person>();
    @FXML
    private Menu									  mEmail;
    @FXML
@@ -316,10 +322,80 @@ public class FensterController
    }
    public void filtern2()
    {
+	  String lNameNummer=cbOE.getValue();
+	  String[] tokens;
+	  tokens = lNameNummer.split(" ");
+	  int lOEID = Integer.parseInt(tokens[tokens.length-1]);
 	  cbPersonauswahl.getItems().clear();
-	  setPersonenAL(EmailController.getPersonenOEAL());
-	  cbPersonauswahl.getItems().addAll();
+	  Personenliste.clear();
+	  cbPersonauswahl.getItems().add(" ");
+	  auslesenPersonenAusOE(lOEID);
+	  cbPersonauswahl.getItems().addAll(getPersonen(Personenliste));
    }
+   public static ArrayList<String> getPersonen(ArrayList<Person> pPersonliste)
+   {
+	  ArrayList<String> lPersonen = new ArrayList<String>();
+	  ArrayList<Person> lPersonenAL = new ArrayList<Person>();
+	  lPersonenAL = pPersonliste;
+	  for (int i = 0; i < lPersonenAL.size(); i++)
+	  {
+		 String lName = new String();
+		 lName = lPersonenAL.get(i).getName();
+		 String lPersonenID = "";
+		 lPersonenID = Integer.toString(lPersonenAL.get(i).getID());
+		 lName = lName.concat(" " + lPersonenID);
+		 lPersonen.add(lName);
+	  }
+	  return (lPersonen);
+   }
+
+   public static void auslesenPersonenAusOE(int pOE)
+   {
+      //lErgebnisliste
+      ArrayList<Person> lErgebnisliste = new ArrayList<Person>();
+      Statement lBefehl;
+      ResultSet lErgebnis;
+      ResultSet lErgebnis1;
+      Person lPerson;
+      Connection connection = DBVerbindung.holenConnection();
+      
+      try
+	  {
+   	  //wenn untergeordneteOE existiert
+		 lBefehl 	= connection.createStatement();
+	     lErgebnis = lBefehl.executeQuery("select OEID from organisationseinheit where OEÜBER = '"+ pOE +"'");
+//		 2 Methode
+//	     {
+//	     loop überprüfen untergeordneteOE's
+	     if(lErgebnis.first())
+	     {
+	     do
+	     	{
+	    		OEIDAL.add(lErgebnis.getInt(1));
+	    		auslesenPersonenAusOE(lErgebnis.getInt(1));	          
+	        }while(lErgebnis.next());
+	     }
+	     {
+	    	lBefehl = connection.createStatement();
+	    	lErgebnis1 = lBefehl.executeQuery("select Name,IDPerson from person where StID = ANY(select StID from stelle where OEID = '" + pOE + "')");
+	     } 
+	     if(lErgebnis1.first()) 
+	     {
+	    	do{
+	    	lPerson = new Person(lErgebnis1.getString(1),lErgebnis1.getInt(2));
+	    	Personenliste.add(lPerson);
+	        }while(lErgebnis1.next());
+	     }
+	  }
+	  catch (SQLException e)
+	  {
+		 // TODO Automatisch generierter Erfassungsblock
+		e.printStackTrace();
+	  }              
+       
+    }
+       
+
 
    public void setPersonenAL(ArrayList<Person> personenAL)
    {
