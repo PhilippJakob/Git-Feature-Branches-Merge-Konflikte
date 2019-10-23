@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class Person
 {
+   
+
    String Name;
    int	  ID;
 
@@ -15,6 +17,11 @@ public class Person
 	  super();
 	  Name = name;
 	  ID = iD;
+   }
+
+   public Person()
+   {
+	  // TODO Automatisch generierter Konstruktorstub
    }
 
    // Liest DB aus und füllt AL
@@ -44,7 +51,89 @@ public class Person
 	  }
 	  return lPersonenAL;
    }
-
+   @SuppressWarnings("resource")
+   public  ArrayList<Termin>sortierenTermin(Connection pConnection, int pOEID, int pGruppenID, int pPersonID)
+   {
+	  	 // -1 = leer
+	  	 int lGruppenID=0;
+	  	 int lPersonID=0;
+	  	 int lOEID=0;
+	  	 Termin lTermin;
+	     ArrayList<Termin> TerminAL = new ArrayList<Termin>();
+	     Statement lBefehl;
+	     ResultSet lErgebnis;
+	     lOEID = pOEID;
+	     lPersonID = pPersonID;
+	     lGruppenID = pGruppenID;
+	    try {
+	    	 lBefehl = pConnection.createStatement();
+	  	     lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin;");
+	  	     lErgebnis.first(); 
+	  	//Person und OE leer
+	    if(lGruppenID!=0&&lPersonID==0&&lOEID==0)
+	    {    
+	     lBefehl = pConnection.createStatement();
+  	     lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where IDGruppe="+lGruppenID+";");
+  	     lErgebnis.first(); 	     
+	    }
+	    //OE und Gruppe leer
+	    else if(lGruppenID==0&&lPersonID!=0&&lOEID==0)
+	    {
+	       lBefehl = pConnection.createStatement();
+	  	   lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where IDPerson="+lPersonID+";");
+	  	   lErgebnis.first(); 	
+	    }
+	    //Gruppen und Personen leer
+	    else if(lGruppenID==0&&lPersonID==0&&lOEID!=0)
+	    {
+	       lBefehl = pConnection.createStatement();
+	  	   lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where OEID="+lOEID+";");
+	  	   lErgebnis.first(); 	
+	    }
+	    //OE leer 
+	    else if(lGruppenID!=0&&lPersonID!=0&&lOEID==0)
+	    {
+	       lBefehl = pConnection.createStatement();
+	  	   lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where IDGruppe="+lGruppenID+"&& IDPerson="+lPersonID+";");
+	  	   lErgebnis.first(); 	     
+	    }
+	    //Gruppe leer
+	    else if(lGruppenID==0&&lPersonID!=0&&lOEID!=0)
+	    {
+	       lBefehl = pConnection.createStatement();
+	  	   lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where OEID="+lOEID+"&& IDPerson="+lPersonID+";");
+	  	   lErgebnis.first(); 	     
+	    }
+	    //nichts leer
+	    else if(lGruppenID!=0&&lPersonID!=0&&lOEID!=0)
+	    {
+	       lBefehl = pConnection.createStatement();
+	  	   lErgebnis = lBefehl.executeQuery("SELECT IDTermin, IDPerson, StartDatum, EndDatum, UhrzeitVon, UhrzeitBis, Raum, InfoTermin, Privat, PrivatInfo, Farbe FROM dbpr_termin.termin where OEID="+lOEID+"&& IDPerson="+lPersonID+"&& IDGruppe="+lGruppenID+";");
+	  	   lErgebnis.first(); 	     
+	    }
+	  
+	    while(!lErgebnis.isAfterLast())   
+	        {
+        	lTermin = new Termin(lErgebnis.getInt(1),lErgebnis.getDate(3).toLocalDate(),lErgebnis.getDate(4).toLocalDate(),lErgebnis.getTime(5).toLocalTime(),lErgebnis.getTime(6).toLocalTime(),lErgebnis.getInt(7),lErgebnis.getString(8),lErgebnis.getInt(9),lErgebnis.getString(10),lErgebnis.getString(11));
+	    	TerminAL.add(lTermin);
+	        lErgebnis.next();
+	          
+	        }
+	        } catch (Exception ex)
+	             {
+	               System.out.println("Fehler bei der Verarbeitung + " + "n" + ex.getMessage());
+	             }
+	     if(!(TerminAL.size()==0))
+	     {
+	    	 return TerminAL ;
+	     }
+	     else
+	     {
+	 
+	     }
+	     return TerminAL;
+	     
+}
    // Wandelt AL<Personen> in AL<String> um
    public static ArrayList<String> getPersonen()
    {

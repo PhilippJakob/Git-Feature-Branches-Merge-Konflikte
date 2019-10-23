@@ -183,6 +183,7 @@ public class FensterController
 	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(DBVerbindung.holenConnection()));
 	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
 	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+	  cbPersonauswahl.getItems().add("");
 	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
 	  mPersonenlöschen.setText("Person löschen");
@@ -216,9 +217,17 @@ public class FensterController
 			{
 			  filternTerminGruppen();
 			}
-  		 
-	  });
 	  
+	  });
+	  cbOE.setOnAction(new  EventHandler<ActionEvent>(){
+		 
+		 @Override
+			public void handle(ActionEvent event)
+			{
+			  filternTerminGruppen();
+			}
+	 
+	  });
 	  mEmailOB.setOnAction(new EventHandler<ActionEvent>() {
 
 		 @Override
@@ -275,11 +284,15 @@ public class FensterController
 		 {
 
 			filtern();
+			filternTerminGruppen();
 		 }
 	  });
 	  cbPersonauswahl.setTooltip(new Tooltip("Wähle die Person aus"));
+	
    }
 
+    
+   
    // Aktualisiert Choiceboxen
    public void aktualisieren()
    {
@@ -298,6 +311,8 @@ public class FensterController
 	  cbGruppen.getItems().clear();
 	  setGruppenAL(Gruppenzugehörigkeit.auslesenDB(DBVerbindung.holenConnection(), cbPersonauswahl.getValue()));
 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
+	  
+	  
    }
 
    public void setPersonenAL(ArrayList<Person> personenAL)
@@ -321,16 +336,41 @@ public class FensterController
    }
    public void filternTerminGruppen()
    {
+	  
+	Person lPerson = new Person();
+	int lGruppenID = 0;
+	int lPersonID = 0;
+	int lOEID = 0;
+	//Gruppe
+	if(!(cbGruppen.getValue()==null))
+	{
  	String lNameNummer=cbGruppen.getValue();
  	String[] tokens;
  	tokens = lNameNummer.split(" ");
- 	int lGruppenID = Integer.parseInt(tokens[tokens.length-1]);
- 	
- 	Gruppe lGruppe = new Gruppe(lGruppenID, null);
-
- 	
- 	setTermineAL(lGruppe.sortierenTermin(dbVerbindung.holenConnection()));
+ 	lGruppenID = Integer.parseInt(tokens[tokens.length-1]);
+	}
+ 	//Person
+	if(!(cbPersonauswahl.getValue()==null))
+	{
+ 	String lNameNummer1=cbPersonauswahl.getValue();
+ 	String[] tokens1;
+ 	tokens1 = lNameNummer1.split(" ");
+ 	lPersonID = Integer.parseInt(tokens1[tokens1.length-1]);
+	}
+ 	//OE
+	if(!(cbOE.getValue()==null))
+	{
+ 	String lNameNummer2=cbOE.getValue();
+ 	String[] tokens2;
+ 	tokens2 = lNameNummer2.split(" ");
+ 	lOEID = Integer.parseInt(tokens2[tokens2.length-1]);
+	}
+ 	setTermineAL(lPerson.sortierenTermin(dbVerbindung.holenConnection(),lOEID,lGruppenID,lPersonID));
  	agKalender.appointments().removeAll(agKalender.appointments());
+ 	if(getTermineAL().size()==0)
+ 	{
+ 	   System.out.print("null");
+ 	}
  	for (int i = 0; i <= getTermineAL().size()-1; i++)
 	  {
  	   
@@ -346,6 +386,7 @@ public class FensterController
 	                   .withDescription(lBeschreibung)
 	                   .withAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group"+lGruppenID)));
 	  }
+ 	
 }
    public static void setGruppenAL(ArrayList<Gruppe> gruppenAL)
    {
