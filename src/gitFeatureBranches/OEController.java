@@ -152,10 +152,9 @@ public class OEController
 	  try
 	  {
 		 lBefehl = connection.createStatement();
-		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl2 = connection.createStatement();
 		 System.out.println("GG!");
-		 lBefehl2.executeUpdate("UPDATE organisationseinheit SET OEID = '"+ ID +"',OENAME = '"+pOrganisationseinheit+"';");
+		 lBefehl2.executeUpdate("UPDATE organisationseinheit o SET OEID = '"+ ID +"',OENAME = '"+pOrganisationseinheit+"';");
 		 System.out.println("IIIII");
 	  }
 	  catch (SQLException e)
@@ -167,8 +166,7 @@ public class OEController
    
    @FXML
    public void zuweisen()
-   {
-	 
+   { 
 	  hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
    }
    public void updaten()
