@@ -67,7 +67,7 @@ public class Person
 	     lGruppenID = pGruppenID;
 	    try {
 	    	 lBefehl = pConnection.createStatement();
-	  	     lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin;");
+	  	     lErgebnis = lBefehl.executeQuery("SELECT * FROM dbpr_termin.termin WHERE IDPerson = -1 ;");
 	  	     lErgebnis.first(); 
 	  	//Person und OE leer
 	    if(lGruppenID!=0&&lPersonID==0&&lOEID==0)

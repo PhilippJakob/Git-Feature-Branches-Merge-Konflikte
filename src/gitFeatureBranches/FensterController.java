@@ -182,8 +182,8 @@ public class FensterController
 	  setGruppenAL(Gruppe.auslesenDB(DBVerbindung.holenConnection()));
 	  setOrganisationseinheitAL(Organisationseinheit.auslesenDB(DBVerbindung.holenConnection()));
 	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
+	  cbPersonauswahl.getItems().add(" ");
 	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
-	  cbPersonauswahl.getItems().add("");
 	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
 	  mPersonenlöschen.setText("Person löschen");
@@ -311,6 +311,9 @@ public class FensterController
 	  cbGruppen.getItems().clear();
 	  setGruppenAL(Gruppenzugehörigkeit.auslesenDB(DBVerbindung.holenConnection(), cbPersonauswahl.getValue()));
 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
+	  cbOE.getItems().clear();
+	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+	  
 	  
 	  
    }
@@ -350,7 +353,7 @@ public class FensterController
  	lGruppenID = Integer.parseInt(tokens[tokens.length-1]);
 	}
  	//Person
-	if(!(cbPersonauswahl.getValue()==null))
+	if(!(cbPersonauswahl.getValue()==null||cbPersonauswahl.getValue()==" "))
 	{
  	String lNameNummer1=cbPersonauswahl.getValue();
  	String[] tokens1;
