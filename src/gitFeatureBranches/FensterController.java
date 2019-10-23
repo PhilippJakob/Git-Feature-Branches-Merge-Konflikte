@@ -225,6 +225,7 @@ public class FensterController
 			public void handle(ActionEvent event)
 			{
 			  filternTerminGruppen();
+			  filtern2();
 			}
 	 
 	  });
@@ -310,12 +311,14 @@ public class FensterController
    {
 	  cbGruppen.getItems().clear();
 	  setGruppenAL(Gruppenzugehörigkeit.auslesenDB(DBVerbindung.holenConnection(), cbPersonauswahl.getValue()));
-	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
-	  cbOE.getItems().clear();
-	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+	  cbGruppen.getItems().addAll(Gruppe.getGruppen());	  
 	  
-	  
-	  
+   }
+   public void filtern2()
+   {
+	  cbPersonauswahl.getItems().clear();
+	  setPersonenAL(EmailController.getPersonenOEAL());
+	  cbPersonauswahl.getItems().addAll();
    }
 
    public void setPersonenAL(ArrayList<Person> personenAL)
