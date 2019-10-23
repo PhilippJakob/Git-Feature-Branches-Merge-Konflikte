@@ -70,6 +70,26 @@ public class OEController
 		e.printStackTrace();
 	  }
    }
+   public void löschenOE(String pOrganisationseinheit, Connection connection)
+   {
+	  Statement lBefehl;
+	  Statement lBefehl2;
+	  String[] tokens;
+	  tokens = pOrganisationseinheit.split(" ");
+	  try
+	  {
+		 lBefehl = connection.createStatement();
+		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
+		 lBefehl2 = connection.createStatement();
+		 lBefehl2.executeUpdate("DELETE FROM organisationseinheit where OEID ='" + tokens[tokens.length - 1] + "';");
+	  }
+	  catch (SQLException e)
+	  {
+		 // TODO Automatisch generierter Erfassungsblock
+		 e.printStackTrace();
+	  }
+
+   }
    public int getcbÜberID()
    {
 	  
