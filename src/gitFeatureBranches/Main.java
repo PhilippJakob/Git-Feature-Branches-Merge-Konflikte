@@ -23,7 +23,7 @@ public class Main extends Application {
        this.bühne = pPrimaryStage;
        FXMLLoader lLoader = new FXMLLoader();
 
-       lLoader.setLocation(Main.class.getResource("AnzeigeOE.fxml"));
+       lLoader.setLocation(Main.class.getResource("AnzeigeOELoeschen.fxml"));
        grundPane = lLoader.load();
 
        Scene lScene = new Scene(grundPane);

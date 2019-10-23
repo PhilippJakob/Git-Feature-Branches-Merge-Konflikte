@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import gitFeatureBranches.DBVerbindung;
+import gitFeatureBranches.Organisationseinheit;
+import gitFeatureBranches.Stelle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +24,9 @@ public class OEController
 
    private int hinzugefügteOE =1 ;
 
+   @FXML
+   private Button btLöschen;
+   
    @FXML
    private Button btZuweisen;
 
