@@ -71,6 +71,7 @@ public class OEController
 	  try
 	  {
 		 lBefehl= connection.createStatement();
+		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
 		 lBefehl.executeUpdate("INSERT INTO organisationseinheit(OEID,OENAME,OEÜBER) VALUES('"+ID+"','"+pOrganisationseinheit+"','"+ getcbÜberID()+"');");
 		 System.out.println("Test323s");
 	  }
