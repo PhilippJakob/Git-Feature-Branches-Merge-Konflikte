@@ -1,5 +1,9 @@
 package gitFeatureBranches;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.mail.MessagingException;
@@ -75,6 +79,52 @@ public class EmailController
 	  }
 
    }
+   public static void auslesenPersonenAusOE(int pOE)
+   {
+      //lErgebnisliste
+      ArrayList<Person> lErgebnisliste = new ArrayList<Person>();
+      Statement lBefehl;
+      ResultSet lErgebnis;
+      ResultSet lErgebnis1;
+      Person lPerson;
+      Connection connection = DBVerbindung.holenConnection();
+      
+      try
+	  {
+   	  //wenn untergeordneteOE existiert
+		 lBefehl 	= connection.createStatement();
+	     lErgebnis = lBefehl.executeQuery("select OEID from organisationseinheit where OEÜBER = '"+ pOE +"'");
+//		 2 Methode
+//	     {
+//	     loop überprüfen untergeordneteOE's
+	     if(lErgebnis.first())
+	     {
+	     do
+	     	{
+	    		OEIDAL.add(lErgebnis.getInt(1));
+	    		auslesenPersonenAusOE(lErgebnis.getInt(1));	          
+	        }while(lErgebnis.next());
+	     }
+	     {
+	    	lBefehl = connection.createStatement();
+	    	lErgebnis1 = lBefehl.executeQuery("select Name,IDPerson from person where StID = ANY(select StID from stelle where OEID = '" + pOE + "')");
+	     } 
+	     if(lErgebnis1.first()) 
+	     {
+	    	do{
+	    	lPerson = new Person(lErgebnis1.getString(1),lErgebnis1.getInt(2));
+	    	Personenliste.add(lPerson);
+	        }while(lErgebnis1.next());
+	     }
+	  }
+	  catch (SQLException e)
+	  {
+		 // TODO Automatisch generierter Erfassungsblock
+		e.printStackTrace();
+	  }              
+       
+    }
+       
 
    public void ermittelnPersonen()
    {
