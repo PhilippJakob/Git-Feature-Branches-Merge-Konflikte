@@ -45,6 +45,16 @@ public class OEController
 	 
 	  cbUeber.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
 	  cbStelle.getItems().addAll(Stelle.getStellen());
+	  btLöschen.setOnAction(new EventHandler<ActionEvent>() 
+	  {
+		 @Override
+		 public void handle(ActionEvent event)
+		 {
+			löschenOE(cbUeber.getValue(), DBVerbindung.holenConnection());
+			cbUeber.getItems().remove(cbUeber.getValue());
+
+		 }
+	  });
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
