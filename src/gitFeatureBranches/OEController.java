@@ -136,41 +136,41 @@ public class OEController
 	  
 	  return ID3;
    }
-   public void updateCB(String pOrganisationseinheit, Connection connection)
-   {
-	  Statement lBefehl;
-	  Statement lBefehl2;
-	  String[] tokens;
-	  String ID = new String();
+   //public void updateCB(String pOrganisationseinheit, Connection connection)
+   //{
+	//  Statement lBefehl;
+	//  Statement lBefehl2;
+	//  String[] tokens;
+	//  String ID = new String();
 	  
-	  ID = Organisationseinheit.getLetzteOrganisationseinheit();
-	  tokens = ID.split(" ");
-	  ID = tokens[tokens.length-1];
-	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOE);
-	  hinzugefügteOE++;
-	  System.out.println("GG");
-	  try
-	  {
-		 lBefehl = connection.createStatement();
-		 lBefehl2 = connection.createStatement();
-		 System.out.println("GG!");
-		 lBefehl2.executeUpdate("UPDATE organisationseinheit o SET OEID = '"+ ID +"',OENAME = '"+pOrganisationseinheit+"';");
-		 System.out.println("IIIII");
-	  }
-	  catch (SQLException e)
-	  {
+	 // ID = Organisationseinheit.getLetzteOrganisationseinheit();
+	 // tokens = ID.split(" ");
+	 // ID = tokens[tokens.length-1];
+	 // ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOE);
+	 // hinzugefügteOE++;
+	 // System.out.println("GG");
+	 // try
+	 // {
+		// lBefehl = connection.createStatement();
+		// lBefehl2 = connection.createStatement();
+		// System.out.println("GG!");
+		// lBefehl2.executeUpdate("UPDATE organisationseinheit o SET OEID = '"+ ID +"',OENAME = '"+pOrganisationseinheit+"';");
+		 //System.out.println("IIIII");
+	 // }
+	  //catch (SQLException e)
+	 // {
 		 // TODO Automatisch generierter Erfassungsblock
-		e.printStackTrace();
-	  }
-   }
+		//e.printStackTrace();
+	 // }
+  // }
    
    @FXML
    public void zuweisen()
    { 
 	  hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
    }
-   public void updaten()
-   {
-	  updateCB(tfName.getText(),dbVerbindung.holenConnection());
-   }
+   //public void updaten()
+  // {
+	//  updateCB(tfName.getText(),dbVerbindung.holenConnection());
+   //}
 }
