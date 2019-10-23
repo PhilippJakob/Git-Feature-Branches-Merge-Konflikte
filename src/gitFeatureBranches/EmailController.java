@@ -19,6 +19,8 @@ public class EmailController
 {
 
    private static ArrayList<Person>	personenOEAL = new ArrayList<Person>();
+   static ArrayList<Integer> OEIDAL = new ArrayList<Integer>();
+   static ArrayList<Person> Personenliste = new ArrayList<Person>();
 
    @FXML
    private TextField				tfBetreff;
