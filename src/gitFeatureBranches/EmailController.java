@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import javax.mail.MessagingException;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -55,6 +57,10 @@ public class EmailController {
 
     @FXML
     private ChoiceBox<String> cbEinheiten;
+    
+    static ArrayList<Integer> OEIDAL = new ArrayList<Integer>();
+    
+    static ArrayList<Person> Personenliste = new ArrayList<Person>();
 
    
     @FXML
@@ -64,7 +70,16 @@ public class EmailController {
        cbEmpfänger.getItems().addAll(Person.getPersonen());
  	  cbEinheiten.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
  	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
-
+ 	  cbEinheiten.setOnAction(new EventHandler<ActionEvent>() {
+ 		 @Override
+ 		 public void handle(ActionEvent event) 
+ 		 {
+ 			String[] tokens;
+ 			tokens = cbEinheiten.getValue().split(" ");
+ 			int ID = Integer.parseInt(tokens[tokens.length-1]);
+ 			OEIDAL.add(ID);
+ 			auslesenPersonenAusOE(ID);			
+		 }});
     }
     
     
@@ -121,45 +136,51 @@ public class EmailController {
        return personenausgruppe;
        
     }
-    
-    public static ArrayList<Person> auslesenPersonenAusOE(int cbEinheiten)
+     
+//    1 Methode
+    public static void auslesenPersonenAusOE(int pOE)
     {
-       ArrayList<Person> personenausOE = new ArrayList<Person>();
+       //lErgebnisliste
+       ArrayList<Person> lErgebnisliste = new ArrayList<Person>();
        Statement lBefehl;
        ResultSet lErgebnis;
+       ResultSet lErgebnis1;
        Person lPerson;
+       connection = DBVerbindung.holenConnection();
        
        try
  	  {
+    	  //wenn untergeordneteOE existiert
  		 lBefehl 	= connection.createStatement();
- 	     lErgebnis = lBefehl.executeQuery("Select Name,IDPerson from person where IDPerson = ANY(select IDPerson from `oe-zugehörigkeit` where StID  = '"+ cbEinheiten + "')");
-
- 	     
- 	     lErgebnis.first(); 
-
- 	     while(!lErgebnis.isAfterLast())   
- 	        {
- 	    	lPerson = new Person(lErgebnis.getString(1),lErgebnis.getInt(2));
- 	    	personenausOE.add(lPerson);
- 	          lErgebnis.next();
- 	        }
- 	    ArrayList<Organisationseinheit> UntergeordneteOE = new ArrayList<Organisationseinheit>();
- 	    
- 	    
- 	    
- 	       for(Organisationseinheit lOE : UntergeordneteOE)
- 	       {
- 	    	  personenausOE.addAll(auslesenPersonenAusOE(lOE.getID()));
- 	    	  
- 	       } 	       	     
- 	    		  
+ 	     lErgebnis = lBefehl.executeQuery("select OEID from organisationseinheit where OEÜBER = '"+ pOE +"'");
+//		 2 Methode
+// 	     {
+// 	     loop überprüfen untergeordneteOE's
+ 	     if(lErgebnis.first())
+ 	     {
+	     do
+	     	{
+	    		OEIDAL.add(lErgebnis.getInt(1));
+	    		auslesenPersonenAusOE(lErgebnis.getInt(1));	          
+	        }while(lErgebnis.next());
+ 	     }
+ 	     {
+ 	    	lBefehl = connection.createStatement();
+ 	    	lErgebnis1 = lBefehl.executeQuery("select Name,IDPerson from person where StID = ANY(select StID from stelle where OEID = '" + pOE + "')");
+ 	     } 
+ 	     if(lErgebnis1.first()) 
+ 	     {
+ 	    	do{
+ 	    	lPerson = new Person(lErgebnis1.getString(1),lErgebnis1.getInt(2));
+ 	    	Personenliste.add(lPerson);
+ 	        }while(lErgebnis1.next());
+ 	     }
  	  }
  	  catch (SQLException e)
  	  {
  		 // TODO Automatisch generierter Erfassungsblock
  		e.printStackTrace();
- 	  }             
-        return personenausOE;        
+ 	  }              
         
      }
             
