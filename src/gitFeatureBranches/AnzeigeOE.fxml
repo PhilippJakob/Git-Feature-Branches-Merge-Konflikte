@@ -46,5 +46,10 @@
             <Font name="Arial" size="18.0" />
          </font>
       </Button>
+      <Button fx:id="btUpdate" layoutX="457.0" layoutY="246.0" mnemonicParsing="false" onAction="#updaten" prefHeight="33.0" prefWidth="95.0" text="Update">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

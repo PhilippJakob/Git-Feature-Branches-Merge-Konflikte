@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import gitFeatureBranches.DBVerbindung;
 import gitFeatureBranches.Organisationseinheit;
 import gitFeatureBranches.Stelle;
@@ -37,6 +39,9 @@ public class OEController
    private ChoiceBox<String> cbUeber;
    
    @FXML
+   private Button btUpdate;
+   
+   @FXML
    private ChoiceBox<String> cbStelle;
    //Füllt CB und Handelt Knopfdruck
    @FXML
@@ -55,16 +60,7 @@ public class OEController
 
 		 }
 	  });
-	  btZuweisen.setOnAction(new EventHandler<ActionEvent>() 
-	  {
-		 @Override
-		 public void handle(ActionEvent event)
-		 {
-			hinzufügenOrganisationseinheiten(cbUeber.getValue(), DBVerbindung.holenConnection());
-			cbUeber.getItems().add(cbUeber.getValue());
-
-		 }
-	  });
+	  
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
@@ -140,11 +136,43 @@ public class OEController
 	  
 	  return ID3;
    }
+   public void updateCB(String pOrganisationseinheit, Connection connection)
+   {
+	  Statement lBefehl;
+	  Statement lBefehl2;
+	  String[] tokens;
+	  String ID = new String();
+	  
+	  ID = Organisationseinheit.getLetzteOrganisationseinheit();
+	  tokens = ID.split(" ");
+	  ID = tokens[tokens.length-1];
+	  ID = Integer.toString(Integer.parseInt(ID)+hinzugefügteOE);
+	  hinzugefügteOE++;
+	  System.out.println("GG");
+	  try
+	  {
+		 lBefehl = connection.createStatement();
+		 lBefehl.executeQuery("SET SQL_SAFE_UPDATES = 0;");
+		 lBefehl2 = connection.createStatement();
+		 System.out.println("GG!");
+		 lBefehl2.executeUpdate("UPDATE organisationseinheit SET OEID = '"+ ID +"',OENAME = '"+pOrganisationseinheit+"';");
+		 System.out.println("IIIII");
+	  }
+	  catch (SQLException e)
+	  {
+		 // TODO Automatisch generierter Erfassungsblock
+		e.printStackTrace();
+	  }
+   }
    
    @FXML
    public void zuweisen()
    {
 	 
 	  hinzufügenOrganisationseinheiten(tfName.getText(), dbVerbindung.holenConnection());
+   }
+   public void updaten()
+   {
+	  updateCB(tfName.getText(),dbVerbindung.holenConnection());
    }
 }
