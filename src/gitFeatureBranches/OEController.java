@@ -55,6 +55,16 @@ public class OEController
 
 		 }
 	  });
+	  btZuweisen.setOnAction(new EventHandler<ActionEvent>() 
+	  {
+		 @Override
+		 public void handle(ActionEvent event)
+		 {
+			hinzufügenOrganisationseinheiten(cbUeber.getValue(), DBVerbindung.holenConnection());
+			cbUeber.getItems().add(cbUeber.getValue());
+
+		 }
+	  });
    }
    //Holt sich höchste ID und Fügt Person mit höchsterID+1 hinzu.
    void hinzufügenOrganisationseinheiten(String pOrganisationseinheit, Connection connection)
