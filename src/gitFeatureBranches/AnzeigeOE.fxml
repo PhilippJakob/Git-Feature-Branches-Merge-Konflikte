@@ -41,5 +41,10 @@
             <Font size="36.0" />
          </font>
       </Label>
+      <Button fx:id="btLöschen" layoutX="457.0" layoutY="292.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="95.0" text="Löschen">
+         <font>
+            <Font name="Arial" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
