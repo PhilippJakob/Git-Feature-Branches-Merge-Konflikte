@@ -190,7 +190,9 @@ public class FensterController
 	  setPersonenAL(Person.auslesenDB(DBVerbindung.holenConnection()));
 	  cbPersonauswahl.getItems().add(" ");
 	  cbPersonauswahl.getItems().addAll(Person.getPersonen());
+	  cbOE.getItems().add(" ");
 	  cbOE.getItems().addAll(Organisationseinheit.getOrganisationseinheiten());
+	  cbGruppen.getItems().add(" ");
 	  cbGruppen.getItems().addAll(Gruppe.getGruppen());
 	  mPersonenlöschen.setText("Person löschen");
 	  mPersonenlöschen.setOnAction(new EventHandler<ActionEvent>() {

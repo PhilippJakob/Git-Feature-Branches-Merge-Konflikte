@@ -1,11 +1,16 @@
 package gitFeatureBranches;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import jfxtras.scene.control.LocalDateTimeTextField;
@@ -34,12 +39,21 @@ public class TerminController
 
    @FXML
    private CheckBox				  ckPrivat;
+   
+   @FXML
+   private TableColumn<Person, ArrayList<String>> tcPerson;
+
+   @FXML
+   private TableColumn<Gruppe, ArrayList<String>> tcGruppe;
+
 
    Stage						  stage;
 
    @FXML
    void initialize()
    {
+	  
+	
 
 	  	btBestätigen.setOnAction(event -> {
 		 erstellenTermin(event);
